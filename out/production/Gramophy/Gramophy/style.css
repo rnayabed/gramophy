@@ -1,0 +1,70 @@
+.music_player {
+    -fx-background-color : #383838;
+}
+
+.side_pane {
+    -fx-background-color : #282828;
+}
+
+.library_pane, .music_library_pane {
+    -fx-background-color : #484848;
+}
+
+.label {
+    -fx-text-fill : white;
+}
+
+.jfx-text-field {
+    -jfx-focus-color : #0e9654;
+    -jfx-unfocus-color : #a1a1a1;
+}
+
+.jfx-text-field, .jfx-password-field {
+    -fx-prompt-text-fill : WHITE;
+    -fx-text-inner-color : WHITE;
+}
+
+.grey_text {
+    -fx-text-fill : #B3B3B3;
+}
+
+.song_name {
+    -fx-text-fill : white;
+}
+
+.song_dur {
+    -fx-text-fill : white;
+}
+
+.song_artist_name {
+    -fx-text-fill : #B3B3B3;
+}
+
+.jfx-slider > .track {
+    -fx-control-inner-background : #505050;
+}
+
+.music_player_button {
+    -fx-background-radius : 25;
+}
+
+.list-view .list-cell:selected {
+    -fx-background-color: #434343;
+}
+
+.list-view .list-cell {
+    -fx-background-color: #484848;
+    -fx-text-fill: white;
+}
+
+.list-view {
+    -fx-text-fill: white;
+}
+
+.jfx-rippler {
+    -jfx-rippler-fill: #0e9654;
+}
+
+.label_green {
+    -fx-text-fill : #0e9654;
+}

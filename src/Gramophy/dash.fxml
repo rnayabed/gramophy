@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXSlider?>
+<?import com.jfoenix.controls.JFXSpinner?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="772.0" prefWidth="1313.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Gramophy.dashController">
+   <children>
+      <StackPane fx:id="alertStackPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <HBox fx:id="musicPlayerPane" layoutY="680.0" prefHeight="86.0" prefWidth="1313.0" styleClass="music_player" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <HBox fx:id="songInfoMusicPane" alignment="CENTER_LEFT" cache="true" cacheHint="SPEED" opacity="0.0" prefHeight="83.0" prefWidth="600.0" spacing="15.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <ImageView fx:id="albumArtImgView" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" />
+                  <VBox alignment="CENTER_LEFT" prefHeight="86.0" spacing="5.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label fx:id="songNameLabel" styleClass="song_name" text="Song Name" VBox.vgrow="ALWAYS">
+                           <font>
+                              <Font name="Roboto Regular" size="17.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="artistLabel" styleClass="song_artist_name" text="Artist">
+                           <font>
+                              <Font name="Roboto Regular" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <VBox fx:id="musicPaneControls" alignment="CENTER" cache="true" cacheHint="SPEED" opacity="0.0" prefHeight="85.0" prefWidth="1135.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <HBox fx:id="musicPlayerButtonBar" alignment="CENTER" spacing="15.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <JFXButton fx:id="musicPaneShuffleButton" alignment="TOP_LEFT" buttonType="RAISED" ripplerFill="#494949" styleClass="music_player_button" text=" " textFill="#77ff00">
+                           <graphic>
+                              <ImageView fx:id="musicPaneShuffleImageView" fitHeight="28.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@assets/baseline_shuffle_white_18dp.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton fx:id="musicPanePreviousButton" buttonType="RAISED" ripplerFill="#494949" styleClass="music_player_button" text=" ">
+                           <graphic>
+                              <ImageView fitHeight="28.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@assets/baseline_skip_previous_white_18dp.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </JFXButton>
+                        <JFXButton fx:id="musicPanePlayPauseButton" buttonType="RAISED" ripplerFill="#494949" styleClass="music_player_button" text=" ">
+                           <graphic>
+                              <ImageView fx:id="musicPanePlayPauseButtonImageView" fitHeight="28.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@assets/baseline_play_arrow_white_18dp.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </JFXButton>
+                        <JFXButton fx:id="musicPaneNextButton" buttonType="RAISED" ripplerFill="#494949" styleClass="music_player_button" text=" ">
+                           <graphic>
+                              <ImageView fitHeight="28.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@assets/baseline_skip_next_white_18dp.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </JFXButton>
+                        <JFXButton fx:id="musicPaneRepeatButton" buttonType="RAISED" ripplerFill="#494949" styleClass="music_player_button" text=" ">
+                           <graphic>
+                              <ImageView fx:id="musicPaneRepeatImageView" fitHeight="28.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@assets/baseline_repeat_white_18dp.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </JFXButton>
+                     </children>
+                     <padding>
+                        <Insets top="10.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Label fx:id="nowDurLabel" styleClass="song_dur" text="0:00" />
+                        <JFXSlider fx:id="songSeek" prefWidth="700.0" value="1.0" />
+                        <Label fx:id="totalDurLabel" styleClass="song_dur" text="0:00" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <HBox cache="true" cacheHint="SPEED" prefHeight="83.0" prefWidth="600.0" HBox.hgrow="ALWAYS" />
+         </children>
+         <padding>
+            <Insets left="10.0" right="10.0" />
+         </padding>
+      </HBox>
+      <VBox alignment="TOP_CENTER" prefHeight="686.0" prefWidth="219.0" styleClass="side_pane" AnchorPane.bottomAnchor="86.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <padding>
+            <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+         </padding>
+         <children>
+            <VBox prefHeight="392.0" prefWidth="169.0" spacing="10.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <Label fx:id="browseButton" text=" Browse">
+                     <font>
+                        <Font name="Roboto Regular" size="17.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="33.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@assets/baseline_open_in_browser_white_18dp.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Label>
+                  <Label fx:id="libraryButton" styleClass="label_green" text=" Library">
+                     <font>
+                        <Font name="Roboto Regular" size="17.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="33.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@assets/baseline_library_music_white_18dp.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Label>
+                  <Label fx:id="settingsButton" text=" Settings">
+                     <font>
+                        <Font name="Roboto Regular" size="17.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="33.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@assets/baseline_settings_applications_white_18dp.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Label>
+               </children>
+            </VBox>
+            <Label styleClass="grey_text" text="4.0" />
+         </children>
+      </VBox>
+      <VBox fx:id="libraryPane" cache="true" cacheHint="SPEED" layoutX="219.0" prefHeight="686.0" prefWidth="1096.0" spacing="15.0" styleClass="library_pane" AnchorPane.bottomAnchor="86.0" AnchorPane.leftAnchor="217.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label text="Library">
+               <font>
+                  <Font name="Roboto Regular" size="38.0" />
+               </font>
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
+            </Label>
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <ImageView fitHeight="24.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/baseline_search_white_18dp.png" />
+                     </image>
+                  </ImageView>
+                  <JFXTextField fx:id="musicLibrarySearchTextField" prefHeight="25.0" prefWidth="245.0" promptText="Search...">
+                     <font>
+                        <Font name="Roboto Regular" size="12.0" />
+                     </font>
+                  </JFXTextField>
+               </children>
+            </HBox>
+            <HBox prefHeight="19.0">
+               <children>
+                  <Label prefHeight="19.0" prefWidth="510.0" styleClass="grey_text" text="Song Name">
+                     <font>
+                        <Font name="Roboto Regular" size="15.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label prefHeight="17.0" prefWidth="380.0" styleClass="grey_text" text="Artist">
+                     <font>
+                        <Font name="Roboto Regular" size="15.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="19.0" prefWidth="95.0" styleClass="grey_text" text="Duration">
+                     <font>
+                        <Font name="Roboto Regular" size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+            <JFXListView fx:id="musicLibraryListView" cache="true" cacheHint="SPEED" prefHeight="608.0" prefWidth="1066.0" styleClass="music_library_pane" />
+         </children>
+         <padding>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+         </padding>
+      </VBox>
+      <VBox fx:id="settingsPane" cache="true" cacheHint="SPEED" layoutX="219.0" prefHeight="686.0" prefWidth="1096.0" spacing="15.0" styleClass="library_pane" AnchorPane.bottomAnchor="86.0" AnchorPane.leftAnchor="217.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label text="Settings">
+               <font>
+                  <Font name="Roboto Regular" size="38.0" />
+               </font>
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
+            </Label>
+         </children>
+         <padding>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+         </padding>
+      </VBox>
+      <VBox fx:id="browsePane" cache="true" cacheHint="SPEED" layoutX="219.0" prefHeight="686.0" prefWidth="1096.0" spacing="15.0" styleClass="library_pane" AnchorPane.bottomAnchor="86.0" AnchorPane.leftAnchor="217.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <padding>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+         </padding>
+         <children>
+            <Label text="Browse">
+               <font>
+                  <Font name="Roboto Regular" size="38.0" />
+               </font>
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
+            </Label>
+            <HBox alignment="CENTER_RIGHT" spacing="10.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <JFXTextField fx:id="youtubeSearchField" prefHeight="25.0" prefWidth="245.0" promptText="Search...">
+                     <font>
+                        <Font name="Roboto Regular" size="12.0" />
+                     </font>
+                  </JFXTextField>
+                  <JFXButton fx:id="youtubeSearchButton" text="Search" textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@assets/baseline_search_white_18dp.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXSpinner fx:id="youtubeLoadingSpinner" prefHeight="31.0" prefWidth="60.0" progress="0.0" />
+               </children>
+            </HBox>
+            <JFXListView fx:id="youtubeListView" cache="true" cacheHint="SPEED" prefHeight="608.0" prefWidth="1066.0" styleClass="music_library_pane" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
