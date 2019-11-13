@@ -2,6 +2,7 @@ package Gramophy;
 
 import animatefx.animation.FadeIn;
 import animatefx.animation.FadeInUp;
+import animatefx.animation.FadeOutDown;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -20,6 +21,7 @@ import java.net.URL;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -31,7 +33,6 @@ public class Player {
     String source;
     double totalCurr;
 
-    HashMap<String, Object> songInfo;
 
     boolean isPlaying = false;
     boolean isActive = false;
@@ -43,197 +44,200 @@ public class Player {
     Image playIcon = new Image(getClass().getResourceAsStream("assets/baseline_play_arrow_white_18dp.png"));
     Image pauseIcon = new Image(getClass().getResourceAsStream("assets/baseline_pause_white_18dp.png"));
 
-    int songType;
 
-    public Player(String inputSource, int type)
+    String currentPlaylistName = "";
+
+    public Player(String inputPlaylistName, int inputIndex)
     {
-        try
+        this.currentPlaylistName = inputPlaylistName;
+
+        Platform.runLater(()->{
+            Main.dash.musicPanePreviousButton.setDisable(false);
+            Main.dash.musicPaneNextButton.setDisable(false);
+            Main.dash.musicPaneShuffleButton.setDisable(false);
+            Main.dash.musicPaneRepeatButton.setDisable(false);
+        });
+
+        Main.dash.songSeek.setOnMouseClicked(event -> {
+            if(isActive)
+            {
+                new Thread(new Task<Void>() {
+                    @Override
+                    protected Void call() throws Exception {
+                        setPos((Main.dash.songSeek.getValue()/100) * totalCurr);
+                        return null;
+                    }
+                }).start();
+            }
+        });
+
+        Main.dash.musicPanePlayPauseButton.setOnMouseClicked(event -> {
+            pauseResume();
+        });
+
+        Main.dash.musicPaneNextButton.setOnMouseClicked(event -> {
+            playNext();
+        });
+
+        Main.dash.musicPanePreviousButton.setOnMouseClicked(event -> {
+            playPrevious();
+        });
+
+        if(Main.dash.musicPaneControls.getOpacity()==0)
         {
             Platform.runLater(()->{
-                Main.dash.songSeek.setValue(0);
-                Main.dash.songSeek.setDisable(true);
-                Main.dash.totalDurLabel.setText("0:00");
-                Main.dash.nowDurLabel.setText("0:00");
-                Main.dash.musicPlayerButtonBar.setDisable(true);
+                Main.dash.musicPanePlayPauseButtonImageView.setImage(pauseIcon);
+                new FadeInUp(Main.dash.musicPaneSongInfo).play();
+                new FadeInUp(Main.dash.musicPaneControls).play();
+                new FadeInUp(Main.dash.musicPaneMiscControls).play();
             });
+        }
 
-            if(type == 1)
-            {
-                source = inputSource;
+        playSong(inputIndex);
+    }
 
-                int i = 0;
-                for(HashMap<String,Object> songDetails : Main.dash.songs)
+    private void playSong(int index)
+    {
+        new Thread(new Task<Void>() {
+            @Override
+            protected Void call(){
+                try
                 {
-                    if(songDetails.get("source").toString().equals(source))
+                    Platform.runLater(()->{
+                        Main.dash.songSeek.setValue(0);
+                        Main.dash.songSeek.setDisable(true);
+                        Main.dash.totalDurLabel.setText("0:00");
+                        Main.dash.nowDurLabel.setText("0:00");
+                        Main.dash.musicPlayerButtonBar.setDisable(true);
+                        Main.dash.musicPaneSpinner.setProgress(-1);
+                    });
+
+                    HashMap<String,Object> songDetails = dashController.cachedPlaylist.get(currentPlaylistName).get(index);
+
+                    songIndex = index;
+
+                    if(songDetails.get("location").toString().equals("local"))
                     {
-                        songIndex = i;
+                        source = songDetails.get("source").toString();
+                        Platform.runLater(()->{
+                            Main.dash.songNameLabel.setText(songDetails.get("title").toString());
+                            Main.dash.artistLabel.setText(songDetails.get("artist").toString());
+                            Main.dash.albumArtImgView.setImage((Image) songDetails.get("album_art"));
+                        });
                     }
-                    i++;
-                }
+                    else if(songDetails.get("location").toString().equals("youtube"))
+                    {
+                        Platform.runLater(()->{
+                            Main.dash.songNameLabel.setText(songDetails.get("title").toString());
+                            Main.dash.artistLabel.setText(songDetails.get("channelTitle").toString());
+                            Main.dash.albumArtImgView.setImage((Image)songDetails.get("thumbnail"));
+                        });
 
-                if(songIndex == (Main.dash.songs.size() - 1))
-                    Main.dash.musicPaneNextButton.setDisable(true);
-                else
-                    Main.dash.musicPaneNextButton.setDisable(false);
+                        String videoURL = songDetails.getOrDefault("videoURL","null").toString();
+                        if(videoURL.equals("null"))
+                        {
+                            String youtubeDLQuery = "youtube-dl.exe -f 18 -g https://www.youtube.com/watch?v="+songDetails.get("videoID");
+                            System.out.println(youtubeDLQuery);
+                            Process p = Runtime.getRuntime().exec(youtubeDLQuery);
+                            InputStream i = p.getInputStream();
+                            String result = "";
+                            while(true)
+                            {
+                                int c = i.read();
+                                if(c == -1) break;
+                                result+= (char) c;
+                            }
 
-                if(songIndex == 0)
-                    Main.dash.musicPanePreviousButton.setDisable(true);
-                else
-                    Main.dash.musicPanePreviousButton.setDisable(false);
+                            if(result.length() == 0)
+                            {
+                                Main.dash.showErrorAlert("Uh OH!","Unable to play, probably because Age Restricted. If not, check connection and try again!");
+                                System.out.println("ERROR!");
+                                return null;
+                            }
 
-                Main.dash.musicPaneShuffleButton.setDisable(false);
-            }
-            else if(type == 2)
-            {
-                String[] inputSourceArranged = inputSource.split("::");
-                Platform.runLater(()->{
-                    Main.dash.youtubeLoadingSpinner.setProgress(-1);
-                    Main.dash.songNameLabel.setText(inputSourceArranged[2]);
-                    Main.dash.artistLabel.setText(inputSourceArranged[3]);
-                    System.out.println(inputSourceArranged[1]);
-                    Main.dash.albumArtImgView.setImage(new Image(inputSourceArranged[1]));
-
-                    Main.dash.musicPaneNextButton.setDisable(true);
-                    Main.dash.musicPanePreviousButton.setDisable(true);
-                    Main.dash.musicPaneShuffleButton.setDisable(true);
-                });
-                String youtubeDLQuery = "youtube-dl.exe -f 18 -g https://www.youtube.com/watch?v="+inputSourceArranged[0];
-                System.out.println(youtubeDLQuery);
-                Process p = Runtime.getRuntime().exec(youtubeDLQuery);
-                InputStream i = p.getInputStream();
-                String result = "";
-                while(true)
-                {
-                    int c = i.read();
-                    if(c == -1) break;
-                    result+= (char) c;
-                }
-
-                if(result.length() == 0)
-                {
-                    Main.dash.showErrorAlert("Uh OH!","Unable to play, probably because Age Restricted. If not, check connection and try again!");
-                    System.out.println("ERROR!");
-                    return;
-                }
-
-                source = result.substring(0,result.length()-1);
-
-                System.out.println(source);
-            }
-
-            Platform.runLater(()->{
-                Main.dash.songSeek.setDisable(false);
-                Platform.runLater(()->Main.dash.youtubeLoadingSpinner.setProgress(0));
-                Main.dash.musicPlayerButtonBar.setDisable(false);
-            });
-
-            System.out.println("asdxx");
-            media = new Media(source);
-            System.out.println("asdxxxaax");
-            mediaPlayer = new MediaPlayer(media);
-            System.out.println("acvxsdxx");
-
-            media.setOnError(()-> {
-                media.getError().printStackTrace();
-            });
-
-
-            mediaPlayer.setOnReady(()->{
-                io.log("Start Playing ...");
-
-                totalCurr = media.getDuration().toSeconds();
-
-                if(type == 1)
-                {
-                    songInfo = Main.dash.songs.get(songIndex);
-                    Platform.runLater(()->{
-                        Main.dash.songNameLabel.setText(songInfo.get("title").toString());
-                        Main.dash.artistLabel.setText(songInfo.get("artist").toString());
-                        Main.dash.albumArtImgView.setImage((Image) songInfo.get("album_art"));
-                    });
-                }
-
-                if(Main.dash.musicPaneControls.getOpacity()==0)
-                {
-                    Platform.runLater(()->{
-                        Main.dash.musicPanePlayPauseButtonImageView.setImage(pauseIcon);
-                        new FadeInUp(Main.dash.musicPaneControls).play();
-                        new FadeInUp(Main.dash.songInfoMusicPane).play();
-                    });
-                }
-
-                Platform.runLater(()->{
-                    Main.dash.totalDurLabel.setText(Main.dash.getSecondsToSimpleString(media.getDuration().toSeconds()));
-                });
-
-                play();
-                startUpdating();
-            });
-
-            Main.dash.songSeek.setOnMouseClicked(event -> {
-                if(isActive)
-                {
-                    new Thread(new Task<Void>() {
-                        @Override
-                        protected Void call() throws Exception {
-                            setPos((Main.dash.songSeek.getValue()/100) * totalCurr);
-                            return null;
+                            videoURL = result.substring(0,result.length()-1);
+                            songDetails.put("videoURL",videoURL);
+                            dashController.cachedPlaylist.get(currentPlaylistName).get(songIndex).put("videoURL",videoURL);
                         }
-                    }).start();
-                }
-            });
 
-            Main.dash.musicPanePlayPauseButton.setOnMouseClicked(event -> {
-                pauseResume();
-            });
+                        source = videoURL;
 
-            Main.dash.musicPaneNextButton.setOnMouseClicked(event -> {
-                playNext();
-            });
-
-            Main.dash.musicPanePreviousButton.setOnMouseClicked(event -> {
-                playPrevious();
-            });
-
-            mediaPlayer.setOnEndOfMedia(()->{
-                if(Main.dash.isRepeat)
-                    setPos(0);
-                else
-                {
-                    if(type==1)
-                    {
-                        if(Main.dash.isShuffle)
-                            playNextRandom();
-                        else
-                            playNext();
+                        System.out.println(source);
                     }
+
+                    System.out.println(songIndex+", "+(dashController.cachedPlaylist.get(currentPlaylistName).size()-1));
+
+
+                    Platform.runLater(()->{
+                        Main.dash.songSeek.setDisable(false);
+                        Main.dash.musicPlayerButtonBar.setDisable(false);
+                        Main.dash.musicPaneSpinner.setProgress(0);;
+                    });
+
+                    media = new Media(source);
+                    mediaPlayer = new MediaPlayer(media);
+
+                    media.setOnError(()-> {
+                        media.getError().printStackTrace();
+                    });
+
+
+                    mediaPlayer.setOnReady(()->{
+                        io.log("Start Playing ...");
+
+                        totalCurr = media.getDuration().toSeconds();
+
+
+                        Platform.runLater(()->{
+                            Main.dash.totalDurLabel.setText(Main.dash.getSecondsToSimpleString(media.getDuration().toSeconds()));
+                        });
+
+                        play();
+                        startUpdating();
+                    });
+
+                    mediaPlayer.setOnEndOfMedia(()->{
+                        if(Main.dash.isRepeat)
+                            setPos(0);
+                        else
+                        {
+                            if(Main.dash.isShuffle)
+                                playNextRandom();
+                            else
+                                playNext();
+                        }
+                    });
                 }
-            });
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+        }).start();
     }
 
     private void playNext()
     {
-        stop();
-        Main.dash.player = new Player(Main.dash.songs.get((songIndex + 1)).get("source").toString(),1);
+        if(songIndex<(dashController.cachedPlaylist.get(currentPlaylistName).size()-1))
+        {
+            mediaPlayer.stop();
+            playSong((songIndex+1));
+        }
     }
 
     private void playNextRandom()
     {
-        stop();
-        Main.dash.player = new Player(Main.dash.songs.get(new Random().nextInt(Main.dash.songs.size())).get("source").toString(),1);
+        mediaPlayer.stop();
+        playSong((new Random().nextInt(dashController.cachedPlaylist.get(currentPlaylistName).size())));
     }
 
     private void playPrevious()
     {
         if(songIndex>0)
         {
-            stop();
-            Main.dash.player = new Player(Main.dash.songs.get((songIndex - 1)).get("source").toString(),1);
+            mediaPlayer.stop();
+            playSong((songIndex-1));
         }
     }
 
@@ -282,6 +286,10 @@ public class Player {
         isPlaying = false;
         isActive = false;
         mediaPlayer.stop();
+
+        new FadeOutDown(Main.dash.musicPaneSongInfo).play();
+        new FadeOutDown(Main.dash.musicPaneControls).play();
+        new FadeOutDown(Main.dash.musicPaneMiscControls).play();
     }
 
     private void startUpdating()

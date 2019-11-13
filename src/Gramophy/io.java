@@ -54,28 +54,10 @@ public class io {
         }
     }
 
-    public static File[] getFilesInFolder(String folderPath, String[] ext)
+    public static File[] getFilesInFolder(String folderPath)
     {
-        ArrayList<File> fileArrayList = new ArrayList<>();
         File[] raw = new File(folderPath).listFiles();
-
-        for(File eachFile : raw)
-        {
-            for(String eachExtension : ext)
-            {
-                if(eachFile.getName().endsWith(eachExtension))
-                {
-                    fileArrayList.add(eachFile);
-                }
-            }
-        }
-
-        File[] toReturn = new File[fileArrayList.size()];
-
-        for(int i = 0;i<fileArrayList.size();i++)
-            toReturn[i] = fileArrayList.get(i);
-
-        return toReturn;
+        return raw;
     }
 
     public static void log(String txt)
