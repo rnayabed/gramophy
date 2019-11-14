@@ -127,10 +127,11 @@ public class Player {
                     }
                     else if(songDetails.get("location").toString().equals("youtube"))
                     {
+                        Image x = new Image(songDetails.get("thumbnail").toString());
                         Platform.runLater(()->{
                             Main.dash.songNameLabel.setText(songDetails.get("title").toString());
                             Main.dash.artistLabel.setText(songDetails.get("channelTitle").toString());
-                            Main.dash.albumArtImgView.setImage((Image)songDetails.get("thumbnail"));
+                            Main.dash.albumArtImgView.setImage(x);
                         });
 
                         String videoURL = songDetails.getOrDefault("videoURL","null").toString();
@@ -286,7 +287,10 @@ public class Player {
         isPlaying = false;
         isActive = false;
         mediaPlayer.stop();
+    }
 
+    public void closePlayer()
+    {
         new FadeOutDown(Main.dash.musicPaneSongInfo).play();
         new FadeOutDown(Main.dash.musicPaneControls).play();
         new FadeOutDown(Main.dash.musicPaneMiscControls).play();

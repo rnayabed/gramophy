@@ -20,6 +20,7 @@
 <AnchorPane prefHeight="772.0" prefWidth="1313.0" styleClass="base_pane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Gramophy.dashController">
    <children>
       <StackPane fx:id="alertStackPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <StackPane fx:id="importSongsFromYouTubePopupStackPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <HBox fx:id="musicPlayerPane" layoutY="680.0" prefHeight="86.0" prefWidth="1313.0" styleClass="music_player" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
             <HBox fx:id="musicPaneSongInfo" alignment="CENTER_LEFT" cache="true" cacheHint="SPEED" opacity="0.0" prefHeight="83.0" prefWidth="600.0" spacing="15.0" HBox.hgrow="ALWAYS">
@@ -235,6 +236,26 @@
             <JFXListView fx:id="youtubeListView" cache="true" cacheHint="SPEED" prefHeight="557.0" prefWidth="1066.0" styleClass="music_library_pane" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
+      <VBox fx:id="libraryPane" cache="true" cacheHint="SCALE_AND_ROTATE" layoutX="219.0" prefHeight="686.0" prefWidth="1096.0" spacing="15.0" styleClass="library_pane" AnchorPane.bottomAnchor="86.0" AnchorPane.leftAnchor="217.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label text="Library">
+               <font>
+                  <Font name="Roboto Regular" size="38.0" />
+               </font>
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
+            </Label>
+            <ScrollPane fx:id="playlistsScrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" styleClass="playlist_scroll_pane" VBox.vgrow="ALWAYS">
+               <content>
+                  <JFXMasonryPane fx:id="playlistsMasonryPane" />
+               </content>
+            </ScrollPane>
+         </children>
+         <padding>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+         </padding>
+      </VBox>
       <VBox fx:id="playlistPane" cache="true" cacheHint="SCALE_AND_ROTATE" layoutX="219.0" prefWidth="1096.0" spacing="15.0" styleClass="playlists_pane" AnchorPane.bottomAnchor="86.0" AnchorPane.leftAnchor="217.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label text="Playlist">
@@ -249,16 +270,7 @@
             </Label>
             <HBox alignment="CENTER_RIGHT" prefWidth="1066.0" spacing="10.0" VBox.vgrow="ALWAYS">
                <children>
-                  <ImageView fitHeight="24.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@assets/baseline_search_white_18dp.png" />
-                     </image>
-                  </ImageView>
-                  <JFXTextField fx:id="musicLibrarySearchTextField" prefHeight="25.0" prefWidth="245.0" promptText="Search...">
-                     <font>
-                        <Font name="Roboto Regular" size="12.0" />
-                     </font>
-                  </JFXTextField>
+                  <JFXButton fx:id="playlistImportSongsFromYouTubePlaylistButton" onAction="#playlistImportSongsFromYouTubePlaylist" text="Import Songs From YouTube Playlist" textFill="WHITE" />
                </children>
             </HBox>
             <HBox>
@@ -287,26 +299,6 @@
                </VBox.margin>
             </HBox>
             <JFXListView fx:id="playlistListView" cache="true" cacheHint="SPEED" prefHeight="501.0" prefWidth="1066.0" styleClass="music_library_pane" VBox.vgrow="ALWAYS" />
-         </children>
-         <padding>
-            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-         </padding>
-      </VBox>
-      <VBox fx:id="libraryPane" cache="true" cacheHint="SCALE_AND_ROTATE" layoutX="219.0" prefHeight="686.0" prefWidth="1096.0" spacing="15.0" styleClass="library_pane" AnchorPane.bottomAnchor="86.0" AnchorPane.leftAnchor="217.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <Label text="Library">
-               <font>
-                  <Font name="Roboto Regular" size="38.0" />
-               </font>
-               <padding>
-                  <Insets bottom="10.0" />
-               </padding>
-            </Label>
-            <ScrollPane fx:id="playlistsScrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" styleClass="playlist_scroll_pane" VBox.vgrow="ALWAYS">
-               <content>
-                  <JFXMasonryPane fx:id="playlistsMasonryPane" />
-               </content>
-            </ScrollPane>
          </children>
          <padding>
             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
