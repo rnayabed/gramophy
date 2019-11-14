@@ -289,7 +289,7 @@ public class Player {
         mediaPlayer.stop();
     }
 
-    public void closePlayer()
+    public void hidePlayer()
     {
         new FadeOutDown(Main.dash.musicPaneSongInfo).play();
         new FadeOutDown(Main.dash.musicPaneControls).play();
