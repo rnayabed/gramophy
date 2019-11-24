@@ -2,31 +2,51 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/ffmpeg.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ffplay.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ffprobe.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Gramophy/assets/icons8_delete_bin_24px_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Gramophy/assets/icons8_download_24px.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Gramophy/assets/icons8_folder_24px.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Gramophy/assets/icons8_globe_24px_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Gramophy/assets/icons8_import_24px.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Gramophy/assets/icons8_music_folder_24px.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Gramophy/assets/icons8_playlist_24px.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Gramophy/assets/icons8_settings_24px.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/Player$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/Player$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/Player$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/Player$3.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/Player.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/assets/baseline_open_in_browser_white_18dp.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/assets/baseline_settings_applications_white_18dp.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dash.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dash.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$10$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$10.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$10.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$11$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$11$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$11.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$11.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$12.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$12.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$13$1.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$13.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$13.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$14.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$14.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$15$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$15.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$15.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$2.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$4$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$4$2.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$5$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$5$2.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$5.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$6.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$7$1.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$7.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$8$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$8$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$8$1.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$8.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$8.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$9$1.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$9.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$9.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/playlists/Fav Music" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/playlists/YouTube" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gramophy/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gramophy/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Gramophy/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gramophy/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gramophy/assets/baseline_open_in_browser_white_18dp.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gramophy/assets/baseline_settings_applications_white_18dp.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Gramophy/dash.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gramophy/dash.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Gramophy/dashController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gramophy/dashController.java" afterDir="false" />
     </list>
@@ -98,11 +118,14 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectId" id="1Sdd2Gq1Xa81ift3lxOxG51QhOj" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectReloadState">
     <option name="STATE" value="0" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="Downloaded.Files.Path.Enabled" value="false" />
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
@@ -116,7 +139,7 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="dynamic.classpath" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/Gramophy/assets" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -125,6 +148,9 @@
     <property name="settings.editor.selected.configurable" value="reference.idesettings.quicklists" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Coding\Java Projects\Gramophy\src\Gramophy\assets" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Coding\Java Projects\Gramophy" />
       <recent name="C:\Users\Debayan Sutradhar\IdeaProjects\Gramophy" />
@@ -248,6 +274,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">

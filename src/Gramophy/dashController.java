@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.collections.transformation.FilteredList;
 import javafx.concurrent.Task;
+import javafx.css.PseudoClass;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -30,6 +31,9 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
+import javafx.util.Duration;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -38,10 +42,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URI;
-import java.net.URL;
-import java.net.URLEncoder;
+import java.net.*;
 import java.nio.Buffer;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -131,6 +132,14 @@ public class dashController implements Initializable {
     @FXML
     public JFXButton deletePlaylistButton;
     @FXML
+    public AnchorPane basePane;
+    @FXML
+    public JFXTextField selectMusicLibraryField;
+    @FXML
+    public JFXButton selectMusicLibraryFolderButton;
+    @FXML
+    public JFXButton applySettingsButton;
+    @FXML
     public StackPane importSongsFromYouTubePopupStackPane;
 
     String[] allowedExtensions = {"mp3"};
@@ -140,6 +149,10 @@ public class dashController implements Initializable {
 
     final private Image shuffleIconWhite = new Image(getClass().getResourceAsStream("assets/baseline_shuffle_white_18dp.png"));
     final private Image shuffleIconGreen = new Image(getClass().getResourceAsStream("assets/baseline_shuffle_green_18dp.png"));
+
+    final private Image redDeleteIcon = new Image(getClass().getResourceAsStream("assets/icons8_delete_bin_24px_1.png"));
+    final private Image saveToPlaylistIcon = new Image(getClass().getResourceAsStream("assets/icons8_music_folder_24px.png"));
+    final private Image downloadIcon = new Image(getClass().getResourceAsStream("assets/icons8_download_24px.png"));
 
     final private Image repeatIconWhite = new Image(getClass().getResourceAsStream("assets/baseline_repeat_white_18dp.png"));
     final private Image repeatIconGreen = new Image(getClass().getResourceAsStream("assets/baseline_repeat_green_18dp.png"));
@@ -167,7 +180,8 @@ public class dashController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         Main.dash = this;
         loadConfig();
-        loadLibrary();
+        loadOtherPlaylists();
+        loadLibrary(false);
 
         browseButton.setOnMouseClicked(event -> {
             switchPane(1);
@@ -239,11 +253,12 @@ public class dashController implements Initializable {
         if(player.isActive)
         {
             player.stop();
-            player.hidePlayer();
+            player.hide();
         }
 
         new File("playlists/"+currentPlaylist).delete();
         cachedPlaylist.remove(currentPlaylist);
+        refreshPlaylistsUI();
         loadPlaylist("My Music");
     }
 
@@ -275,9 +290,6 @@ public class dashController implements Initializable {
              deletePlaylistButton.setVisible(true);
         }
 
-        refreshPlaylistsUI();
-        updatePlaylistsFiles();
-
         ArrayList<HashMap<String,Object>> songs = cachedPlaylist.get(playlistName);
 
         Platform.runLater(()->playlistNameLabel.setText(playlistName));
@@ -293,10 +305,37 @@ public class dashController implements Initializable {
 
             Label artist = new Label();
             artist.setFont(robotoRegular15);
-            artist.setPrefWidth(370);;
+            artist.setPrefWidth(300);
 
             if(eachSong.get("location").toString().equals("local"))
             {
+                Media m = new Media(eachSong.get("source").toString());
+
+                if(eachSong.getOrDefault("title",null) == null)
+                {
+                    System.out.println("getting ...");
+                    ObservableMap<String,Object> songMetadata = m.getMetadata();
+                    try
+                    {
+                        Thread.sleep(50);
+                    }
+                    catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
+                    System.out.println("... got!");
+
+                    eachSong.put("title", songMetadata.getOrDefault("title", URLDecoder.decode(new File(eachSong.get("source").toString()).getName(), StandardCharsets.UTF_8)));
+                    eachSong.put("artist", songMetadata.getOrDefault("artist", "Unknown"));
+
+                    if(songMetadata.containsKey("album_art")) eachSong.put("album_art",songMetadata.get("album_art"));
+                }
+                else
+                {
+                    System.out.println("JAI SHREE RAM");
+                }
+
+
                 title.setText(eachSong.get("title").toString());
                 artist.setText(eachSong.get("artist").toString());
             }
@@ -315,7 +354,86 @@ public class dashController implements Initializable {
 
             Platform.runLater(()->{
 
-                JFXButton saveToPlaylistButton = new JFXButton("Save to Playlist");
+                JFXButton downloadButton = new JFXButton();
+                downloadButton.setGraphic(new ImageView(downloadIcon));
+                downloadButton.setTextFill(PAINT_GREEN);
+                downloadButton.setId(i2+"");
+                downloadButton.setOnMouseClicked(event -> {
+                    new Thread(new Task<Void>() {
+                        @Override
+                        protected Void call(){
+                            JFXButton b = (JFXButton) event.getSource();
+                            try
+                            {
+                                Platform.runLater(()->{
+                                    b.setText("Downloading...");
+                                    b.setDisable(true);
+                                });
+
+                                String cmd = "youtube-dl.exe -o \""+config.get("music_lib_path")+"/%(title)s.%(ext)s\" --extract-audio --audio-format mp3 https://www.youtube.com/watch?v="+cachedPlaylist.get(currentPlaylist).get(Integer.parseInt(((Node)event.getSource()).getId())).get("videoID");
+                                System.out.println(cmd);
+                                Process p = Runtime.getRuntime().exec(cmd);
+
+                                BufferedReader bf = new BufferedReader(new InputStreamReader(p.getInputStream()));
+
+                                while(true)
+                                {
+                                    String newLine = bf.readLine();
+                                    if(newLine == null) break;
+                                    //[download] 100.0%
+
+                                    System.out.println(newLine);
+                                    if(newLine.startsWith("[download]"))
+                                    {
+                                        String progress = newLine.substring(10,15);
+                                        try
+                                        {
+                                            Integer.parseInt(progress);
+                                            Platform.runLater(()->b.setText("Downloading... "+progress));
+                                        }
+                                        catch (Exception e){}
+                                    }
+                                }
+
+                                System.out.println("done");
+
+                                Platform.runLater(()->{
+                                    b.setText("Downloaded!");
+                                    b.setDisable(false);
+                                });
+                            }
+                            catch (Exception e)
+                            {
+                                e.printStackTrace();
+                                Platform.runLater(()->{
+                                    b.setText("ERROR!");
+                                    b.setDisable(false);
+                                });
+
+                                showErrorAlert("Error!","Unable to download! Check Stacktrace!");
+                            }
+                            finally {
+                                try
+                                {
+                                    Thread.sleep(1000);
+                                    Platform.runLater(()->b.setText("Download"));
+                                }
+                                catch (Exception e)
+                                {
+                                    e.printStackTrace();
+                                }
+
+                                cachedPlaylist.get("My Music").clear();
+                                loadLibrary(false);
+                                refreshPlaylistsUI();
+                            }
+                            return null;
+                        }
+                    }).start();
+                });
+
+                JFXButton saveToPlaylistButton = new JFXButton();
+                saveToPlaylistButton.setGraphic(new ImageView(saveToPlaylistIcon));
                 saveToPlaylistButton.setTextFill(PAINT_GREEN);
                 saveToPlaylistButton.setId(i2+"");
                 saveToPlaylistButton.setOnMouseClicked(event -> {
@@ -335,7 +453,44 @@ public class dashController implements Initializable {
                     }).start();
                 });
 
-                VBox vb1 = new VBox(saveToPlaylistButton);
+                JFXButton deleteButton = new JFXButton();
+                deleteButton.setGraphic(new ImageView(redDeleteIcon));
+                deleteButton.setRipplerFill(Paint.valueOf("#F75B5B"));
+                deleteButton.setTextFill(Color.RED);
+                deleteButton.setId(i2+"");
+                deleteButton.setOnMouseClicked(event -> {
+                    new Thread(new Task<Void>() {
+                        @Override
+                        protected Void call()
+                        {
+                            try
+                            {
+                                System.out.println("Asdsdx");
+                                cachedPlaylist.get(currentPlaylist).remove(Integer.parseInt(((Node) event.getSource()).getId()));
+                                updatePlaylistsFiles();
+                                loadPlaylist(currentPlaylist);
+                            }
+                            catch (Exception e)
+                            {
+                                e.printStackTrace();
+                            }
+                            return null;
+                        }
+                    }).start();
+                });
+
+                HBox vb1 = new HBox();
+
+                int noOfPlaylists = cachedPlaylist.size() - 1;
+                if(cachedPlaylist.containsKey("YouTube")) noOfPlaylists --;
+
+                if(noOfPlaylists>0) vb1.getChildren().add(saveToPlaylistButton);
+
+                if(eachSong.get("location").toString().equals("youtube"))
+                    vb1.getChildren().add(downloadButton);
+                else if(eachSong.get("location").toString().equals("local"))
+                    vb1.getChildren().add(deleteButton);
+
 
                 HBox eachMusicHBox = new HBox(title, artist);
                 eachMusicHBox.setAlignment(Pos.CENTER_LEFT);
@@ -363,7 +518,12 @@ public class dashController implements Initializable {
 
     private void refreshPlaylistsUI()
     {
-        if(cachedPlaylist.size()==playlistsMasonryPane.getChildren().size() - 1) return;
+        int cp = cachedPlaylist.size();
+        int pm = playlistsMasonryPane.getChildren().size() - 1;
+
+        if(cachedPlaylist.containsKey("YouTube")) cp--;
+
+        if(cp==pm) return;
 
         Platform.runLater(()->playlistsMasonryPane.getChildren().clear());
 
@@ -591,7 +751,7 @@ public class dashController implements Initializable {
 
                             songs.add(songDetails);
                             videoHBox.setOnMouseClicked(event -> {
-                                new Thread(new Task<Void>() {
+                                Thread t = new Thread(new Task<Void>() {
                                     @Override
                                     protected Void call(){
                                         if(player.isActive)
@@ -601,7 +761,9 @@ public class dashController implements Initializable {
                                         player = new Player("YouTube",Integer.parseInt(((Node)event.getSource()).getId()));
                                         return null;
                                     }
-                                }).start();
+                                });
+                                t.setPriority(6);
+                                t.start();
                             });
 
                             JFXButton saveToPlaylistButton = new JFXButton("Save To Playlist");
@@ -620,6 +782,79 @@ public class dashController implements Initializable {
 
                             JFXButton downloadButton = new JFXButton("Download");
                             downloadButton.setTextFill(PAINT_GREEN);
+                            downloadButton.setId(x+"");
+                            downloadButton.setOnMouseClicked(event -> {
+                                new Thread(new Task<Void>() {
+                                    @Override
+                                    protected Void call(){
+                                        JFXButton b = (JFXButton) event.getSource();
+                                        try
+                                        {
+                                            Platform.runLater(()->{
+                                                b.setText("Downloading...");
+                                                b.setDisable(true);
+                                            });
+
+                                            String cmd = "youtube-dl.exe -o \""+config.get("music_lib_path")+"/%(title)s.%(ext)s\" --extract-audio --audio-format mp3 https://www.youtube.com/watch?v="+cachedPlaylist.get("YouTube").get(Integer.parseInt(((Node)event.getSource()).getId())).get("videoID");
+                                            System.out.println(cmd);
+                                            Process p = Runtime.getRuntime().exec(cmd);
+
+                                            BufferedReader bf = new BufferedReader(new InputStreamReader(p.getInputStream()));
+
+                                            while(true)
+                                            {
+                                                String newLine = bf.readLine();
+                                                if(newLine == null) break;
+                                                //[download] 100.0%
+
+                                                System.out.println(newLine);
+                                                if(newLine.startsWith("[download]"))
+                                                {
+                                                    String progress = newLine.substring(10,15);
+                                                    try
+                                                    {
+                                                        Integer.parseInt(progress);
+                                                        Platform.runLater(()->b.setText("Downloading... "+progress));
+                                                    }
+                                                    catch (Exception e){}
+                                                }
+                                            }
+
+                                            System.out.println("done");
+
+                                            Platform.runLater(()->{
+                                                b.setText("Downloaded!");
+                                                b.setDisable(false);
+                                            });
+                                        }
+                                        catch (Exception e)
+                                        {
+                                            e.printStackTrace();
+                                            Platform.runLater(()->{
+                                                b.setText("ERROR!");
+                                                b.setDisable(false);
+                                            });
+
+                                            showErrorAlert("Error!","Unable to download! Check Stacktrace!");
+                                        }
+                                        finally {
+                                            try
+                                            {
+                                                Thread.sleep(1000);
+                                                Platform.runLater(()->b.setText("Download"));
+                                            }
+                                            catch (Exception e)
+                                            {
+                                                e.printStackTrace();
+                                            }
+
+                                            loadLibrary(false);
+                                            refreshPlaylistsUI();
+                                        }
+                                        return null;
+                                    }
+                                }).start();
+                            });
 
                             VBox vv = new VBox(saveToPlaylistButton,downloadButton);
 
@@ -743,6 +978,7 @@ public class dashController implements Initializable {
             musicLibDir = System.getProperty("user.home")+"/Music/";
 
         config.put("music_lib_path",musicLibDir);
+        selectMusicLibraryField.setText(musicLibDir);
     }
 
 
@@ -751,7 +987,8 @@ public class dashController implements Initializable {
 
     int filesProcessed = 0;
     int totalFiles = 0;
-    private void loadLibrary()
+    int xcc = 0;
+    private void loadLibrary(boolean loadtoo)
     {
         new Thread(new Task<Void>() {
             @Override
@@ -766,52 +1003,84 @@ public class dashController implements Initializable {
 
                     filesProcessed = 0;
                     totalFiles = 0;
+                    xcc = 0;
                     for(File eachSong : songsFiles)
                     {
-                        if(!eachSong.getName().endsWith(".mp3")) continue;
+                        //if(!eachSong.getName().endsWith(".mp3")) continue;
 
                         totalFiles++;
                         try
                         {
+                            System.out.println("pass 1 ");
                             Media m = new Media(eachSong.toURI().toString());
-                            MediaPlayer tmpPlayer = new MediaPlayer(m);
+                            System.out.println("..done p1");
 
-                            tmpPlayer.setOnReady(()->{
+
+
+                            MediaPlayer x = new MediaPlayer(m);
+                            x.setOnReady(()->{
+                                System.out.println("getting ...");
                                 ObservableMap<String,Object> songMetadata = m.getMetadata();
-
+                                System.out.println("... got!");
                                 HashMap<String, Object> songDetails = new HashMap<>();
+
+                                if(songMetadata.containsKey("title")) songDetails.put("title",songMetadata.get("title"));
+                                else songDetails.put("title", URLDecoder.decode(eachSong.getName(),StandardCharsets.UTF_8));
+
+                                if(songMetadata.containsKey("artist")) songDetails.put("artist",songMetadata.get("artist"));
+                                else songDetails.put("artist","Unknown");
+
+                                if(songMetadata.containsKey("album_art")) songDetails.put("album_art",songMetadata.get("album_art"));
+
+
                                 songDetails.put("location","local");
                                 songDetails.put("source",m.getSource());
-                                songDetails.put("duration",getSecondsToSimpleString(m.getDuration().toSeconds()));
-                                songDetails.put("album_art",songMetadata.get("image"));
-                                songDetails.put("artist",songMetadata.get("artist"));
-                                songDetails.put("title",songMetadata.get("title"));
+
 
                                 thisPlaylist.add(songDetails);
-                                System.out.println("asdx");
+                                System.out.println("asdx"+eachSong.toURI().toString());
                                 filesProcessed++;
                             });
-
-                            tmpPlayer.setOnError(()-> {
-                                tmpPlayer.getError().printStackTrace();
-                                filesProcessed++;
-                            });
-
-                            Thread.sleep(150);
                         }
                         catch (MediaException e)
                         {
+                            e.printStackTrace();
                             filesProcessed++;
                         }
                     }
 
                     while(filesProcessed<totalFiles)
                     {
+                        if(xcc>(songsFiles.length * 2)) break;
                         Thread.sleep(50);
+                        xcc++;
+                        System.out.println(filesProcessed+","+totalFiles+","+xcc);
                     }
+
 
                     cachedPlaylist.put("My Music",thisPlaylist);
 
+
+                    if(loadtoo)  loadPlaylist("My Music");
+                    refreshPlaylistsUI();
+                    System.out.println("done");
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+        }).start();
+    }
+
+    private void loadOtherPlaylists()
+    {
+        new Thread(new Task<Void>() {
+            @Override
+            protected Void call() {
+                try
+                {
                     File[] playlistFiles = io.getFilesInFolder("playlists/");
                     for(File eachPlaylistFile : playlistFiles)
                     {
@@ -847,7 +1116,6 @@ public class dashController implements Initializable {
                                         songDetails.put("album_art",songMetadata.get("image"));
                                         songDetails.put("artist",songMetadata.get("artist"));
                                         songDetails.put("title",songMetadata.get("title"));
-                                        thisPlaylist.add(songDetails);
                                         System.out.println("asdx");
                                         filesProcessed++;
                                     });
@@ -877,10 +1145,8 @@ public class dashController implements Initializable {
 
 
                         cachedPlaylist.put(playlistName,songs);
+                        refreshPlaylistsUI();
                     }
-
-                    refreshPlaylistsUI();
-                    System.out.println("done");
                 }
                 catch (Exception e)
                 {
@@ -1055,7 +1321,7 @@ public class dashController implements Initializable {
     {
         for(String playlistName : cachedPlaylist.keySet())
         {
-            if(playlistName.equals("My Music")) continue;
+            if(playlistName.equals("My Music") || playlistName.equals("YouTube")) continue;
             ArrayList<HashMap<String,Object>> songs = cachedPlaylist.get(playlistName);
             StringBuilder playlistFileContent = new StringBuilder();
             for(HashMap<String,Object> songDetails : songs)
@@ -1322,5 +1588,60 @@ public class dashController implements Initializable {
             importSongsFromYouTubePopupStackPane.toFront();
             popupDialog.show();
         });
+    }
+
+    @FXML
+    public void selectMusicLibraryFolderButtonClicked()
+    {
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        File newMusicFolder = directoryChooser.showDialog(Main.ps);
+        File presentFolder = new File(config.get("music_lib_path"));
+
+        if(newMusicFolder == null) return;
+
+        if(newMusicFolder.getAbsolutePath().equals(presentFolder.getAbsolutePath()))
+            applySettingsButton.setDisable(true);
+        else
+        {
+            selectMusicLibraryField.setText(newMusicFolder.getAbsolutePath());
+            applySettingsButton.setDisable(false);
+        }
+    }
+
+    @FXML
+    public void applySettingsButtonClicked()
+    {
+        Thread s = new Thread(new Task<Void>() {
+            @Override
+            protected Void call(){
+                Platform.runLater(()->applySettingsButton.setDisable(true));
+                try
+                {
+                    updateConfig("music_lib_path",selectMusicLibraryField.getText());
+                    if(player.isActive)
+                    {
+                        player.stop();
+                        player.hide();
+                    }
+                    loadLibrary(true);
+
+                    showErrorAlert("Settings Applied","New Settings have been applied!");
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+                Platform.runLater(()->applySettingsButton.setDisable(false));
+                return null;
+            }
+        });
+        s.setPriority(4);
+        s.start();
+    }
+    
+    public void updateConfig(String key, String newValue)
+    {
+        config.replace(key,newValue);
+        io.writeToFile(config.get("music_lib_path")+"::","config");
     }
 }

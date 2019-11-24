@@ -13,11 +13,12 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="772.0" prefWidth="1313.0" styleClass="base_pane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Gramophy.dashController">
+<AnchorPane fx:id="basePane" prefHeight="772.0" prefWidth="1313.0" styleClass="base_pane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Gramophy.dashController">
    <children>
       <StackPane fx:id="alertStackPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <StackPane fx:id="importSongsFromYouTubePopupStackPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
@@ -138,9 +139,9 @@
                         <Font name="Roboto Regular" size="17.0" />
                      </font>
                      <graphic>
-                        <ImageView fitHeight="33.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@assets/baseline_open_in_browser_white_18dp.png" />
+                              <Image url="@assets/icons8_globe_24px_1.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -150,7 +151,7 @@
                         <Font name="Roboto Regular" size="17.0" />
                      </font>
                      <graphic>
-                        <ImageView fitHeight="33.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@assets/baseline_library_music_white_18dp.png" />
                            </image>
@@ -162,9 +163,9 @@
                         <Font name="Roboto Regular" size="17.0" />
                      </font>
                      <graphic>
-                        <ImageView fitHeight="33.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@assets/baseline_library_music_white_18dp.png" />
+                              <Image url="@assets/icons8_playlist_24px.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -174,32 +175,16 @@
                         <Font name="Roboto Regular" size="17.0" />
                      </font>
                      <graphic>
-                        <ImageView fitHeight="33.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@assets/baseline_settings_applications_white_18dp.png" />
+                              <Image url="@assets/icons8_settings_24px.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </Label>
                </children>
             </VBox>
-            <Label styleClass="grey_text" text="4.0" />
          </children>
-      </VBox>
-      <VBox fx:id="settingsPane" cache="true" cacheHint="SCALE_AND_ROTATE" layoutX="219.0" prefHeight="686.0" prefWidth="1096.0" spacing="15.0" styleClass="settings_pane" AnchorPane.bottomAnchor="86.0" AnchorPane.leftAnchor="217.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <Label text="Settings">
-               <font>
-                  <Font name="Roboto Regular" size="38.0" />
-               </font>
-               <padding>
-                  <Insets bottom="10.0" />
-               </padding>
-            </Label>
-         </children>
-         <padding>
-            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-         </padding>
       </VBox>
       <VBox fx:id="browsePane" cache="true" cacheHint="SCALE_AND_ROTATE" layoutX="219.0" prefHeight="686.0" prefWidth="1096.0" spacing="15.0" styleClass="browse_pane" AnchorPane.bottomAnchor="86.0" AnchorPane.leftAnchor="217.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <padding>
@@ -236,26 +221,6 @@
             <JFXListView fx:id="youtubeListView" cache="true" cacheHint="SPEED" prefHeight="557.0" prefWidth="1066.0" styleClass="music_library_pane" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
-      <VBox fx:id="libraryPane" cache="true" cacheHint="SCALE_AND_ROTATE" layoutX="219.0" prefHeight="686.0" prefWidth="1096.0" spacing="15.0" styleClass="library_pane" AnchorPane.bottomAnchor="86.0" AnchorPane.leftAnchor="217.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <Label text="Library">
-               <font>
-                  <Font name="Roboto Regular" size="38.0" />
-               </font>
-               <padding>
-                  <Insets bottom="10.0" />
-               </padding>
-            </Label>
-            <ScrollPane fx:id="playlistsScrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" styleClass="playlist_scroll_pane" VBox.vgrow="ALWAYS">
-               <content>
-                  <JFXMasonryPane fx:id="playlistsMasonryPane" />
-               </content>
-            </ScrollPane>
-         </children>
-         <padding>
-            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-         </padding>
-      </VBox>
       <VBox fx:id="playlistPane" cache="true" cacheHint="SCALE_AND_ROTATE" layoutX="219.0" prefWidth="1096.0" spacing="15.0" styleClass="playlists_pane" AnchorPane.bottomAnchor="86.0" AnchorPane.leftAnchor="217.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label text="Playlist">
@@ -270,8 +235,22 @@
             </Label>
             <HBox alignment="CENTER_RIGHT" prefWidth="1066.0" spacing="10.0">
                <children>
-                  <JFXButton fx:id="playlistImportSongsFromYouTubePlaylistButton" onAction="#playlistImportSongsFromYouTubePlaylist" text="Import Songs From YouTube Playlist" textFill="WHITE" />
-                  <JFXButton fx:id="deletePlaylistButton" onAction="#deletePlaylistButtonClicked" ripplerFill="#f23b3b" text="Delete Playlist" textFill="RED" />
+                  <JFXButton fx:id="playlistImportSongsFromYouTubePlaylistButton" onAction="#playlistImportSongsFromYouTubePlaylist" text="Import Songs From YouTube Playlist" textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@assets/icons8_import_24px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></JFXButton>
+                  <JFXButton fx:id="deletePlaylistButton" onAction="#deletePlaylistButtonClicked" ripplerFill="#f23b3b" text="Delete Playlist" textFill="RED">
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@assets/icons8_delete_bin_24px_1.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></JFXButton>
                </children>
             </HBox>
             <HBox>
@@ -300,6 +279,79 @@
                </VBox.margin>
             </HBox>
             <JFXListView fx:id="playlistListView" cache="true" cacheHint="SPEED" prefHeight="501.0" prefWidth="1066.0" styleClass="music_library_pane" VBox.vgrow="ALWAYS" />
+         </children>
+         <padding>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+         </padding>
+      </VBox>
+      <VBox fx:id="settingsPane" cache="true" cacheHint="SCALE_AND_ROTATE" layoutX="219.0" prefHeight="686.0" prefWidth="1096.0" spacing="15.0" styleClass="settings_pane" AnchorPane.bottomAnchor="86.0" AnchorPane.leftAnchor="217.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label text="Settings">
+               <font>
+                  <Font name="Roboto Regular" size="38.0" />
+               </font>
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
+            </Label>
+            <HBox alignment="CENTER_LEFT" spacing="15.0">
+               <children>
+                  <Label text="Music Library Location">
+                     <font>
+                        <Font name="Roboto Regular" size="14.0" />
+                     </font>
+                  </Label>
+                  <JFXTextField fx:id="selectMusicLibraryField" disable="true">
+                     <font>
+                        <Font name="Roboto Regular" size="14.0" />
+                     </font>
+                  </JFXTextField>
+                  <JFXButton fx:id="selectMusicLibraryFolderButton" onAction="#selectMusicLibraryFolderButtonClicked" text="Select " textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@assets/icons8_folder_24px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER">
+               <children>
+                  <JFXButton fx:id="applySettingsButton" disable="true" onAction="#applySettingsButtonClicked" text="Apply Changes" textFill="#57c325">
+                     <font>
+                        <Font name="Roboto Regular" size="12.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </HBox>
+            <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+            <Label text="Version 4.0&#10;&#10;By Debayan Sutradhar&#10;This application is far from perfect. Since this was my first ever project, Ill never abandon or stop it's development&#10;If you have any suggestions or feedback, please send them over to debayansutradhar3@gmail.com&#10;Gramophy is completely opensource. You can get the source code at https://github.com/ladiesman6969/Gramophy">
+               <font>
+                  <Font name="Roboto Regular" size="13.0" />
+               </font>
+            </Label>
+         </children>
+         <padding>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+         </padding>
+      </VBox>
+      <VBox fx:id="libraryPane" cache="true" cacheHint="SCALE_AND_ROTATE" layoutX="219.0" prefHeight="686.0" prefWidth="1096.0" spacing="15.0" styleClass="library_pane" AnchorPane.bottomAnchor="86.0" AnchorPane.leftAnchor="217.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label text="Library">
+               <font>
+                  <Font name="Roboto Regular" size="38.0" />
+               </font>
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
+            </Label>
+            <ScrollPane fx:id="playlistsScrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" styleClass="playlist_scroll_pane" VBox.vgrow="ALWAYS">
+               <content>
+                  <JFXMasonryPane fx:id="playlistsMasonryPane" />
+               </content>
+            </ScrollPane>
          </children>
          <padding>
             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />

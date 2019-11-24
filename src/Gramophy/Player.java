@@ -122,7 +122,10 @@ public class Player {
                         Platform.runLater(()->{
                             Main.dash.songNameLabel.setText(songDetails.get("title").toString());
                             Main.dash.artistLabel.setText(songDetails.get("artist").toString());
-                            Main.dash.albumArtImgView.setImage((Image) songDetails.get("album_art"));
+                            if(songDetails.containsKey("album_art"))
+                            {
+                                Main.dash.albumArtImgView.setImage((Image) songDetails.get("album_art"));
+                            }
                         });
                     }
                     else if(songDetails.get("location").toString().equals("youtube"))
@@ -289,7 +292,7 @@ public class Player {
         mediaPlayer.stop();
     }
 
-    public void hidePlayer()
+    public void hide()
     {
         new FadeOutDown(Main.dash.musicPaneSongInfo).play();
         new FadeOutDown(Main.dash.musicPaneControls).play();

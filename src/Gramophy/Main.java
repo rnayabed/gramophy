@@ -20,9 +20,12 @@ public class Main extends Application {
             if(Main.dash.player.isActive) Main.dash.player.stop();
             Main.dash.gcThread.stop();
         });
+
+        ps = primaryStage;
     }
 
     public static dashController dash;
+    public static Stage ps;
 
     public static void main(String[] args) {
         launch(args);
