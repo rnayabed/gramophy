@@ -7,6 +7,7 @@ import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.concurrent.Task;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -14,9 +15,8 @@ import javafx.util.Duration;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import javax.imageio.ImageIO;
+import java.io.*;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
@@ -94,6 +94,7 @@ public class Player {
         }
 
         playSong(inputIndex);
+        isActive = true;
     }
 
     private void playSong(int index)
@@ -109,12 +110,15 @@ public class Player {
                         Main.dash.totalDurLabel.setText("0:00");
                         Main.dash.nowDurLabel.setText("0:00");
                         Main.dash.musicPlayerButtonBar.setDisable(true);
-                        Main.dash.musicPaneSpinner.setProgress(-1);
+                        Main.dash.musicPaneSpinner.setVisible(true);
                     });
+
+                    stop();
 
                     HashMap<String,Object> songDetails = dashController.cachedPlaylist.get(currentPlaylistName).get(index);
 
                     songIndex = index;
+
 
                     if(songDetails.get("location").toString().equals("local"))
                     {
@@ -124,7 +128,16 @@ public class Player {
                             Main.dash.artistLabel.setText(songDetails.get("artist").toString());
                             if(songDetails.containsKey("album_art"))
                             {
-                                Main.dash.albumArtImgView.setImage((Image) songDetails.get("album_art"));
+                                try {
+                                    Image x = SwingFXUtils.toFXImage(ImageIO.read(new ByteArrayInputStream((byte[]) songDetails.get("album_art"))),null);
+                                    Main.dash.albumArtImgView.setImage(x);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            else
+                            {
+                                Main.dash.albumArtImgView.setImage(Main.dash.defaultAlbumArt);
                             }
                         });
                     }
@@ -155,6 +168,8 @@ public class Player {
                             if(result.length() == 0)
                             {
                                 Main.dash.showErrorAlert("Uh OH!","Unable to play, probably because Age Restricted. If not, check connection and try again!");
+                                stop();
+                                hide();
                                 System.out.println("ERROR!");
                                 return null;
                             }
@@ -175,7 +190,7 @@ public class Player {
                     Platform.runLater(()->{
                         Main.dash.songSeek.setDisable(false);
                         Main.dash.musicPlayerButtonBar.setDisable(false);
-                        Main.dash.musicPaneSpinner.setProgress(0);;
+                        Main.dash.musicPaneSpinner.setVisible(false);
                     });
 
                     media = new Media(source);
@@ -226,6 +241,7 @@ public class Player {
         if(songIndex<(dashController.cachedPlaylist.get(currentPlaylistName).size()-1))
         {
             mediaPlayer.stop();
+            mediaPlayer.dispose();
             playSong((songIndex+1));
         }
     }
@@ -233,6 +249,7 @@ public class Player {
     private void playNextRandom()
     {
         mediaPlayer.stop();
+        mediaPlayer.dispose();
         playSong((new Random().nextInt(dashController.cachedPlaylist.get(currentPlaylistName).size())));
     }
 
@@ -241,6 +258,7 @@ public class Player {
         if(songIndex>0)
         {
             mediaPlayer.stop();
+            mediaPlayer.dispose();
             playSong((songIndex-1));
         }
     }
@@ -287,9 +305,14 @@ public class Player {
 
     public void stop()
     {
-        isPlaying = false;
         isActive = false;
-        mediaPlayer.stop();
+        if(isPlaying)
+        {
+            mediaPlayer.stop();
+            mediaPlayer.dispose();
+            updaterThread.stop();
+        }
+        isPlaying = false;
     }
 
     public void hide()
@@ -297,6 +320,11 @@ public class Player {
         new FadeOutDown(Main.dash.musicPaneSongInfo).play();
         new FadeOutDown(Main.dash.musicPaneControls).play();
         new FadeOutDown(Main.dash.musicPaneMiscControls).play();
+        Platform.runLater(()->{
+            Main.dash.songNameLabel.setText("");
+            Main.dash.artistLabel.setText("");
+            Main.dash.albumArtImgView.setImage(Main.dash.defaultAlbumArt);
+        });
     }
 
     private void startUpdating()
@@ -322,6 +350,7 @@ public class Player {
                         }
                         Thread.sleep(100);
                     }
+                    System.out.println("BOND");
                 }
                 catch (Exception e)
                 {

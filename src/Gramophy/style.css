@@ -11,6 +11,10 @@
     -fx-background : #484848;
 }
 
+.spinner-label {
+    visibility: collapse ;
+}
+
 .card {
     -fx-background-color : #383838;
     -fx-background-insets: 10;

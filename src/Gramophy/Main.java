@@ -17,7 +17,13 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
         primaryStage.setOnCloseRequest(event -> {
-            if(Main.dash.player.isActive) Main.dash.player.stop();
+            if(Main.dash.player.isActive) {
+                try {
+                    Main.dash.player.stop();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
             Main.dash.gcThread.stop();
         });
 
