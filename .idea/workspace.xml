@@ -2,49 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/com_mpatric_mp3agic_0_9_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/playlists/Recents" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/playlists/YouTube Fav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Gramophy/assets/download_24px.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Gramophy/assets/music_record_80px.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gramophy.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Gramophy.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config" beforeDir="false" afterPath="$PROJECT_DIR$/config" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/Player$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/Player$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/Player$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/Player$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/Player$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/Player$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/Player.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dash.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dash.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$10.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$10.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$11$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$11$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$11.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$11.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$12$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$12$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$12.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$12.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$13.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$13.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$14$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$14$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$14.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$14.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$15.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$15.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$16.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$16.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$17.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$17.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$18.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$18.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$5.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$6.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$7$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$7$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$7$3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$7.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$8.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$8.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$9.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$9.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Gramophy/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gramophy/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/playlists/Recents" beforeDir="false" afterPath="$PROJECT_DIR$/playlists/Recents" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Gramophy/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gramophy/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Gramophy/dash.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gramophy/dash.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Gramophy/dashController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gramophy/dashController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Gramophy/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gramophy/style.css" afterDir="false" />
     </list>
@@ -281,22 +241,22 @@
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1877" height="348" key="GridCell.Tab.0.bottom" timestamp="1577130798661">
+    <state width="1877" height="454" key="GridCell.Tab.0.bottom" timestamp="1577184306062">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1577130798661" />
-    <state width="1877" height="348" key="GridCell.Tab.0.center" timestamp="1577130798661">
+    <state width="1877" height="454" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1577184306062" />
+    <state width="1877" height="454" key="GridCell.Tab.0.center" timestamp="1577184306062">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1577130798661" />
-    <state width="1877" height="348" key="GridCell.Tab.0.left" timestamp="1577130798660">
+    <state width="1877" height="454" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1577184306062" />
+    <state width="1877" height="454" key="GridCell.Tab.0.left" timestamp="1577184306062">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1577130798660" />
-    <state width="1877" height="348" key="GridCell.Tab.0.right" timestamp="1577130798661">
+    <state width="1877" height="454" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1577184306062" />
+    <state width="1877" height="454" key="GridCell.Tab.0.right" timestamp="1577184306062">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1577130798661" />
+    <state width="1877" height="454" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1577184306062" />
     <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1577130798661">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -321,6 +281,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="664" y="412" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.0.1920.1040@0.0.1920.1040" timestamp="1577118447030" />
+    <state x="769" y="436" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1577178661221">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="769" y="436" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1577178661221" />
     <state x="616" y="240" key="run.anything.popup" timestamp="1577124268138">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

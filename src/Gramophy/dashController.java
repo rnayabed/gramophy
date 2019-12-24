@@ -473,21 +473,16 @@ public class dashController implements Initializable {
                 HBox.setHgrow(eachMusicHBox,Priority.ALWAYS);
 
                 eachMusicHBox.setOnMouseClicked(event -> {
-                    new Thread(new Task<Void>() {
-                        @Override
-                        protected Void call() throws Exception {
-                            Node n = (Node) event.getSource();
-                            Platform.runLater(()-> n.setDisable(true));
-                            if(player.isActive)
-                                player.stop();
 
-                            player = new Player(playlistName,Integer.parseInt(((Node)event.getSource()).getId()));
-                            addToRecents(cachedPlaylist.get(playlistName).get(Integer.parseInt(((Node)event.getSource()).getId())));
-                            Thread.sleep(500);
-                            Platform.runLater(()-> n.setDisable(false));
-                            return null;
-                        }
-                    }).start();
+                    if(player.isActive)
+                    {
+                        player.stop();
+                    }
+
+                    player = new Player(playlistName,Integer.parseInt(((Node)event.getSource()).getId()));
+
+                    addToRecents(cachedPlaylist.get(playlistName).get(Integer.parseInt(((Node)event.getSource()).getId())));
+
                 });
 
                 HBox mainHBox = new HBox(eachMusicHBox,vb1);
@@ -723,6 +718,7 @@ public class dashController implements Initializable {
 
 
     public String oldSearchQuery = "";
+
     private void searchYouTube()
     {
         new Thread(new Task<Void>() {
@@ -834,32 +830,12 @@ public class dashController implements Initializable {
 
                             songs.add(songDetails);
                             videoHBox.setOnMouseClicked(event -> {
-                                Thread t = new Thread(new Task<Void>() {
-                                    @Override
-                                    protected Void call(){
-                                        try
-                                        {
-                                            Node n = (Node) event.getSource();
-                                            Platform.runLater(()-> n.setDisable(true));
-                                            if(player.isActive)
-                                            {
-                                                player.stop();
-                                            }
-                                            player = new Player("YouTube",Integer.parseInt(((Node)event.getSource()).getId()));
-                                            addToRecents(cachedPlaylist.get("YouTube").get(Integer.parseInt(((Node)event.getSource()).getId())));
-
-                                            Thread.sleep(500);
-                                            Platform.runLater(()-> n.setDisable(false));
-                                        }
-                                        catch (Exception e)
-                                        {
-                                            e.printStackTrace();
-                                        }
-                                        return null;
-                                    }
-                                });
-                                t.setPriority(6);
-                                t.start();
+                                if(player.isActive)
+                                {
+                                    player.stop();
+                                }
+                                player = new Player("YouTube",Integer.parseInt(((Node)event.getSource()).getId()));
+                                addToRecents(cachedPlaylist.get("YouTube").get(Integer.parseInt(((Node)event.getSource()).getId())));
                             });
 
                             JFXButton saveToPlaylistButton = new JFXButton("Save To Playlist");
@@ -1184,6 +1160,7 @@ public class dashController implements Initializable {
                 else
                 {
                     System.out.println("skipping "+eachSongArr[1]+" cuz not found ...");
+                    continue;
                 }
             }
             else

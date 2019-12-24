@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -99,9 +100,9 @@ public class Player {
 
     private void playSong(int index)
     {
-        new Thread(new Task<Void>() {
+        x = new Thread(new Task<Void>() {
             @Override
-            protected Void call(){
+           protected Void call(){
                 try
                 {
                     Platform.runLater(()->{
@@ -112,8 +113,6 @@ public class Player {
                         Main.dash.musicPlayerButtonBar.setDisable(true);
                         Main.dash.musicPaneSpinner.setVisible(true);
                     });
-
-                    stop();
 
                     HashMap<String,Object> songDetails = dashController.cachedPlaylist.get(currentPlaylistName).get(index);
 
@@ -233,8 +232,10 @@ public class Player {
                 }
                 return null;
             }
-        }).start();
+        });
+        x.start();
     }
+    Thread x;
 
     private void playNext()
     {
@@ -305,14 +306,14 @@ public class Player {
 
     public void stop()
     {
-        isActive = false;
         if(isPlaying)
         {
+            isPlaying = false;
             mediaPlayer.stop();
             mediaPlayer.dispose();
-            updaterThread.stop();
         }
-        isPlaying = false;
+        x.stop();
+        isActive = false;
     }
 
     public void hide()

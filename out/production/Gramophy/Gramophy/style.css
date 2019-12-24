@@ -11,8 +11,8 @@
     -fx-background : #484848;
 }
 
-.spinner-label {
-    visibility: collapse ;
+*:disabled {
+  -fx-opacity: 1.0 ;
 }
 
 .card {
