@@ -9,6 +9,8 @@ import com.mpatric.mp3agic.ID3v2;
 import com.mpatric.mp3agic.ID3v24Tag;
 import com.mpatric.mp3agic.Mp3File;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -136,6 +138,8 @@ public class dashController implements Initializable {
     @FXML
     public StackPane alertStackPane;
     @FXML
+    public JFXButton playSongsFromCurrentPlaylistButton;
+    @FXML
     public JFXButton deletePlaylistButton;
     @FXML
     public AnchorPane basePane;
@@ -149,6 +153,8 @@ public class dashController implements Initializable {
     public StackPane importSongsFromYouTubePopupStackPane;
     @FXML
     public JFXTextField youtubeAPIKeyField;
+    @FXML
+    public JFXTextField recentsPlaylistMaxLimitField;
     @FXML
     public VBox downloadsVBox;
 
@@ -280,6 +286,14 @@ public class dashController implements Initializable {
         });
     }
 
+    private boolean isSongPresent(String title, String artist, String playlistName)
+    {
+        for(HashMap<String,Object> eachSong : cachedPlaylist.get(playlistName))
+            if(eachSong.get("title").toString().equals(title) && eachSong.get("artist").toString().equals(artist))
+                return true;
+        return false;
+    }
+
     @FXML
     public void deletePlaylistButtonClicked() throws Exception
     {
@@ -361,6 +375,8 @@ public class dashController implements Initializable {
             Platform.runLater(()->{
 
                 JFXButton downloadButton = new JFXButton();
+                downloadButton.setCache(true);
+                downloadButton.setCacheHint(CacheHint.SPEED);
                 downloadButton.setGraphic(new ImageView(downloadIcon));
                 downloadButton.setTextFill(PAINT_GREEN);
                 downloadButton.setId(i2+"");
@@ -385,6 +401,8 @@ public class dashController implements Initializable {
                 });
 
                 JFXButton saveToPlaylistButton = new JFXButton();
+                saveToPlaylistButton.setCache(true);
+                saveToPlaylistButton.setCacheHint(CacheHint.SPEED);
                 saveToPlaylistButton.setGraphic(new ImageView(saveToPlaylistIcon));
                 saveToPlaylistButton.setTextFill(PAINT_GREEN);
                 saveToPlaylistButton.setId(i2+"");
@@ -406,6 +424,8 @@ public class dashController implements Initializable {
                 });
 
                 JFXButton deleteButton = new JFXButton();
+                deleteButton.setCache(true);
+                deleteButton.setCacheHint(CacheHint.SPEED);
                 deleteButton.setGraphic(new ImageView(redDeleteIcon));
                 deleteButton.setRipplerFill(Paint.valueOf("#F75B5B"));
                 deleteButton.setTextFill(Color.RED);
@@ -421,8 +441,8 @@ public class dashController implements Initializable {
                                 int index = Integer.parseInt(((Node) event.getSource()).getId());
                                 if(player.songIndex == index && player.isActive)
                                 {
-                                    player.stop();
                                     player.hide();
+                                    player.stop();
                                 }
                                 if(currentPlaylist.equals("My Music"))
                                 {
@@ -459,7 +479,11 @@ public class dashController implements Initializable {
                 if(noOfPlaylists>0) vb1.getChildren().add(saveToPlaylistButton);
 
                 if(eachSong.get("location").toString().equals("youtube"))
+                {
                     vb1.getChildren().add(downloadButton);
+                    if(isSongPresent(eachSong.get("title").toString(),eachSong.get("channelTitle").toString(),"My Music"))
+                        downloadButton.setDisable(true);
+                }
 
                 vb1.getChildren().add(deleteButton);
 
@@ -479,112 +503,151 @@ public class dashController implements Initializable {
                         player.stop();
                     }
 
+                    addToRecents(cachedPlaylist.get(playlistName).get(Integer.parseInt(((Node)event.getSource()).getId())));
                     player = new Player(playlistName,Integer.parseInt(((Node)event.getSource()).getId()));
 
-                    addToRecents(cachedPlaylist.get(playlistName).get(Integer.parseInt(((Node)event.getSource()).getId())));
 
                 });
 
                 HBox mainHBox = new HBox(eachMusicHBox,vb1);
+                mainHBox.setId(eachSong.get("title").toString() + eachSong.getOrDefault("artist","") + eachSong.getOrDefault("channelTitle",""));
 
                 playlistListView.getItems().add(mainHBox);
                 i2++;
             });
 
         }
+
+        if(cachedPlaylist.get(playlistName).size() == 0)
+        {
+            playSongsFromCurrentPlaylistButton.setDisable(true);
+        }
+        else
+        {
+            playSongsFromCurrentPlaylistButton.setDisable(false);
+        }
     }
 
-    JFXProgressBar yy = null;
-    Label yyx = null;
-    private void addToDownloads(String watchID, JFXButton originalButton, String thumbnailURL, String title, String channelTitle) throws Exception
+    ArrayList<JFXProgressBar> yy = new ArrayList<>();
+    ArrayList<Label> yyx = new ArrayList<>();
+
+    private void addToDownloads(String watchID, JFXButton originalButton, String thumbnailURL, String title, String channelTitle)
     {
-        String cmd = "youtube-dl.exe -o \""+config.get("music_lib_path")+"/%(title)s_pass_.%(ext)s\" --extract-audio --audio-format mp3 https://www.youtube.com/watch?v="+watchID;
-        System.out.println(cmd);
-
-        Platform.runLater(()->{
-            originalButton.setDisable(true);
-            ImageView downloadThumbnailImageView = new ImageView(thumbnailURL);
-
-            Label titleLabel = new Label(title);
-            titleLabel.setFont(new Font("Roboto Regular",25));
-            titleLabel.setPadding(new Insets(0,0,10,0));
-            Label channelTitleLabel = new Label(channelTitle);
-            channelTitleLabel.setFont(robotoRegular15);
-            Label statusLabel = new Label("Downloading ...");
-            yyx = statusLabel;
-            JFXProgressBar progressBar = new JFXProgressBar(-1);
-            yy = progressBar;
-            VBox next = new VBox(titleLabel,channelTitleLabel,statusLabel,progressBar);
-            next.setSpacing(5);
-
-            HBox eachDownloadNode = new HBox(downloadThumbnailImageView,next);
-            HBox.setHgrow(eachDownloadNode, Priority.ALWAYS);
-            eachDownloadNode.setSpacing(10);
-            eachDownloadNode.setPadding(new Insets(25));
-            eachDownloadNode.setId(watchID);
-            eachDownloadNode.getStyleClass().add("card");
-
-            System.out.println("xxc");
-            downloadsVBox.getChildren().add(eachDownloadNode);
-        });
-
-        Thread.sleep(200);
-
-        Process p = Runtime.getRuntime().exec(cmd);
-
-        BufferedReader bf = new BufferedReader(new InputStreamReader(p.getInputStream()));
-
-
-        while(true)
+        String refinedTitle = title.replace("|","&").replace("\\","&").replace("/","&");
+        int thisIndex = yy.size();
+        try
         {
-            String newLine = bf.readLine();
-            if(newLine == null) break;
-            //[download] 100.0%
 
-            if(newLine.startsWith("[download]"))
+            String cmd = "youtube-dl.exe -o \""+refinedTitle+"_pass_.%(ext)s\" --extract-audio --audio-format mp3 https://www.youtube.com/watch?v="+watchID;
+            System.out.println(cmd);
+
+            Platform.runLater(()->{
+                originalButton.setDisable(true);
+                ImageView downloadThumbnailImageView = new ImageView(thumbnailURL);
+
+                Label titleLabel = new Label(title);
+                titleLabel.setFont(new Font("Roboto Regular",25));
+                titleLabel.setPadding(new Insets(0,0,10,0));
+                Label channelTitleLabel = new Label(channelTitle);
+                channelTitleLabel.setFont(robotoRegular15);
+                Label statusLabel = new Label("Downloading ...");
+                JFXProgressBar progressBar = new JFXProgressBar(-1);
+                VBox next = new VBox(titleLabel,channelTitleLabel,statusLabel,progressBar);
+                next.setSpacing(5);
+
+                HBox eachDownloadNode = new HBox(downloadThumbnailImageView,next);
+                eachDownloadNode.setSpacing(10);
+                eachDownloadNode.setPadding(new Insets(25));
+                eachDownloadNode.setId(watchID);
+                eachDownloadNode.getStyleClass().add("card");
+
+                System.out.println("xxc");
+                downloadsVBox.getChildren().add(eachDownloadNode);
+            });
+
+            Thread.sleep(500);
+
+            for(Node eachNode : downloadsVBox.getChildren())
             {
-                String progressStr = newLine.substring(10,16).replace(" ","");
-                if(!progressStr.contains("Desti") && !progressStr.contains("%"))
+                if(eachNode.getId().equals(watchID))
                 {
-                    double d = Double.parseDouble(progressStr);
+                    System.out.println("xcqs112");
+                    HBox c = (HBox) eachNode;
+                    VBox v = (VBox) c.getChildren().get(1);
+                    yyx.add((Label) v.getChildren().get(2));
+                    yy.add((JFXProgressBar) v.getChildren().get(3));
+                }
+            }
+
+            Process p = Runtime.getRuntime().exec(cmd);
+
+            BufferedReader bf = new BufferedReader(new InputStreamReader(p.getInputStream()));
+
+            while(true)
+            {
+                String newLine = bf.readLine();
+                if(newLine == null) break;
+                //[download] 100.0%
+
+                if(newLine.startsWith("[download]"))
+                {
+                    String progressStr = newLine.substring(10,16).replace(" ","");
+                    if(!progressStr.contains("Desti") && !progressStr.contains("%") && !progressStr.contains("Resum"))
+                    {
+                        double d = Double.parseDouble(progressStr);
+                        Platform.runLater(()->{
+                            yy.get(thisIndex).setProgress(d/100);
+                        });
+                    }
+                }
+                else if(newLine.startsWith("[ffmpeg]"))
+                {
                     Platform.runLater(()->{
-                        yy.setProgress(d/100);
+                        yyx.get(thisIndex).setText("Converting ...");
                     });
                 }
             }
+
+            Platform.runLater(()->{
+                yyx.get(thisIndex).setText("Finishing Up ...");
+            });
+
+            ID3v2 id3v2Tag = new ID3v24Tag();
+            Mp3File mp3File = new Mp3File(new File(refinedTitle+"_pass_.mp3"));
+            mp3File.setId3v2Tag(id3v2Tag);
+
+            Image img = new Image(thumbnailURL);
+            BufferedImage ix = SwingFXUtils.fromFXImage(img,null);
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            ImageIO.write(ix, "png", bos );
+
+            id3v2Tag.setTitle(title);
+            id3v2Tag.setArtist(channelTitle);
+            id3v2Tag.setAlbumArtist(channelTitle);
+            id3v2Tag.setComment("Downloaded via github.com/ladiesman6969/gramophy. Made with Love by Debayan. Youtube Watch ID : "+watchID);
+            id3v2Tag.setAlbumImage(bos.toByteArray(),"LOL");
+
+            mp3File.save(config.get("music_lib_path")+"/"+refinedTitle+".mp3");
+
+            loadLibrary();
+
+            Platform.runLater(()->{
+                yy.get(thisIndex).setProgress(1);
+                yyx.get(thisIndex).setText("Downloaded!");
+            });
         }
-
-        System.out.println("done");
-
-        Platform.runLater(()->yyx.setText("Finishing Up ..."));
-
-        ID3v2 id3v2Tag = new ID3v24Tag();
-        Mp3File mp3File = new Mp3File(config.get("music_lib_path")+"/"+title+"_pass_.mp3");
-        mp3File.setId3v2Tag(id3v2Tag);
-
-        Image img = new Image(thumbnailURL);
-        BufferedImage ix = SwingFXUtils.fromFXImage(img,null);
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        ImageIO.write(ix, "png", bos );
-
-        id3v2Tag.setTitle(title);
-        id3v2Tag.setArtist(channelTitle);
-        id3v2Tag.setAlbumArtist(channelTitle);
-        id3v2Tag.setComment("Downloaded via github.com/ladiesman6969/gramophy. Made with Love by Debayan. Youtube Watch ID : "+watchID);
-        id3v2Tag.setAlbumImage(bos.toByteArray(),"LOL");
-
-        mp3File.save(config.get("music_lib_path")+"/"+title+".mp3");
-
-        new File(config.get("music_lib_path")+"/"+title+"_pass_.mp3").delete();
-
-        loadLibrary();
-
-        Platform.runLater(()-> {
-            System.out.println("goat");
-            yy.setProgress(1);
-            yyx.setText("Downloaded!");
-            originalButton.setDisable(false);
-        });
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            Platform.runLater(()->{
+                yyx.get(thisIndex).setText("Unable to download! Check Stacktrace!");
+                yy.get(thisIndex).setProgress(1);
+            });
+        }
+        finally {
+            new File(refinedTitle+"_pass_.mp3").delete();
+            new File(refinedTitle+"_pass_.webm").delete();
+        }
     }
 
 
@@ -656,6 +719,8 @@ public class dashController implements Initializable {
         addNewPlaylistVBox.getChildren().add(l);
         addNewPlaylistVBox.getStyleClass().add("card");
         JFXRippler r = new JFXRippler(addNewPlaylistVBox);
+        r.setCache(true);
+        r.setCacheHint(CacheHint.SPEED);
         r.setOnMouseClicked(event -> {
             new Thread(new Task<Void>() {
                 @Override
@@ -834,8 +899,10 @@ public class dashController implements Initializable {
                                 {
                                     player.stop();
                                 }
-                                player = new Player("YouTube",Integer.parseInt(((Node)event.getSource()).getId()));
+
                                 addToRecents(cachedPlaylist.get("YouTube").get(Integer.parseInt(((Node)event.getSource()).getId())));
+                                player = new Player("YouTube",Integer.parseInt(((Node)event.getSource()).getId()));
+
                             });
 
                             JFXButton saveToPlaylistButton = new JFXButton("Save To Playlist");
@@ -853,6 +920,8 @@ public class dashController implements Initializable {
                             });
 
                             JFXButton downloadButton = new JFXButton();
+                            downloadButton.setCache(true);
+                            downloadButton.setCacheHint(CacheHint.SPEED);
                             downloadButton.setGraphic(new ImageView(downloadIcon));
                             downloadButton.setTextFill(PAINT_GREEN);
                             downloadButton.setId(x+"");
@@ -884,6 +953,9 @@ public class dashController implements Initializable {
 
                             VBox vv = new VBox(saveToPlaylistButton,downloadButton);
 
+                            if(isSongPresent(title,channelTitle,"My Music"))
+                                downloadButton.setDisable(true);
+
                             HBox mainHBox = new HBox(videoHBox,vv);
                             mainHBox.setAlignment(Pos.CENTER_LEFT);
 
@@ -910,6 +982,8 @@ public class dashController implements Initializable {
                     {
                         Thread.sleep(100);
                         JFXButton loadMoreButton = new JFXButton("Load More");
+                        loadMoreButton.setCache(true);
+                        loadMoreButton.setCacheHint(CacheHint.SPEED);
                         loadMoreButton.setFont(robotoRegular15);
                         loadMoreButton.setTextFill(PAINT_GREEN);
                         Platform.runLater(()->youtubeListView.getItems().add(new HBox(loadMoreButton)));
@@ -1025,12 +1099,16 @@ public class dashController implements Initializable {
 
         String musicLibDir = configArr[0];
         String youtubeAPIKey = configArr[1];
+        maxRecentsLimit = Integer.parseInt(configArr[2]);
+
+        recentsPlaylistMaxLimitField.setText(configArr[2]);
 
         if(musicLibDir.equals("NULL"))
             musicLibDir = System.getProperty("user.home")+"/Music/";
 
         config.put("music_lib_path",musicLibDir);
         config.put("youtube_api_key",youtubeAPIKey);
+        config.put("max_recents_limit",configArr[2]);
         selectMusicLibraryField.setText(musicLibDir);
         youtubeAPIKeyField.setText(youtubeAPIKey);
     }
@@ -1052,7 +1130,7 @@ public class dashController implements Initializable {
 
             try
             {
-                Mp3File mp3File = new Mp3File(eachSong.getPath());
+                Mp3File mp3File = new Mp3File(eachSong);
 
                 ID3v1 id3v1 = mp3File.getId3v1Tag();
                 HashMap<String, Object> songDetails = new HashMap<>();
@@ -1177,26 +1255,26 @@ public class dashController implements Initializable {
         cachedPlaylist.put("Recents",newSongs);
     }
 
-    int maxRecentsLimit = 50;
+    int maxRecentsLimit;
 
     public void addToRecents(HashMap<String,Object> song)
     {
         boolean found = false;
         for(HashMap<String,Object> eachSongs : cachedPlaylist.get("Recents"))
         {
-            if(eachSongs.get("location").equals(song.get("location")))
+            if(eachSongs.get("location").toString().equals(song.get("location").toString()))
             {
-                if(eachSongs.get("location").equals("YouTube"))
+                if(eachSongs.get("location").toString().equals("YouTube"))
                 {
-                    if(eachSongs.get("videoID").equals(song.get("videoID")))
+                    if(eachSongs.get("videoID").toString().equals(song.get("videoID").toString()))
                     {
                         System.out.println("fsf");
                         found = true;
                     }
                 }
-                else if(eachSongs.get("location").equals("local"))
+                else if(eachSongs.get("location").toString().equals("local"))
                 {
-                    if(eachSongs.get("source").equals(song.get("source")))
+                    if(eachSongs.get("source").toString().equals(song.get("source").toString()))
                     {
                         System.out.println("fsfx");
                         found = true;
@@ -1208,19 +1286,15 @@ public class dashController implements Initializable {
 
         if(!found)
         {
-            if(cachedPlaylist.get("Recents").size() == maxRecentsLimit)
+            if(cachedPlaylist.get("Recents").size() > maxRecentsLimit)
             {
-                cachedPlaylist.get("Recents").get(0).put("delete","1");
-
-                ArrayList<HashMap<String,Object>> newP = new ArrayList<>();
-
-                for(HashMap<String,Object> eachSongs : cachedPlaylist.get("Recents"))
+                for(int i = 0; i<cachedPlaylist.get("Recents").size();i++)
                 {
-                    if(eachSongs.getOrDefault("delete","0").equals("1")) continue;
-                    newP.add(eachSongs);
+                    if(cachedPlaylist.get("Recents").size() >= maxRecentsLimit)
+                    {
+                        cachedPlaylist.get("Recents").remove(i);
+                    }
                 }
-
-                cachedPlaylist.replace("Recents",newP);
             }
 
             cachedPlaylist.get("Recents").add(song);
@@ -1294,6 +1368,21 @@ public class dashController implements Initializable {
 
 
             cachedPlaylist.put(playlistName,songs);
+        }
+    }
+
+    @FXML
+    public void playSongsFromCurrentPlaylist()
+    {
+        if(cachedPlaylist.get(currentPlaylist).size() > 0)
+        {
+            if(player.isActive)
+            {
+                player.stop();
+            }
+
+            addToRecents(cachedPlaylist.get(currentPlaylist).get(0));
+            player = new Player(currentPlaylist,0);
         }
     }
 
@@ -1748,9 +1837,32 @@ public class dashController implements Initializable {
     @FXML
     public void applySettingsButtonClicked()
     {
+        String errs = "";
+
         if(youtubeAPIKeyField.getText().length() == 0)
         {
-            showErrorAlert("Uh Oh!","Please enter a valid Youtube API Key");
+            errs += "* Invalid Youtube API Key Entered.\n";
+        }
+
+        if(recentsPlaylistMaxLimitField.getText().length() == 0)
+        {
+            errs += "* Invalid Limit for Recents Playlist. Must be in figures.\n";
+        }
+        else
+        {
+            try
+            {
+                Integer.parseInt(recentsPlaylistMaxLimitField.getText());
+            }
+            catch (Exception e)
+            {
+                errs += "* 0 cant be a limit for Recents Playlist!\n";
+            }
+        }
+
+        if(errs.length() > 0)
+        {
+            showErrorAlert("Uh Oh!","Please correct the following errors and try again :\n"+errs);
             return;
         }
 
@@ -1760,8 +1872,12 @@ public class dashController implements Initializable {
                 Platform.runLater(()->applySettingsButton.setDisable(true));
                 try
                 {
+                    if(!config.get("music_lib_path").equals(selectMusicLibraryField.getText()))
+                        loadLibrary();
                     updateConfig("music_lib_path",selectMusicLibraryField.getText());
                     updateConfig("youtube_api_key",youtubeAPIKeyField.getText());
+                    updateConfig("max_recents_limit",recentsPlaylistMaxLimitField.getText());
+                    maxRecentsLimit = Integer.parseInt(recentsPlaylistMaxLimitField.getText());
                     if(player.isActive)
                     {
                         player.stop();
@@ -1782,10 +1898,10 @@ public class dashController implements Initializable {
         s.setPriority(4);
         s.start();
     }
-    
+
     public void updateConfig(String key, String newValue)
     {
         config.replace(key,newValue);
-        io.writeToFile(config.get("music_lib_path")+"::"+config.get("youtube_api_key")+"::","config");
+        io.writeToFile(config.get("music_lib_path")+"::"+config.get("youtube_api_key")+"::"+config.get("max_recents_limit")+"::","config");
     }
 }

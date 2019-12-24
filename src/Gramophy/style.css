@@ -11,10 +11,6 @@
     -fx-background : #484848;
 }
 
-*:disabled {
-  -fx-opacity: 1.0 ;
-}
-
 .card {
     -fx-background-color : #383838;
     -fx-background-insets: 10;

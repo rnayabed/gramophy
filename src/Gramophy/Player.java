@@ -4,6 +4,8 @@ import animatefx.animation.FadeIn;
 import animatefx.animation.FadeInUp;
 import animatefx.animation.FadeOutDown;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.concurrent.Task;
@@ -84,18 +86,19 @@ public class Player {
             playPrevious();
         });
 
-        if(Main.dash.musicPaneControls.getOpacity()==0)
-        {
-            Platform.runLater(()->{
-                Main.dash.musicPanePlayPauseButtonImageView.setImage(pauseIcon);
-                new FadeInUp(Main.dash.musicPaneSongInfo).play();
-                new FadeInUp(Main.dash.musicPaneControls).play();
-                new FadeInUp(Main.dash.musicPaneMiscControls).play();
-            });
-        }
-
         playSong(inputIndex);
         isActive = true;
+    }
+
+    private void show()
+    {
+        if(Main.dash.musicPaneControls.getOpacity()==0)
+        {
+            Main.dash.musicPanePlayPauseButtonImageView.setImage(pauseIcon);
+            new FadeInUp(Main.dash.musicPaneSongInfo).play();
+            new FadeInUp(Main.dash.musicPaneControls).play();
+            new FadeInUp(Main.dash.musicPaneMiscControls).play();
+        }
     }
 
     private void playSong(int index)
@@ -138,6 +141,8 @@ public class Player {
                             {
                                 Main.dash.albumArtImgView.setImage(Main.dash.defaultAlbumArt);
                             }
+
+                            show();
                         });
                     }
                     else if(songDetails.get("location").toString().equals("youtube"))
@@ -147,7 +152,10 @@ public class Player {
                             Main.dash.songNameLabel.setText(songDetails.get("title").toString());
                             Main.dash.artistLabel.setText(songDetails.get("channelTitle").toString());
                             Main.dash.albumArtImgView.setImage(x);
+
+                            show();
                         });
+
 
                         String videoURL = songDetails.getOrDefault("videoURL","null").toString();
                         if(videoURL.equals("null"))
@@ -347,6 +355,7 @@ public class Player {
                             if(!Main.dash.songSeek.isValueChanging())
                             {
                                 Main.dash.songSeek.setValue(currentProgress);
+                                currentP = currentProgress;
                             }
                         }
                         Thread.sleep(100);
@@ -363,4 +372,6 @@ public class Player {
 
         updaterThread.start();
     }
+
+    double currentP = 0.0;
 }
