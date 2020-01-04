@@ -12,6 +12,7 @@ import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
+import javafx.scene.layout.HBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
@@ -60,6 +61,15 @@ public class Player {
             Main.dash.musicPaneShuffleButton.setDisable(false);
             Main.dash.musicPaneRepeatButton.setDisable(false);
         });
+
+        for(Node eachNode : Main.dash.playlistListView.getItems())
+        {
+            HBox x = (HBox) eachNode;
+            if(x.getId().equals(inputIndex+""))
+            {
+                Platform.runLater(()->Main.dash.playlistListView.getSelectionModel().select(x));
+            }
+        }
 
         Main.dash.songSeek.setOnMouseClicked(event -> {
             if(isActive)
@@ -161,7 +171,6 @@ public class Player {
                         if(videoURL.equals("null"))
                         {
                             String youtubeDLQuery = "youtube-dl.exe -f 18 -g https://www.youtube.com/watch?v="+songDetails.get("videoID");
-                            System.out.println(youtubeDLQuery);
                             Process p = Runtime.getRuntime().exec(youtubeDLQuery);
                             InputStream i = p.getInputStream();
                             String result = "";
@@ -177,7 +186,6 @@ public class Player {
                                 Main.dash.showErrorAlert("Uh OH!","Unable to play, probably because Age Restricted. If not, check connection and try again!");
                                 stop();
                                 hide();
-                                System.out.println("ERROR!");
                                 return null;
                             }
 
@@ -188,33 +196,27 @@ public class Player {
 
                         source = videoURL;
 
-                        System.out.println(source);
                     }
-
-                    System.out.println(songIndex+", "+(dashController.cachedPlaylist.get(currentPlaylistName).size()-1));
-
-
-                    Platform.runLater(()->{
-                        Main.dash.songSeek.setDisable(false);
-                        Main.dash.musicPlayerButtonBar.setDisable(false);
-                        Main.dash.musicPaneSpinner.setVisible(false);
-                    });
 
                     media = new Media(source);
                     mediaPlayer = new MediaPlayer(media);
 
                     media.setOnError(()-> {
+                        stop();
                         media.getError().printStackTrace();
                     });
 
-
                     mediaPlayer.setOnReady(()->{
+
                         io.log("Start Playing ...");
 
                         totalCurr = media.getDuration().toSeconds();
 
 
                         Platform.runLater(()->{
+                            Main.dash.songSeek.setDisable(false);
+                            Main.dash.musicPlayerButtonBar.setDisable(false);
+                            Main.dash.musicPaneSpinner.setVisible(false);
                             Main.dash.totalDurLabel.setText(Main.dash.getSecondsToSimpleString(media.getDuration().toSeconds()));
                         });
 
@@ -247,6 +249,10 @@ public class Player {
 
     private void playNext()
     {
+        if(Main.dash.isShuffle)
+            playNextRandom();
+        else
+            playNext();
         if(songIndex<(dashController.cachedPlaylist.get(currentPlaylistName).size()-1))
         {
             mediaPlayer.stop();
@@ -280,10 +286,8 @@ public class Player {
 
     private void play()
     {
-        System.out.println("ad");
         Main.dash.musicPanePlayPauseButtonImageView.setImage(pauseIcon);
         mediaPlayer.play();
-        System.out.println("fad");
         isPlaying = true;
         isActive = true;
     }
@@ -360,7 +364,6 @@ public class Player {
                         }
                         Thread.sleep(100);
                     }
-                    System.out.println("BOND");
                 }
                 catch (Exception e)
                 {

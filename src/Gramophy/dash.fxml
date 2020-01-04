@@ -22,120 +22,12 @@
    <children>
       <StackPane fx:id="alertStackPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <StackPane fx:id="importSongsFromYouTubePopupStackPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <HBox fx:id="musicPlayerPane" layoutY="680.0" prefHeight="86.0" prefWidth="1313.0" styleClass="music_player" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-         <children>
-            <HBox fx:id="musicPaneSongInfo" alignment="CENTER_LEFT" cache="true" cacheHint="SPEED" opacity="0.0" prefHeight="83.0" prefWidth="600.0" spacing="15.0" HBox.hgrow="ALWAYS">
-               <children>
-                  <ImageView fx:id="albumArtImgView" cache="true" cacheHint="SPEED" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@assets/music_record_80px.png" />
-                     </image></ImageView>
-                  <VBox alignment="CENTER_LEFT" prefHeight="86.0" spacing="5.0" HBox.hgrow="ALWAYS">
-                     <children>
-                        <Label fx:id="songNameLabel" styleClass="song_name" VBox.vgrow="ALWAYS">
-                           <font>
-                              <Font name="Roboto Regular" size="17.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="artistLabel" styleClass="song_artist_name">
-                           <font>
-                              <Font name="Roboto Regular" size="14.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </VBox>
-               </children>
-            </HBox>
-            <VBox fx:id="musicPaneControls" alignment="CENTER" cache="true" cacheHint="SPEED" opacity="0.0" prefHeight="85.0" prefWidth="1135.0" HBox.hgrow="ALWAYS">
-               <children>
-                  <HBox fx:id="musicPlayerButtonBar" alignment="CENTER" spacing="15.0" VBox.vgrow="ALWAYS">
-                     <children>
-                        <JFXButton fx:id="musicPaneShuffleButton" alignment="TOP_LEFT" buttonType="RAISED" ripplerFill="#494949" styleClass="music_player_button" text=" " textFill="#77ff00">
-                           <graphic>
-                              <ImageView fx:id="musicPaneShuffleImageView" fitHeight="28.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@assets/baseline_shuffle_white_18dp.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </JFXButton>
-                        <JFXButton fx:id="musicPanePreviousButton" buttonType="RAISED" ripplerFill="#494949" styleClass="music_player_button" text=" ">
-                           <graphic>
-                              <ImageView fitHeight="28.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@assets/baseline_skip_previous_white_18dp.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </JFXButton>
-                        <JFXButton fx:id="musicPanePlayPauseButton" buttonType="RAISED" ripplerFill="#494949" styleClass="music_player_button" text=" ">
-                           <graphic>
-                              <ImageView fx:id="musicPanePlayPauseButtonImageView" fitHeight="28.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@assets/baseline_play_arrow_white_18dp.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </JFXButton>
-                        <JFXButton fx:id="musicPaneNextButton" buttonType="RAISED" ripplerFill="#494949" styleClass="music_player_button" text=" ">
-                           <graphic>
-                              <ImageView fitHeight="28.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@assets/baseline_skip_next_white_18dp.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </JFXButton>
-                        <JFXButton fx:id="musicPaneRepeatButton" buttonType="RAISED" ripplerFill="#494949" styleClass="music_player_button" text=" ">
-                           <graphic>
-                              <ImageView fx:id="musicPaneRepeatImageView" fitHeight="28.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@assets/baseline_repeat_white_18dp.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </JFXButton>
-                     </children>
-                     <padding>
-                        <Insets top="10.0" />
-                     </padding>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" VBox.vgrow="ALWAYS">
-                     <children>
-                        <Label fx:id="nowDurLabel" styleClass="song_dur" text="0:00" />
-                        <Slider fx:id="songSeek" HBox.hgrow="ALWAYS" />
-                        <Label fx:id="totalDurLabel" styleClass="song_dur" text="0:00" />
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
-            <HBox fx:id="musicPaneMiscControls" alignment="TOP_RIGHT" cache="true" cacheHint="SPEED" opacity="0.0" prefHeight="83.0" prefWidth="600.0" HBox.hgrow="ALWAYS">
-               <children>
-                  <JFXSpinner fx:id="musicPaneSpinner" cache="true" cacheHint="SPEED" prefHeight="86.0" prefWidth="53.0" visible="false" />
-               </children></HBox>
-         </children>
-         <padding>
-            <Insets left="10.0" right="10.0" />
-         </padding>
-      </HBox>
       <VBox alignment="TOP_CENTER" prefHeight="686.0" prefWidth="219.0" styleClass="side_pane" AnchorPane.bottomAnchor="86.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <padding>
-            <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+            <Insets left="25.0" right="25.0" top="25.0" />
          </padding>
          <children>
-            <VBox prefHeight="392.0" prefWidth="169.0" spacing="10.0" VBox.vgrow="ALWAYS">
+            <VBox prefWidth="169.0" spacing="10.0" VBox.vgrow="ALWAYS">
                <children>
                   <Label fx:id="browseButton" text=" Browse">
                      <font>
@@ -250,15 +142,6 @@
             </Label>
             <HBox alignment="CENTER_RIGHT" prefWidth="1066.0" spacing="10.0">
                <children>
-                  <JFXButton fx:id="playSongsFromCurrentPlaylistButton" onAction="#playSongsFromCurrentPlaylist" text="Play" textFill="WHITE">
-                     <graphic>
-                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@assets/baseline_play_arrow_white_18dp.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </JFXButton>
                   <JFXButton fx:id="playlistImportSongsFromYouTubePlaylistButton" onAction="#playlistImportSongsFromYouTubePlaylist" text="Import Songs From YouTube Playlist" textFill="WHITE">
                      <graphic>
                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
@@ -275,6 +158,15 @@
                            </image>
                         </ImageView>
                      </graphic></JFXButton>
+                  <JFXButton fx:id="playSongsFromCurrentPlaylistButton" onAction="#playSongsFromCurrentPlaylist" text="Play" textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@assets/baseline_play_arrow_white_18dp.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
                </children>
             </HBox>
             <HBox>
@@ -288,11 +180,6 @@
                      </HBox.margin>
                   </Label>
                   <Label prefHeight="17.0" prefWidth="380.0" styleClass="grey_text" text="Artist">
-                     <font>
-                        <Font name="Roboto Regular" size="15.0" />
-                     </font>
-                  </Label>
-                  <Label prefHeight="19.0" prefWidth="95.0" styleClass="grey_text" text="Duration" visible="false">
                      <font>
                         <Font name="Roboto Regular" size="15.0" />
                      </font>
@@ -399,7 +286,7 @@
                </children>
             </HBox>
             <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
-            <Label text="Build 24.12.2019&#10;github.com/ladiesman6969">
+            <Label text="Build 04.01.2020&#10;github.com/dubbadhar/gramophy">
                <font>
                   <Font name="Roboto Regular" size="13.0" />
                </font>
@@ -429,5 +316,117 @@
             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
          </padding>
       </VBox>
+      <HBox fx:id="musicPlayerPane" layoutY="680.0" prefHeight="86.0" prefWidth="1313.0" styleClass="music_player" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <HBox fx:id="musicPaneSongInfo" alignment="CENTER_LEFT" cache="true" cacheHint="SPEED" opacity="0.0" prefHeight="83.0" prefWidth="600.0" spacing="15.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <ImageView fx:id="albumArtImgView" cache="true" cacheHint="SPEED" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/icons8_music_record_120px.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </ImageView>
+                  <VBox alignment="CENTER_LEFT" prefHeight="86.0" spacing="5.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label fx:id="songNameLabel" styleClass="song_name" VBox.vgrow="ALWAYS">
+                           <font>
+                              <Font name="Roboto Regular" size="17.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="artistLabel" styleClass="song_artist_name">
+                           <font>
+                              <Font name="Roboto Regular" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <VBox fx:id="musicPaneControls" alignment="CENTER" cache="true" cacheHint="SPEED" opacity="0.0" prefHeight="85.0" prefWidth="1135.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <HBox fx:id="musicPlayerButtonBar" alignment="CENTER" spacing="15.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <JFXButton fx:id="musicPaneShuffleButton" alignment="TOP_LEFT" buttonType="RAISED" ripplerFill="#494949" styleClass="music_player_button" text=" " textFill="#77ff00">
+                           <graphic>
+                              <ImageView fx:id="musicPaneShuffleImageView" fitHeight="28.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@assets/baseline_shuffle_white_18dp.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton fx:id="musicPanePreviousButton" buttonType="RAISED" ripplerFill="#494949" styleClass="music_player_button" text=" ">
+                           <graphic>
+                              <ImageView fitHeight="28.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@assets/baseline_skip_previous_white_18dp.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </JFXButton>
+                        <JFXButton fx:id="musicPanePlayPauseButton" buttonType="RAISED" ripplerFill="#494949" styleClass="music_player_button" text=" ">
+                           <graphic>
+                              <ImageView fx:id="musicPanePlayPauseButtonImageView" fitHeight="28.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@assets/baseline_play_arrow_white_18dp.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </JFXButton>
+                        <JFXButton fx:id="musicPaneNextButton" buttonType="RAISED" ripplerFill="#494949" styleClass="music_player_button" text=" ">
+                           <graphic>
+                              <ImageView fitHeight="28.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@assets/baseline_skip_next_white_18dp.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </JFXButton>
+                        <JFXButton fx:id="musicPaneRepeatButton" buttonType="RAISED" ripplerFill="#494949" styleClass="music_player_button" text=" ">
+                           <graphic>
+                              <ImageView fx:id="musicPaneRepeatImageView" fitHeight="28.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@assets/baseline_repeat_white_18dp.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </JFXButton>
+                     </children>
+                     <padding>
+                        <Insets top="10.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Label fx:id="nowDurLabel" styleClass="song_dur" text="0:00" />
+                        <Slider fx:id="songSeek" HBox.hgrow="ALWAYS" />
+                        <Label fx:id="totalDurLabel" styleClass="song_dur" text="0:00" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <HBox fx:id="musicPaneMiscControls" alignment="TOP_RIGHT" cache="true" cacheHint="SPEED" opacity="0.0" prefHeight="83.0" prefWidth="600.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <JFXSpinner fx:id="musicPaneSpinner" cache="true" cacheHint="SPEED" prefHeight="86.0" prefWidth="53.0" visible="false" />
+               </children></HBox>
+         </children>
+         <padding>
+            <Insets left="10.0" right="10.0" />
+         </padding>
+      </HBox>
    </children>
 </AnchorPane>
