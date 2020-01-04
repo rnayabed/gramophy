@@ -294,10 +294,11 @@ public class dashController implements Initializable {
                             Thread.sleep(150);
                             if(newValue.equals(youtubeSearchField.getText()))
                             {
+                                isAlreadySearching = true;
+                                String[] suggestions = getYoutubeSuggestions(newValue);
+
                                 if(!isYouTubeSearching)
                                 {
-                                    isAlreadySearching = true;
-                                    String[] suggestions = getYoutubeSuggestions(newValue);
                                     Platform.runLater(()->{
                                         youtubeAutoComplete.getSuggestions().setAll(suggestions);
                                         youtubeAutoComplete.show(youtubeSearchField);
@@ -904,7 +905,10 @@ public class dashController implements Initializable {
 
                     JSONObject youtubeResponse = new JSONObject(sb.toString());
 
-                    youtubeNextPageToken = youtubeResponse.getString("nextPageToken");
+                    if(youtubeResponse.has("nextPageToken"))
+                        youtubeNextPageToken = youtubeResponse.getString("nextPageToken");
+                    else
+                        youtubeNextPageToken = "";
 
                     JSONArray resultsArray = youtubeResponse.getJSONArray("items");
 
@@ -1049,9 +1053,8 @@ public class dashController implements Initializable {
                             loadPlaylist("YouTube");
                     }
 
-                    if(youtubeListView.getItems().size()>0)
+                    if(youtubeListView.getItems().size()>0 && !youtubeNextPageToken.equals(""))
                     {
-                        Thread.sleep(100);
                         JFXButton loadMoreButton = new JFXButton("Load More");
                         loadMoreButton.setCache(true);
                         loadMoreButton.setCacheHint(CacheHint.SPEED);
