@@ -409,7 +409,6 @@ public class dashController implements Initializable {
             tx.setPriority(2);
             tx.start();
         });
-
     }
 
     public void refreshSlider(Slider s, double newVal)
