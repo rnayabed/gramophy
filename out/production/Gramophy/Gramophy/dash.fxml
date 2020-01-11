@@ -286,7 +286,7 @@
                </children>
             </HBox>
             <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
-            <Label text="Build 04.01.2020&#10;github.com/dubbadhar/gramophy">
+            <Label text="Build 12.01.2020&#10;github.com/dubbadhar/gramophy">
                <font>
                   <Font name="Roboto Regular" size="13.0" />
                </font>
