@@ -31,6 +31,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.DirectoryChooser;
+import org.jnativehook.GlobalScreen;
+import org.jnativehook.keyboard.NativeKeyEvent;
+import org.jnativehook.keyboard.NativeKeyListener;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONString;
@@ -46,6 +49,8 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.logging.Filter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class dashController implements Initializable {
     @FXML
@@ -209,6 +214,62 @@ public class dashController implements Initializable {
             }
         }).start();
 
+        new Thread(new Task<Void>() {
+            @Override
+            protected Void call(){
+
+                //https://stackoverflow.com/questions/30560212/how-to-remove-the-logging-data-from-jnativehook-library
+                Logger logger = Logger.getLogger(GlobalScreen.class.getPackage().getName());
+                logger.setLevel(Level.OFF);
+
+                try
+                {
+                    /*Key codes of media buttons
+                    57380 - Stop
+                    57378 - Play/Pause
+                    57360 - Previous
+                    57369 - Next
+                     */
+                    GlobalScreen.registerNativeHook();
+                    GlobalScreen.addNativeKeyListener(new NativeKeyListener() {
+                        @Override
+                        public void nativeKeyTyped(NativeKeyEvent nativeKeyEvent) {
+
+                        }
+
+                        @Override
+                        public void nativeKeyPressed(NativeKeyEvent nativeKeyEvent) {
+                            if(player.isActive)
+                            {
+                                int keyEventCode = nativeKeyEvent.getKeyCode();
+                                if (keyEventCode == 57380)
+                                {
+                                    player.stop();
+                                    player.hide();
+                                }
+                                else if(keyEventCode == 57378)
+                                    player.pauseResume();
+                                else if(keyEventCode == 57360)
+                                    player.playPrevious();
+                                else if(keyEventCode == 57369)
+                                    player.playNext();
+                            }
+                        }
+
+                        @Override
+                        public void nativeKeyReleased(NativeKeyEvent nativeKeyEvent) {
+
+                        }
+                    });
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+        }).start();
+
         browseButton.setOnMouseClicked(event -> {
             switchPane(1);
         });
@@ -288,6 +349,7 @@ public class dashController implements Initializable {
                 protected Void call() {
                     try
                     {
+                        if(newValue.replace(" ","").equals("")) return null;
                         if(isYouTubeSearching) return null;
                         while(!isAlreadySearching)
                         {
@@ -402,7 +464,11 @@ public class dashController implements Initializable {
         }
         else
         {
-            if(!currentPlaylist.equals(playlistName))
+            if(playlistName.equals("Recents"))
+            {
+                Platform.runLater(()->playlistListView.getItems().clear());
+            }
+            else if(!currentPlaylist.equals(playlistName))
             {
                 Platform.runLater(()->playlistListView.getItems().clear());
             }
@@ -727,14 +793,6 @@ public class dashController implements Initializable {
 
     private void refreshPlaylistsUI()
     {
-
-        int cp = cachedPlaylist.size();
-        int pm = playlistsMasonryPane.getChildren().size() - 2;
-
-        if(cachedPlaylist.containsKey("YouTube")) cp--;
-
-        if(cp==pm) return;
-
         Platform.runLater(()->playlistsMasonryPane.getChildren().clear());
 
         for(String eachPlaylistName : cachedPlaylist.keySet())
@@ -763,9 +821,7 @@ public class dashController implements Initializable {
                             {
                                 String playlistName = ((Node) event.getSource()).getId();
                                 loadPlaylist(playlistName);
-                                Thread.sleep(150);
-                                if(!player.currentPlaylistName.equals(playlistName))
-                                    Platform.runLater(()->switchPane(3));
+                                Platform.runLater(()->switchPane(3));
                             }
                             catch (Exception e)
                             {
@@ -1017,9 +1073,6 @@ public class dashController implements Initializable {
 
                                             showErrorAlert("Error!","Unable to download! Check Stacktrace!");
                                             Platform.runLater(()->b.setDisable(false));
-                                        }
-                                        finally {
-                                            refreshPlaylistsUI();
                                         }
                                         return null;
                                     }
@@ -1335,53 +1388,66 @@ public class dashController implements Initializable {
 
     public void addToRecents(HashMap<String,Object> song)
     {
-        boolean found = false;
-        for(HashMap<String,Object> eachSongs : cachedPlaylist.get("Recents"))
-        {
-            if(eachSongs.get("location").toString().equals(song.get("location").toString()))
-            {
-                if(eachSongs.get("location").toString().equals("YouTube"))
+        Thread xx = new Thread(new Task<Void>() {
+            @Override
+            protected Void call() {
+                boolean found = false;
+                for(HashMap<String,Object> eachSongs : cachedPlaylist.get("Recents"))
                 {
-                    if(eachSongs.get("videoID").toString().equals(song.get("videoID").toString()))
+                    if(eachSongs.get("location").toString().equals(song.get("location").toString()))
                     {
-                        found = true;
+                        if(eachSongs.get("location").toString().equals("YouTube"))
+                        {
+                            if(eachSongs.get("videoID").toString().equals(song.get("videoID").toString()))
+                            {
+                                found = true;
+                            }
+                        }
+                        else if(eachSongs.get("location").toString().equals("local"))
+                        {
+                            if(eachSongs.get("source").toString().equals(song.get("source").toString()))
+                            {
+                                found = true;
+                            }
+                        }
+                        break;
                     }
                 }
-                else if(eachSongs.get("location").toString().equals("local"))
-                {
-                    if(eachSongs.get("source").toString().equals(song.get("source").toString()))
-                    {
-                        found = true;
-                    }
-                }
-                break;
-            }
-        }
 
-        if(!found)
-        {
-            if(cachedPlaylist.get("Recents").size() > maxRecentsLimit)
-            {
-                for(int i = 0; i<cachedPlaylist.get("Recents").size();i++)
+                if(!found)
                 {
-                    if(cachedPlaylist.get("Recents").size() >= maxRecentsLimit)
+                    if(cachedPlaylist.get("Recents").size() > maxRecentsLimit)
                     {
-                        cachedPlaylist.get("Recents").remove(i);
+                        for(int i = 0; i<cachedPlaylist.get("Recents").size();i++)
+                        {
+                            if(cachedPlaylist.get("Recents").size() >= maxRecentsLimit)
+                            {
+                                cachedPlaylist.get("Recents").remove(i);
+                            }
+                        }
+                    }
+
+                    cachedPlaylist.get("Recents").add(song);
+                    updatePlaylistsFiles();
+                }
+
+                try
+                {
+                    loadRecents();
+                    if(currentPlaylist.equals("Recents"))
+                    {
+                        loadPlaylist("Recents");
                     }
                 }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+                return null;
             }
-
-            cachedPlaylist.get("Recents").add(song);
-            updatePlaylistsFiles();
-        }
-        try
-        {
-            loadRecents();
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
+        });
+        xx.setPriority(1);
+        xx.start();
     }
 
     private void loadOtherPlaylists() throws Exception

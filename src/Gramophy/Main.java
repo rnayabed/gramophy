@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.jnativehook.GlobalScreen;
 
 public class Main extends Application {
 
@@ -18,14 +19,16 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
         primaryStage.setOnCloseRequest(event -> {
-            if(Main.dash.player.isActive) {
-                try {
-                    Main.dash.player.stop();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            try
+            {
+                GlobalScreen.unregisterNativeHook();
+                if(Main.dash.player.isActive) Main.dash.player.stop();
+                Main.dash.gcThread.stop();
             }
-            Main.dash.gcThread.stop();
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
         });
 
         ps = primaryStage;

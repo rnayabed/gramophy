@@ -62,15 +62,6 @@ public class Player {
             Main.dash.musicPaneRepeatButton.setDisable(false);
         });
 
-        for(Node eachNode : Main.dash.playlistListView.getItems())
-        {
-            HBox x = (HBox) eachNode;
-            if(x.getId().equals(inputIndex+""))
-            {
-                Platform.runLater(()->Main.dash.playlistListView.getSelectionModel().select(x));
-            }
-        }
-
         Main.dash.songSeek.setOnMouseClicked(event -> {
             if(isActive)
             {
@@ -97,7 +88,6 @@ public class Player {
         });
 
         playSong(inputIndex);
-        isActive = true;
     }
 
     private void show()
@@ -122,7 +112,9 @@ public class Player {
                         Main.dash.songSeek.setValue(0);
                         Main.dash.songSeek.setDisable(true);
                         Main.dash.totalDurLabel.setText("0:00");
+                        Main.dash.totalDurLabel.setVisible(false);
                         Main.dash.nowDurLabel.setText("0:00");
+                        Main.dash.nowDurLabel.setVisible(false);
                         Main.dash.musicPlayerButtonBar.setDisable(true);
                         Main.dash.musicPaneSpinner.setVisible(true);
                     });
@@ -130,7 +122,21 @@ public class Player {
                     HashMap<String,Object> songDetails = dashController.cachedPlaylist.get(currentPlaylistName).get(index);
 
                     songIndex = index;
+                    int si = index;
 
+                    for(Node eachNode : Main.dash.playlistListView.getItems())
+                    {
+                        HBox x = (HBox) eachNode;
+
+                        if(x.getChildren().get(0).getId().equals(songIndex+""))
+                        {
+                            System.out.println("yay!");
+                            System.out.println("'"+songIndex+"' '"+x.getChildren().get(0).getId()+"'");
+                            Platform.runLater(()->Main.dash.playlistListView.getSelectionModel().select(x));
+                        }
+                    }
+
+                    isActive = true;
 
                     if(songDetails.get("location").toString().equals("local"))
                     {
@@ -194,8 +200,16 @@ public class Player {
                             dashController.cachedPlaylist.get(currentPlaylistName).get(songIndex).put("videoURL",videoURL);
                         }
 
+
                         source = videoURL;
 
+                    }
+
+
+                    if(!isActive || index!=songIndex)
+                    {
+                        System.out.println("gayyy");
+                        return null;
                     }
 
                     media = new Media(source);
@@ -218,21 +232,31 @@ public class Player {
                             Main.dash.musicPlayerButtonBar.setDisable(false);
                             Main.dash.musicPaneSpinner.setVisible(false);
                             Main.dash.totalDurLabel.setText(Main.dash.getSecondsToSimpleString(media.getDuration().toSeconds()));
+                            Main.dash.totalDurLabel.setVisible(true);
+                            Main.dash.nowDurLabel.setVisible(true);
+                            Main.dash.musicPanePlayPauseButtonImageView.setImage(pauseIcon);
                         });
 
-                        play();
+                        mediaPlayer.play();
+                        isPlaying = true;
+
                         startUpdating();
                     });
 
                     mediaPlayer.setOnEndOfMedia(()->{
-                        if(Main.dash.isRepeat)
-                            setPos(0);
+                        if(Main.dash.isShuffle)
+                            playNextRandom();
                         else
                         {
-                            if(Main.dash.isShuffle)
-                                playNextRandom();
+                            if(songIndex==(dashController.cachedPlaylist.get(currentPlaylistName).size()-1))
+                            {
+                                stop();
+                                hide();
+                            }
                             else
+                            {
                                 playNext();
+                            }
                         }
                     });
                 }
@@ -243,32 +267,42 @@ public class Player {
                 return null;
             }
         });
+        x.setPriority(1);
         x.start();
     }
     Thread x;
 
-    private void playNext()
+    public void playNext()
     {
-        if(Main.dash.isShuffle)
-            playNextRandom();
-        else
-            playNext();
-        if(songIndex<(dashController.cachedPlaylist.get(currentPlaylistName).size()-1))
+        if(Main.dash.isRepeat) setPos(0);
+        else if(songIndex<(dashController.cachedPlaylist.get(currentPlaylistName).size()-1))
         {
-            mediaPlayer.stop();
-            mediaPlayer.dispose();
+            if(isPlaying)
+            {
+                mediaPlayer.stop();
+                mediaPlayer.dispose();
+            }
             playSong((songIndex+1));
+            System.out.println("gay");
         }
     }
 
     private void playNextRandom()
     {
-        mediaPlayer.stop();
-        mediaPlayer.dispose();
-        playSong((new Random().nextInt(dashController.cachedPlaylist.get(currentPlaylistName).size())));
+        if(Main.dash.isRepeat) setPos(0);
+        else
+        {
+            if(isPlaying)
+            {
+                mediaPlayer.stop();
+                mediaPlayer.dispose();
+            }
+            mediaPlayer.dispose();
+            playSong((new Random().nextInt(dashController.cachedPlaylist.get(currentPlaylistName).size())));
+        }
     }
 
-    private void playPrevious()
+    public void playPrevious()
     {
         if(songIndex>0)
         {
@@ -284,14 +318,6 @@ public class Player {
         isActive = false;
     }
 
-    private void play()
-    {
-        Main.dash.musicPanePlayPauseButtonImageView.setImage(pauseIcon);
-        mediaPlayer.play();
-        isPlaying = true;
-        isActive = true;
-    }
-
     public void setPos(double newDurSecs)
     {
         if(isActive)
@@ -302,18 +328,24 @@ public class Player {
 
     public void pauseResume()
     {
-        if(mediaPlayer.getStatus().equals(MediaPlayer.Status.PAUSED))
-        {
-            mediaPlayer.play();
-            isPlaying = true;
-            Main.dash.musicPanePlayPauseButtonImageView.setImage(pauseIcon);
-        }
-        else if(mediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING))
-        {
-            mediaPlayer.pause();
-            isPlaying = false;
-            Main.dash.musicPanePlayPauseButtonImageView.setImage(playIcon);
-        }
+        new Thread(new Task<>() {
+            @Override
+            protected Object call() throws Exception {
+                if(mediaPlayer.getStatus().equals(MediaPlayer.Status.PAUSED))
+                {
+                    isPlaying = true;
+                    Main.dash.musicPanePlayPauseButtonImageView.setImage(pauseIcon);
+                    mediaPlayer.play();
+                }
+                else if(mediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING))
+                {
+                    isPlaying = false;
+                    Main.dash.musicPanePlayPauseButtonImageView.setImage(playIcon);
+                    mediaPlayer.pause();
+                }
+                return null;
+            }
+        }).start();
     }
 
     public void stop()
@@ -324,7 +356,6 @@ public class Player {
             mediaPlayer.stop();
             mediaPlayer.dispose();
         }
-        x.stop();
         isActive = false;
     }
 
@@ -332,12 +363,13 @@ public class Player {
     {
         new FadeOutDown(Main.dash.musicPaneSongInfo).play();
         new FadeOutDown(Main.dash.musicPaneControls).play();
-        new FadeOutDown(Main.dash.musicPaneMiscControls).play();
-        Platform.runLater(()->{
+        FadeOutDown x = new FadeOutDown(Main.dash.musicPaneMiscControls);
+        x.setOnFinished(event -> Platform.runLater(()->{
             Main.dash.songNameLabel.setText("");
             Main.dash.artistLabel.setText("");
             Main.dash.albumArtImgView.setImage(Main.dash.defaultAlbumArt);
-        });
+        }));
+        x.play();
     }
 
     private void startUpdating()
