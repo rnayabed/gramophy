@@ -10,8 +10,10 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -63,16 +65,15 @@ public class Player {
         });
 
         Main.dash.songSeek.setOnMouseClicked(event -> {
-            if(isActive)
-            {
-                new Thread(new Task<Void>() {
-                    @Override
-                    protected Void call() throws Exception {
-                        setPos((Main.dash.songSeek.getValue()/100) * totalCurr);
-                        return null;
-                    }
-                }).start();
-            }
+            setPos((Main.dash.songSeek.getValue()/100) * totalCurr);
+        });
+
+        Main.dash.songSeek.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> {
+            sleepDurForSlider = 500;
+        });
+
+        Main.dash.songSeek.addEventHandler(MouseEvent.MOUSE_EXITED, event -> {
+            sleepDurForSlider = 250;
         });
 
         Main.dash.musicPanePlayPauseButton.setOnMouseClicked(event -> {
@@ -101,6 +102,19 @@ public class Player {
         }
     }
 
+    public void setVolume(float volume)
+    {
+        if(isActive)
+        {
+            mediaPlayer.setVolume(volume);
+            if(volume == 0.0)
+                Main.dash.volumeIconImageView.setImage(Main.dash.muteIcon);
+            else
+                Main.dash.volumeIconImageView.setImage(Main.dash.notMuteIcon);
+        }
+    }
+
+
     private void playSong(int index)
     {
         x = new Thread(new Task<Void>() {
@@ -119,7 +133,7 @@ public class Player {
                         Main.dash.musicPaneSpinner.setVisible(true);
                     });
 
-                    HashMap<String,Object> songDetails = dashController.cachedPlaylist.get(currentPlaylistName).get(index);
+                    HashMap<String,Object> songDetails = Main.dash.cachedPlaylist.get(currentPlaylistName).get(index);
 
                     songIndex = index;
                     int si = index;
@@ -197,7 +211,7 @@ public class Player {
 
                             videoURL = result.substring(0,result.length()-1);
                             songDetails.put("videoURL",videoURL);
-                            dashController.cachedPlaylist.get(currentPlaylistName).get(songIndex).put("videoURL",videoURL);
+                            Main.dash.cachedPlaylist.get(currentPlaylistName).get(songIndex).put("videoURL",videoURL);
                         }
 
 
@@ -248,14 +262,18 @@ public class Player {
                             playNextRandom();
                         else
                         {
-                            if(songIndex==(dashController.cachedPlaylist.get(currentPlaylistName).size()-1))
-                            {
-                                stop();
-                                hide();
-                            }
+                            if(Main.dash.isRepeat) setPos(0);
                             else
                             {
-                                playNext();
+                                if(songIndex==(Main.dash.cachedPlaylist.get(currentPlaylistName).size()-1))
+                                {
+                                    stop();
+                                    hide();
+                                }
+                                else
+                                {
+                                    playNext();
+                                }
                             }
                         }
                     });
@@ -274,8 +292,7 @@ public class Player {
 
     public void playNext()
     {
-        if(Main.dash.isRepeat) setPos(0);
-        else if(songIndex<(dashController.cachedPlaylist.get(currentPlaylistName).size()-1))
+        if(songIndex<(Main.dash.cachedPlaylist.get(currentPlaylistName).size()-1))
         {
             if(isPlaying)
             {
@@ -298,7 +315,7 @@ public class Player {
                 mediaPlayer.dispose();
             }
             mediaPlayer.dispose();
-            playSong((new Random().nextInt(dashController.cachedPlaylist.get(currentPlaylistName).size())));
+            playSong((new Random().nextInt(Main.dash.cachedPlaylist.get(currentPlaylistName).size())));
         }
     }
 
@@ -320,10 +337,7 @@ public class Player {
 
     public void setPos(double newDurSecs)
     {
-        if(isActive)
-        {
-            mediaPlayer.seek(new Duration(newDurSecs*1000));
-        }
+        mediaPlayer.seek(new Duration(newDurSecs*1000));
     }
 
     public void pauseResume()
@@ -372,6 +386,7 @@ public class Player {
         x.play();
     }
 
+    int sleepDurForSlider = 200;
     private void startUpdating()
     {
         updaterThread = new Thread(new Task<Void>() {
@@ -394,7 +409,7 @@ public class Player {
                                 currentP = currentProgress;
                             }
                         }
-                        Thread.sleep(100);
+                        Thread.sleep(sleepDurForSlider);
                     }
                 }
                 catch (Exception e)

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXMasonryPane?>
 <?import com.jfoenix.controls.JFXSpinner?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.image.Image?>
@@ -125,7 +125,7 @@
                   <JFXSpinner fx:id="youtubeLoadingSpinner" cache="true" cacheHint="SPEED" prefHeight="31.0" prefWidth="60.0" visible="false" />
                </children>
             </HBox>
-            <JFXListView fx:id="youtubeListView" cache="true" cacheHint="SPEED" prefHeight="557.0" prefWidth="1066.0" styleClass="music_library_pane" VBox.vgrow="ALWAYS" />
+            <ListView fx:id="youtubeListView" cache="true" cacheHint="SPEED" prefHeight="557.0" prefWidth="1066.0" styleClass="music_library_pane" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
       <VBox fx:id="playlistPane" cache="true" cacheHint="SCALE_AND_ROTATE" layoutX="219.0" prefWidth="1096.0" spacing="15.0" styleClass="playlists_pane" AnchorPane.bottomAnchor="86.0" AnchorPane.leftAnchor="217.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -189,7 +189,7 @@
                   <Insets />
                </VBox.margin>
             </HBox>
-            <JFXListView fx:id="playlistListView" cache="true" cacheHint="SPEED" prefHeight="501.0" prefWidth="1066.0" styleClass="music_library_pane" VBox.vgrow="ALWAYS" />
+            <ListView fx:id="playlistListView" cache="true" cacheHint="SPEED" prefHeight="501.0" prefWidth="1066.0" styleClass="music_library_pane" VBox.vgrow="ALWAYS" />
          </children>
          <padding>
             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
@@ -413,15 +413,21 @@
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" VBox.vgrow="ALWAYS">
                      <children>
                         <Label fx:id="nowDurLabel" styleClass="song_dur" text="0:00" />
-                        <Slider fx:id="songSeek" HBox.hgrow="ALWAYS" />
+                        <Slider fx:id="songSeek" cache="true" cacheHint="QUALITY" HBox.hgrow="ALWAYS" />
                         <Label fx:id="totalDurLabel" styleClass="song_dur" text="0:00" />
                      </children>
                   </HBox>
                </children>
             </VBox>
-            <HBox fx:id="musicPaneMiscControls" alignment="TOP_RIGHT" cache="true" cacheHint="SPEED" opacity="0.0" prefHeight="83.0" prefWidth="600.0" HBox.hgrow="ALWAYS">
+            <HBox fx:id="musicPaneMiscControls" alignment="CENTER_RIGHT" cache="true" cacheHint="SPEED" opacity="0.0" prefHeight="83.0" prefWidth="600.0" spacing="15.0" HBox.hgrow="ALWAYS">
                <children>
-                  <JFXSpinner fx:id="musicPaneSpinner" cache="true" cacheHint="SPEED" prefHeight="86.0" prefWidth="53.0" visible="false" />
+                  <ImageView fx:id="volumeIconImageView" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/icons8_voice_24px.png" />
+                     </image>
+                  </ImageView>
+                  <Slider fx:id="volumeSlider" prefWidth="111.0" value="100.0" />
+                  <JFXSpinner fx:id="musicPaneSpinner" cache="true" cacheHint="SPEED" prefHeight="59.0" prefWidth="39.0" visible="false" />
                </children></HBox>
          </children>
          <padding>

@@ -84,3 +84,23 @@
 .label_green {
     -fx-text-fill : #0e9654;
 }
+
+*{
+    pixels-to-cover-for-song-seek : 50;
+}
+
+.slider {
+    -fx-background-color: #9e9e9e, #0F9D58;
+    -fx-pref-height:15;
+    -fx-background-radius: 0;
+    -fx-background-insets: 6 0 6 0,15;
+}
+
+.slider .track {
+    -fx-background-color: transparent;
+}
+
+.slider .thumb {
+    -fx-background-color:  #0F9D58;
+    -fx-background-radius: 20;
+}

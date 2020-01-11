@@ -11,6 +11,7 @@ import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
+import javafx.css.Size;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -21,6 +22,7 @@ import javafx.geometry.Pos;
 import javafx.scene.CacheHint;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
@@ -31,6 +33,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.StageStyle;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.keyboard.NativeKeyEvent;
 import org.jnativehook.keyboard.NativeKeyListener;
@@ -68,9 +71,11 @@ public class dashController implements Initializable {
     @FXML
     public Slider songSeek;
     @FXML
+    public Slider volumeSlider;
+    @FXML
     public Label totalDurLabel;
     @FXML
-    public JFXListView<HBox> playlistListView;
+    public ListView<HBox> playlistListView;
     @FXML
     public JFXButton playlistImportSongsFromYouTubePlaylistButton;
     @FXML
@@ -106,7 +111,7 @@ public class dashController implements Initializable {
     @FXML
     public JFXTextField youtubeSearchField;
     @FXML
-    public JFXListView<HBox> youtubeListView;
+    public ListView<HBox> youtubeListView;
     @FXML
     public JFXButton youtubeSearchButton;
     @FXML
@@ -152,6 +157,8 @@ public class dashController implements Initializable {
     @FXML
     public JFXTextField recentsPlaylistMaxLimitField;
     @FXML
+    public ImageView volumeIconImageView;
+    @FXML
     public VBox downloadsVBox;
 
     JFXAutoCompletePopup<String> youtubeAutoComplete = new JFXAutoCompletePopup<>();
@@ -171,10 +178,13 @@ public class dashController implements Initializable {
     final private Image repeatIconWhite = new Image(getClass().getResourceAsStream("assets/baseline_repeat_white_18dp.png"));
     final private Image repeatIconGreen = new Image(getClass().getResourceAsStream("assets/baseline_repeat_green_18dp.png"));
 
+    final public Image muteIcon = new Image(getClass().getResourceAsStream("assets/icons8_mute_24px.png"));
+    final public Image notMuteIcon = new Image(getClass().getResourceAsStream("assets/icons8_voice_24px.png"));
+
     final Paint PAINT_GREEN = Paint.valueOf("#0e9654");
     final Paint PAINT_WHITE = Paint.valueOf("#ffffff");
 
-    static HashMap<String,ArrayList<HashMap<String,Object>>> cachedPlaylist = new HashMap<>();
+    HashMap<String,ArrayList<HashMap<String,Object>>> cachedPlaylist = new HashMap<>();
 
     Player player = new Player();
 
@@ -182,7 +192,6 @@ public class dashController implements Initializable {
 
     public boolean isShuffle = false;
     public boolean isRepeat = false;
-
 
     String currentPlaylist = "";
     int youtubePageNo = 1;
@@ -213,6 +222,22 @@ public class dashController implements Initializable {
                 return null;
             }
         }).start();
+
+        songSeek.valueProperty().addListener((observable, oldVal, newVal) ->
+        {
+            refreshSlider(songSeek, newVal.floatValue());
+        });
+
+        volumeSlider.valueProperty().addListener((observable, oldVal, newVal) ->
+        {
+            refreshSlider(volumeSlider, newVal.floatValue());
+            player.setVolume(newVal.floatValue()/100);
+        });
+
+        basePane.widthProperty().addListener(observable -> {
+            refreshSlider(songSeek);
+            refreshSlider(volumeSlider);
+        });
 
         new Thread(new Task<Void>() {
             @Override
@@ -385,6 +410,24 @@ public class dashController implements Initializable {
             tx.start();
         });
 
+    }
+
+    public void refreshSlider(Slider s, double newVal)
+    {
+        try
+        {
+            double val = (s.getWidth() - ((newVal/100) * (s.getWidth() - 12))) - 5;
+            s.setStyle("-fx-background-insets: 6 0 6 0,6 "+val+" 6 0;}");
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public void refreshSlider(Slider s)
+    {
+        refreshSlider(s, s.getValue());
     }
 
     boolean isAlreadySearching = false;
@@ -1079,7 +1122,9 @@ public class dashController implements Initializable {
                                 }).start();
                             });
 
-                            VBox vv = new VBox(saveToPlaylistButton,downloadButton);
+                            VBox vv = new VBox(downloadButton);
+
+                            if((cachedPlaylist.size() - 2)>0) vv.getChildren().add(saveToPlaylistButton);
 
                             if(isSongPresent(title,channelTitle,"My Music"))
                                 downloadButton.setDisable(true);
