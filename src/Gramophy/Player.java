@@ -66,14 +66,7 @@ public class Player {
 
         Main.dash.songSeek.setOnMouseClicked(event -> {
             setPos((Main.dash.songSeek.getValue()/100) * totalCurr);
-        });
-
-        Main.dash.songSeek.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> {
-            sleepDurForSlider = 500;
-        });
-
-        Main.dash.songSeek.addEventHandler(MouseEvent.MOUSE_EXITED, event -> {
-            sleepDurForSlider = 250;
+            Main.dash.refreshSlider(Main.dash.songSeek);
         });
 
         Main.dash.musicPanePlayPauseButton.setOnMouseClicked(event -> {
@@ -131,6 +124,7 @@ public class Player {
                         Main.dash.nowDurLabel.setVisible(false);
                         Main.dash.musicPlayerButtonBar.setDisable(true);
                         Main.dash.musicPaneSpinner.setVisible(true);
+                        Main.dash.albumArtImgView.setOpacity(0.7);
                     });
 
                     HashMap<String,Object> songDetails = Main.dash.cachedPlaylist.get(currentPlaylistName).get(index);
@@ -245,6 +239,7 @@ public class Player {
                             Main.dash.songSeek.setDisable(false);
                             Main.dash.musicPlayerButtonBar.setDisable(false);
                             Main.dash.musicPaneSpinner.setVisible(false);
+                            Main.dash.albumArtImgView.setOpacity(1.0);
                             Main.dash.totalDurLabel.setText(Main.dash.getSecondsToSimpleString(media.getDuration().toSeconds()));
                             Main.dash.totalDurLabel.setVisible(true);
                             Main.dash.nowDurLabel.setVisible(true);
@@ -386,7 +381,6 @@ public class Player {
         x.play();
     }
 
-    int sleepDurForSlider = 200;
     private void startUpdating()
     {
         updaterThread = new Thread(new Task<Void>() {
@@ -406,10 +400,11 @@ public class Player {
                             if(!Main.dash.songSeek.isValueChanging())
                             {
                                 Main.dash.songSeek.setValue(currentProgress);
+                                Main.dash.refreshSlider(Main.dash.songSeek);
                                 currentP = currentProgress;
                             }
                         }
-                        Thread.sleep(sleepDurForSlider);
+                        Thread.sleep(1000);
                     }
                 }
                 catch (Exception e)
@@ -419,7 +414,6 @@ public class Player {
                 return null;
             }
         });
-
         updaterThread.start();
     }
 

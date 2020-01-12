@@ -44,6 +44,7 @@ import org.json.JSONString;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.lang.reflect.Array;
 import java.net.*;
 import java.nio.Buffer;
 import java.nio.charset.StandardCharsets;
@@ -159,6 +160,14 @@ public class dashController implements Initializable {
     @FXML
     public ImageView volumeIconImageView;
     @FXML
+    public JFXTextField editPlaylistNameTextField;
+    @FXML
+    public JFXButton editPlaylistNameButton;
+    @FXML
+    public JFXButton approvePlaylistNameChangeButton;
+    @FXML
+    public JFXButton cancelPlaylistNameChangeButton;
+    @FXML
     public VBox downloadsVBox;
 
     JFXAutoCompletePopup<String> youtubeAutoComplete = new JFXAutoCompletePopup<>();
@@ -223,14 +232,9 @@ public class dashController implements Initializable {
             }
         }).start();
 
-        songSeek.valueProperty().addListener((observable, oldVal, newVal) ->
-        {
-            refreshSlider(songSeek, newVal.floatValue());
-        });
-
         volumeSlider.valueProperty().addListener((observable, oldVal, newVal) ->
         {
-            refreshSlider(volumeSlider, newVal.floatValue());
+            refreshSlider(volumeSlider);
             player.setVolume(newVal.floatValue()/100);
         });
 
@@ -275,7 +279,10 @@ public class dashController implements Initializable {
                                 else if(keyEventCode == 57378)
                                     player.pauseResume();
                                 else if(keyEventCode == 57360)
+                                {
                                     player.playPrevious();
+                                }
+
                                 else if(keyEventCode == 57369)
                                     player.playNext();
                             }
@@ -409,24 +416,80 @@ public class dashController implements Initializable {
             tx.setPriority(2);
             tx.start();
         });
+
+        editPlaylistNameButton.setOnMouseClicked(event -> {
+            editPlaylistNameTextField.setText(currentPlaylist);
+            setPlaylistNameChangerState(true);
+        });
+        cancelPlaylistNameChangeButton.setOnMouseClicked(event -> setPlaylistNameChangerState(false));
+        approvePlaylistNameChangeButton.setOnMouseClicked(event -> {
+            new Thread(new Task<Void>() {
+                @Override
+                protected Void call() {
+                    try
+                    {
+                        String newPlaylistName = editPlaylistNameTextField.getText();
+                        if(newPlaylistName.length() == 0)
+                        {
+                            showErrorAlert("Uh Oh!","Name cannot be null");
+                        }
+                        else
+                        {
+                            ArrayList<HashMap<String, Object>> songs = cachedPlaylist.get(currentPlaylist);
+                            cachedPlaylist.put(newPlaylistName, songs);
+                            cachedPlaylist.remove(currentPlaylist);
+
+                            new File("playlists/"+currentPlaylist).delete();
+                            currentPlaylist = newPlaylistName;
+                            player.currentPlaylistName = currentPlaylist;
+                            updatePlaylistsFiles();
+                            refreshPlaylistsUI();
+                            Platform.runLater(()->{
+                                playlistNameLabel.setText(newPlaylistName);
+                                setPlaylistNameChangerState(false);
+                            });
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
+                    return null;
+                }
+            }).start();
+        });
     }
 
-    public void refreshSlider(Slider s, double newVal)
+    public void setPlaylistNameChangerState(boolean state)
+    {
+        playlistNameLabel.setVisible(!state);
+        playlistNameLabel.setManaged(!state);
+
+        editPlaylistNameTextField.setVisible(state);
+        editPlaylistNameTextField.setManaged(state);
+
+        editPlaylistNameButton.setVisible(!state);
+        editPlaylistNameButton.setManaged(!state);
+
+        approvePlaylistNameChangeButton.setVisible(state);
+        approvePlaylistNameChangeButton.setManaged(state);
+
+        cancelPlaylistNameChangeButton.setVisible(state);
+        cancelPlaylistNameChangeButton.setManaged(state);
+    }
+
+    public void refreshSlider(Slider s)
     {
         try
         {
-            double val = (s.getWidth() - ((newVal/100) * (s.getWidth() - 12))) - 5;
-            s.setStyle("-fx-background-insets: 6 0 6 0,6 "+val+" 6 0;}");
+            double val = s.getValue();
+            //s.setStyle("-fx-background-insets: 6 0 6 0,6 "+val+" 6 0;}");
+            s.setStyle("-fx-background-color: linear-gradient(to right, #0F9D58 "+val+"%, #9e9e9e "+val+"%);");
         }
         catch (Exception e)
         {
             e.printStackTrace();
         }
-    }
-
-    public void refreshSlider(Slider s)
-    {
-        refreshSlider(s, s.getValue());
     }
 
     boolean isAlreadySearching = false;
@@ -522,11 +585,13 @@ public class dashController implements Initializable {
         {
             playlistImportSongsFromYouTubePlaylistButton.setVisible(false);
             deletePlaylistButton.setVisible(false);
+            editPlaylistNameButton.setVisible(false);
         }
         else
         {
              playlistImportSongsFromYouTubePlaylistButton.setVisible(true);
              deletePlaylistButton.setVisible(true);
+             editPlaylistNameButton.setVisible(true);
         }
 
         ArrayList<HashMap<String,Object>> songs = cachedPlaylist.get(playlistName);
@@ -1373,6 +1438,7 @@ public class dashController implements Initializable {
 
     private void loadRecents() throws Exception
     {
+        System.out.println("xzcas");
         String[] recentsArr = io.readFileArranged("playlists/Recents","::");
 
         ArrayList<HashMap<String,Object>> newSongs = new ArrayList<>();
@@ -1389,7 +1455,8 @@ public class dashController implements Initializable {
 
             if(eachSongArr[0].equals("local"))
             {
-                File f = new File(eachSongArr[1]);
+                System.out.println(URLDecoder.decode(eachSongArr[1],StandardCharsets.UTF_8).replace("file:/",""));
+                File f = new File(URLDecoder.decode(eachSongArr[1],StandardCharsets.UTF_8).replace("file:/",""));
                 if(f.exists())
                 {
                     Mp3File mp3File = new Mp3File(f.getPath());
@@ -1411,8 +1478,11 @@ public class dashController implements Initializable {
                 }
                 else
                 {
+                    System.out.println("zxca2");
                     continue;
                 }
+
+                System.out.println(eachSongDetails.get("title"));
             }
             else
             {
@@ -1438,10 +1508,17 @@ public class dashController implements Initializable {
                 boolean found = false;
                 for(HashMap<String,Object> eachSongs : cachedPlaylist.get("Recents"))
                 {
+
+                    System.out.println("eachSongs : "+eachSongs.get("location"));
+                    System.out.println("song : "+song.get("location"));
+
                     if(eachSongs.get("location").toString().equals(song.get("location").toString()))
                     {
-                        if(eachSongs.get("location").toString().equals("YouTube"))
+                        if(eachSongs.get("location").toString().equals("youtube"))
                         {
+                            System.out.println("eachSongs : "+eachSongs.get("videoID"));
+                            System.out.println("song : "+song.get("videoID"));
+
                             if(eachSongs.get("videoID").toString().equals(song.get("videoID").toString()))
                             {
                                 found = true;
@@ -1449,6 +1526,9 @@ public class dashController implements Initializable {
                         }
                         else if(eachSongs.get("location").toString().equals("local"))
                         {
+                            System.out.println("eachSongs : "+eachSongs.get("source"));
+                            System.out.println("song : "+song.get("source"));
+
                             if(eachSongs.get("source").toString().equals(song.get("source").toString()))
                             {
                                 found = true;
@@ -1477,6 +1557,7 @@ public class dashController implements Initializable {
 
                 try
                 {
+                    System.out.println("Axcased");
                     loadRecents();
                     if(currentPlaylist.equals("Recents"))
                     {
@@ -1518,10 +1599,10 @@ public class dashController implements Initializable {
 
                     if(eachSongContentArr[0].equals("local"))
                     {
-                        File f = new File(eachSongContentArr[1]);
+                        File f = new File(URLDecoder.decode(eachSongContentArr[1],StandardCharsets.UTF_8).replace("file:/",""));
                         if(f.exists())
                         {
-                            Mp3File mp3File = new Mp3File(eachSongContentArr[1]);
+                            Mp3File mp3File = new Mp3File(URLDecoder.decode(eachSongContentArr[1],StandardCharsets.UTF_8).replace("file:/",""));
 
                             ID3v1 id3v1 = mp3File.getId3v1Tag();
 

@@ -5,6 +5,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.jnativehook.GlobalScreen;
 
@@ -17,6 +18,7 @@ public class Main extends Application {
         primaryStage.setMinHeight(772.0);
         primaryStage.setTitle("Gramophy");
         primaryStage.setScene(new Scene(root));
+        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("assets/app_icon.png")));
         primaryStage.show();
         primaryStage.setOnCloseRequest(event -> {
             try
