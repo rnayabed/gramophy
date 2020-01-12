@@ -38,4 +38,4 @@ You can contact me via email (in bio) or join the [Discord Server](https://disco
 ### License
 
 This program is licensed under the [GNU GPLv3 License](https://github.com/dubbadhar/gramophy/blob/master/license.txt). 
-
+                                                                                                                                                                      
