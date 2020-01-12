@@ -34,6 +34,7 @@ For now, only windows. I need to tweak it a little bit and a real Mac/Linux Mach
 ### Contribute
 
 You can contact me via email (in bio) or join the [Discord Server](https://discord.gg/BExqGmk), where you can know what I'm working on. I would love to add more features to this program.
+Or you can buy me a coffee :)
 
 ### License
 
