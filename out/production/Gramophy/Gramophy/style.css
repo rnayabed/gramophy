@@ -90,8 +90,7 @@
 }
 
 .slider {
-    -fx-background-color: linear-gradient(to right, #0F9D58 0%, #9e9e9e 0%);
-    /*-fx-background-color: #9e9e9e, #0F9D58;*/
+    -fx-background-color: #9e9e9e;
     -fx-pref-height:15;
     -fx-background-radius: 0;
     -fx-background-insets: 6 0 6 0;

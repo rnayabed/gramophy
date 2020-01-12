@@ -234,14 +234,14 @@ public class dashController implements Initializable {
 
         volumeSlider.valueProperty().addListener((observable, oldVal, newVal) ->
         {
-            refreshSlider(volumeSlider);
+            //refreshSlider(volumeSlider);
             player.setVolume(newVal.floatValue()/100);
         });
 
-        basePane.widthProperty().addListener(observable -> {
+        /*basePane.widthProperty().addListener(observable -> {
             refreshSlider(songSeek);
             refreshSlider(volumeSlider);
-        });
+        });*/
 
         new Thread(new Task<Void>() {
             @Override
@@ -478,7 +478,7 @@ public class dashController implements Initializable {
         cancelPlaylistNameChangeButton.setManaged(state);
     }
 
-    public void refreshSlider(Slider s)
+    /*public void refreshSlider(Slider s)
     {
         try
         {
@@ -490,7 +490,7 @@ public class dashController implements Initializable {
         {
             e.printStackTrace();
         }
-    }
+    }*/
 
     boolean isAlreadySearching = false;
     boolean isYouTubeSearching = false;
@@ -1522,6 +1522,7 @@ public class dashController implements Initializable {
                             if(eachSongs.get("videoID").toString().equals(song.get("videoID").toString()))
                             {
                                 found = true;
+                                break;
                             }
                         }
                         else if(eachSongs.get("location").toString().equals("local"))
@@ -1532,11 +1533,13 @@ public class dashController implements Initializable {
                             if(eachSongs.get("source").toString().equals(song.get("source").toString()))
                             {
                                 found = true;
+                                break;
                             }
                         }
-                        break;
                     }
                 }
+
+                System.out.println(found);
 
                 if(!found)
                 {
@@ -1553,20 +1556,19 @@ public class dashController implements Initializable {
 
                     cachedPlaylist.get("Recents").add(song);
                     updatePlaylistsFiles();
-                }
-
-                try
-                {
-                    System.out.println("Axcased");
-                    loadRecents();
-                    if(currentPlaylist.equals("Recents"))
+                    try
                     {
-                        loadPlaylist("Recents");
+                        System.out.println("Axcased");
+                        loadRecents();
+                        if(currentPlaylist.equals("Recents"))
+                        {
+                            loadPlaylist("Recents");
+                        }
                     }
-                }
-                catch (Exception e)
-                {
-                    e.printStackTrace();
+                    catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
                 }
                 return null;
             }

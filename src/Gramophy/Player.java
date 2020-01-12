@@ -66,7 +66,7 @@ public class Player {
 
         Main.dash.songSeek.setOnMouseClicked(event -> {
             setPos((Main.dash.songSeek.getValue()/100) * totalCurr);
-            Main.dash.refreshSlider(Main.dash.songSeek);
+            //Main.dash.refreshSlider(Main.dash.songSeek);
         });
 
         Main.dash.musicPanePlayPauseButton.setOnMouseClicked(event -> {
@@ -400,11 +400,11 @@ public class Player {
                             if(!Main.dash.songSeek.isValueChanging())
                             {
                                 Main.dash.songSeek.setValue(currentProgress);
-                                Main.dash.refreshSlider(Main.dash.songSeek);
+                                //Main.dash.refreshSlider(Main.dash.songSeek);
                                 currentP = currentProgress;
                             }
                         }
-                        Thread.sleep(1000);
+                        Thread.sleep(500);
                     }
                 }
                 catch (Exception e)
