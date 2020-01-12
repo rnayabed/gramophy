@@ -1,6 +1,6 @@
 # Gramophy
 
-### <img src=" https://raw.githubusercontent.com/dubbadhar/gramophy/master/src/Gramophy/assets/app_icon.png" alt="Gramohy Icon" style="zoom:60%;" />
+### <img src="https://raw.githubusercontent.com/dubbadhar/gramophy/master/src/Gramophy/assets/app_icon.png" alt="Gramohy Icon" style="zoom:60%;" />
 
 ##### Ad-free, Opensource, YouTube Music Player/Downloader.
 
