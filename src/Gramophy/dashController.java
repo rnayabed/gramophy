@@ -172,8 +172,8 @@ public class dashController implements Initializable {
 
     JFXAutoCompletePopup<String> youtubeAutoComplete = new JFXAutoCompletePopup<>();
 
-    private Font robotoRegular15 = new Font("Roboto-Regular",15);
-    private Font robotoRegular35 = new Font("Roboto-Regular",35);
+    private Font robotoRegular15 = new Font("Roboto Regular",15);
+    private Font robotoRegular35 = new Font("Roboto Regular",35);
 
     final private Image shuffleIconWhite = new Image(getClass().getResourceAsStream("assets/baseline_shuffle_white_18dp.png"));
     final private Image shuffleIconGreen = new Image(getClass().getResourceAsStream("assets/baseline_shuffle_green_18dp.png"));
@@ -207,8 +207,16 @@ public class dashController implements Initializable {
     String youtubeQueryURLStr;
     String youtubeNextPageToken;
 
+    static String youtubeDLExecName;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        String osName = System.getProperty("os.name").toLowerCase();
+        if(osName.contains("linux") || osName.contains("mac"))
+            youtubeDLExecName = "./youtube-dl";
+        else if(osName.contains("windows"))
+            youtubeDLExecName = "youtube-dl.exe";
+
         Main.dash = this;
         loadConfig();
         new Thread(new Task<Void>() {
@@ -253,11 +261,10 @@ public class dashController implements Initializable {
 
                 try
                 {
-                    /*Key codes of media buttons
-                    57380 - Stop
-                    57378 - Play/Pause
-                    57360 - Previous
-                    57369 - Next
+                    /*Raw Key codes of media buttons
+                    65300 - Play/Pause
+                    65303 - Next
+                    65302 - Previous
                      */
                     GlobalScreen.registerNativeHook();
                     GlobalScreen.addNativeKeyListener(new NativeKeyListener() {
@@ -270,20 +277,19 @@ public class dashController implements Initializable {
                         public void nativeKeyPressed(NativeKeyEvent nativeKeyEvent) {
                             if(player.isActive)
                             {
-                                int keyEventCode = nativeKeyEvent.getKeyCode();
+                                int keyEventCode = nativeKeyEvent.getRawCode();
                                 if (keyEventCode == 57380)
                                 {
                                     player.stop();
                                     player.hide();
                                 }
-                                else if(keyEventCode == 57378)
+                                else if(keyEventCode == 65300)
                                     player.pauseResume();
-                                else if(keyEventCode == 57360)
+                                else if(keyEventCode == 65302)
                                 {
                                     player.playPrevious();
                                 }
-
-                                else if(keyEventCode == 57369)
+                                else if(keyEventCode == 65303)
                                     player.playNext();
                             }
                         }
@@ -786,9 +792,6 @@ public class dashController implements Initializable {
         int thisIndex = yy.size();
         try
         {
-
-            String cmd = "youtube-dl.exe -o \""+refinedTitle+"_pass_.%(ext)s\" --extract-audio --audio-format mp3 https://www.youtube.com/watch?v="+watchID;
-
             Platform.runLater(()->{
                 originalButton.setDisable(true);
                 ImageView downloadThumbnailImageView = new ImageView(thumbnailURL);
@@ -825,6 +828,10 @@ public class dashController implements Initializable {
                 }
             }
 
+            String cmd = youtubeDLExecName+" -o audioDownload.%(ext)s --extract-audio --audio-format mp3 https://www.youtube.com/watch?v="+watchID;
+
+            System.out.println(cmd);
+
             Process p = Runtime.getRuntime().exec(cmd);
 
             BufferedReader bf = new BufferedReader(new InputStreamReader(p.getInputStream()));
@@ -832,6 +839,7 @@ public class dashController implements Initializable {
             while(true)
             {
                 String newLine = bf.readLine();
+                System.out.println("new"+newLine);
                 if(newLine == null) break;
                 //[download] 100.0%
 
@@ -859,7 +867,7 @@ public class dashController implements Initializable {
             });
 
             ID3v2 id3v2Tag = new ID3v24Tag();
-            Mp3File mp3File = new Mp3File(new File(refinedTitle+"_pass_.mp3"));
+            Mp3File mp3File = new Mp3File(new File("audioDownload.mp3"));
             mp3File.setId3v2Tag(id3v2Tag);
 
             Image img = new Image(thumbnailURL);

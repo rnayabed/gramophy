@@ -184,7 +184,7 @@ public class Player {
                         String videoURL = songDetails.getOrDefault("videoURL","null").toString();
                         if(videoURL.equals("null"))
                         {
-                            String youtubeDLQuery = "youtube-dl.exe -f 18 -g https://www.youtube.com/watch?v="+songDetails.get("videoID");
+                            String youtubeDLQuery = dashController.youtubeDLExecName +" -f 18 -g https://www.youtube.com/watch?v="+songDetails.get("videoID");
                             Process p = Runtime.getRuntime().exec(youtubeDLQuery);
                             InputStream i = p.getInputStream();
                             String result = "";
@@ -204,6 +204,7 @@ public class Player {
                             }
 
                             videoURL = result.substring(0,result.length()-1);
+                            System.out.println(videoURL);
                             songDetails.put("videoURL",videoURL);
                             Main.dash.cachedPlaylist.get(currentPlaylistName).get(songIndex).put("videoURL",videoURL);
                         }

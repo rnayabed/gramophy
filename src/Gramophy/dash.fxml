@@ -22,76 +22,75 @@
    <children>
       <StackPane fx:id="alertStackPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <StackPane fx:id="importSongsFromYouTubePopupStackPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <VBox alignment="TOP_CENTER" prefHeight="686.0" prefWidth="219.0" styleClass="side_pane" AnchorPane.bottomAnchor="86.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox alignment="TOP_CENTER" prefHeight="686.0" prefWidth="219.0" styleClass="side_pane"
+            AnchorPane.bottomAnchor="86.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <padding>
-            <Insets left="25.0" right="25.0" top="25.0" />
+            <Insets left="25.0" right="25.0" top="25.0"/>
          </padding>
-         <children>
-            <VBox prefWidth="169.0" spacing="10.0" VBox.vgrow="ALWAYS">
-               <children>
-                  <Label fx:id="browseButton" text=" Browse">
-                     <font>
-                        <Font name="Roboto Regular" size="17.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@assets/icons8_globe_24px_1.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Label>
-                  <Label fx:id="libraryButton" styleClass="label_green" text=" Library">
-                     <font>
-                        <Font name="Roboto Regular" size="17.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@assets/baseline_library_music_white_18dp.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Label>
-                  <Label fx:id="playlistButton" text=" Playlist">
-                     <font>
-                        <Font name="Roboto Regular" size="17.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@assets/icons8_playlist_24px.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Label>
-                  <Label fx:id="downloadsButton" text=" Downloads">
-                     <font>
-                        <Font name="Roboto Regular" size="17.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@assets/download_24px.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Label>
-                  <Label fx:id="settingsButton" text=" Settings">
-                     <font>
-                        <Font name="Roboto Regular" size="17.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@assets/icons8_settings_24px.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Label>
-               </children>
-            </VBox>
-         </children>
+         <VBox prefWidth="169.0" spacing="10.0" VBox.vgrow="ALWAYS">
+            <children>
+               <Label fx:id="browseButton" text=" Browse">
+                  <font>
+                     <Font name="Roboto Regular" size="17.0"/>
+                  </font>
+                  <graphic>
+                     <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@assets/icons8_globe_24px_1.png"/>
+                        </image>
+                     </ImageView>
+                  </graphic>
+               </Label>
+               <Label fx:id="libraryButton" styleClass="label_green" text=" Library">
+                  <font>
+                     <Font name="Roboto Regular" size="17.0"/>
+                  </font>
+                  <graphic>
+                     <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@assets/baseline_library_music_white_18dp.png"/>
+                        </image>
+                     </ImageView>
+                  </graphic>
+               </Label>
+               <Label fx:id="playlistButton" text=" Playlist">
+                  <font>
+                     <Font name="Roboto Regular" size="17.0"/>
+                  </font>
+                  <graphic>
+                     <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@assets/icons8_playlist_24px.png"/>
+                        </image>
+                     </ImageView>
+                  </graphic>
+               </Label>
+               <Label fx:id="downloadsButton" text=" Downloads">
+                  <font>
+                     <Font name="Roboto Regular" size="17.0"/>
+                  </font>
+                  <graphic>
+                     <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@assets/download_24px.png"/>
+                        </image>
+                     </ImageView>
+                  </graphic>
+               </Label>
+               <Label fx:id="settingsButton" text=" Settings">
+                  <font>
+                     <Font name="Roboto Regular" size="17.0"/>
+                  </font>
+                  <graphic>
+                     <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@assets/icons8_settings_24px.png"/>
+                        </image>
+                     </ImageView>
+                  </graphic>
+               </Label>
+            </children>
+         </VBox>
       </VBox>
       <VBox fx:id="browsePane" cache="true" cacheHint="SCALE_AND_ROTATE" layoutX="219.0" prefHeight="686.0" prefWidth="1096.0" spacing="15.0" styleClass="browse_pane" AnchorPane.bottomAnchor="86.0" AnchorPane.leftAnchor="217.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <padding>
@@ -331,9 +330,15 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <Label fx:id="nowDurLabel" styleClass="song_dur" text="0:00" />
+                        <Label fx:id="nowDurLabel" styleClass="song_dur" text="0:00">
+                           <font>
+                              <Font name="Roboto Regular" size="13.0" />
+                           </font></Label>
                         <Slider fx:id="songSeek" cache="true" cacheHint="SPEED" HBox.hgrow="ALWAYS" />
-                        <Label fx:id="totalDurLabel" styleClass="song_dur" text="0:00" />
+                        <Label fx:id="totalDurLabel" styleClass="song_dur" text="0:00">
+                           <font>
+                              <Font name="Roboto Regular" size="13.0" />
+                           </font></Label>
                      </children>
                   </HBox>
                </children>
