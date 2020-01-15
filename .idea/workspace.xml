@@ -6,10 +6,13 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Fixed font bugs and added support for linux">
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/hs_err_pid28708.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dash.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dash.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/Player$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/Player$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/Player$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/Player$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/Player$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/Player$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/Player.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$10$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$10$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$10$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$10$2.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$10.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$10.class" afterDir="false" />
@@ -17,15 +20,17 @@
       <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$12.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$12.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$13$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$13$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$13.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$13.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$14$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$14$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$14$1.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$14.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$14.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$15.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$15.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$16$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$16$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$16$1.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$16.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$16.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$17.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$17.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$18.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$18.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$19.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$19.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$20.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$20.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$20.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$4.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$5.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$6.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$7.class" afterDir="false" />
@@ -33,8 +38,7 @@
       <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$9.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$9.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/playlists/Recents" beforeDir="false" afterPath="$PROJECT_DIR$/playlists/Recents" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Gramophy/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gramophy/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Gramophy/dash.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gramophy/dash.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gramophy/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gramophy/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Gramophy/dashController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gramophy/dashController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -258,7 +262,14 @@
       <option name="project" value="LOCAL" />
       <updated>1578994218558</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Fixed layout of player pane">
+      <created>1579116428545</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1579116428545</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -279,11 +290,13 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
     <MESSAGE value="Removed jnativehook jar and replaced it with the maven plugin" />
     <MESSAGE value="Fixed font bugs and added support for linux" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed font bugs and added support for linux" />
+    <MESSAGE value="Fixed layout of player pane" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed layout of player pane" />
   </component>
   <component name="WindowStateProjectService">
     <state x="414" y="204" width="1152" height="770" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1579115133671">
@@ -307,35 +320,35 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1578143316897" />
-    <state x="637" y="151" width="635" height="812" key="CommitChangelistDialog2" timestamp="1579114879155">
+    <state x="637" y="151" width="635" height="812" key="CommitChangelistDialog2" timestamp="1579121411753">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state x="637" y="151" width="635" height="812" key="CommitChangelistDialog2/0.27.1920.1053@0.27.1920.1053" timestamp="1579114879155" />
+    <state x="637" y="151" width="635" height="812" key="CommitChangelistDialog2/0.27.1920.1053@0.27.1920.1053" timestamp="1579121411753" />
     <state x="666" y="290" width="907" height="749" key="FileChooserDialogImpl" timestamp="1578998703461">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state x="666" y="260" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1578767446129" />
     <state x="666" y="290" width="907" height="749" key="FileChooserDialogImpl/0.27.1920.1053@0.27.1920.1053" timestamp="1578998703461" />
-    <state width="1856" height="261" key="GridCell.Tab.0.bottom" timestamp="1579116316734">
+    <state width="1856" height="261" key="GridCell.Tab.0.bottom" timestamp="1579121559647">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state width="938" height="263" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1579112709018" />
-    <state width="1856" height="261" key="GridCell.Tab.0.bottom/0.27.1920.1053@0.27.1920.1053" timestamp="1579116316734" />
-    <state width="1856" height="261" key="GridCell.Tab.0.center" timestamp="1579116316732">
+    <state width="1856" height="261" key="GridCell.Tab.0.bottom/0.27.1920.1053@0.27.1920.1053" timestamp="1579121559647" />
+    <state width="1856" height="261" key="GridCell.Tab.0.center" timestamp="1579121559646">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state width="938" height="263" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1579112709017" />
-    <state width="1856" height="261" key="GridCell.Tab.0.center/0.27.1920.1053@0.27.1920.1053" timestamp="1579116316732" />
-    <state width="1856" height="261" key="GridCell.Tab.0.left" timestamp="1579116316731">
+    <state width="1856" height="261" key="GridCell.Tab.0.center/0.27.1920.1053@0.27.1920.1053" timestamp="1579121559646" />
+    <state width="1856" height="261" key="GridCell.Tab.0.left" timestamp="1579121559646">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state width="938" height="263" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1579112709017" />
-    <state width="1856" height="261" key="GridCell.Tab.0.left/0.27.1920.1053@0.27.1920.1053" timestamp="1579116316731" />
-    <state width="1856" height="261" key="GridCell.Tab.0.right" timestamp="1579116316733">
+    <state width="1856" height="261" key="GridCell.Tab.0.left/0.27.1920.1053@0.27.1920.1053" timestamp="1579121559646" />
+    <state width="1856" height="261" key="GridCell.Tab.0.right" timestamp="1579121559646">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state width="938" height="263" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1579112709018" />
-    <state width="1856" height="261" key="GridCell.Tab.0.right/0.27.1920.1053@0.27.1920.1053" timestamp="1579116316733" />
+    <state width="1856" height="261" key="GridCell.Tab.0.right/0.27.1920.1053@0.27.1920.1053" timestamp="1579121559646" />
     <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1578803729137">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -361,10 +374,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="498" height="446" key="SwitcherDM/0.0.1920.1040@0.0.1920.1040" timestamp="1578147679091" />
-    <state x="555" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1578994222191">
+    <state x="555" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1579116430610">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state x="555" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2/0.27.1920.1053@0.27.1920.1053" timestamp="1578994222191" />
+    <state x="555" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2/0.27.1920.1053@0.27.1920.1053" timestamp="1579116430610" />
     <state x="639" y="380" key="com.intellij.ide.util.TipDialog" timestamp="1578997573704">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
@@ -374,19 +387,20 @@
     </state>
     <state x="664" y="412" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.0.1920.1040@0.0.1920.1040" timestamp="1578724692042" />
     <state x="664" y="444" width="638" height="302" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.27.1920.1053@0.27.1920.1053" timestamp="1578998816439" />
-    <state x="769" y="436" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1577178661221">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="769" y="468" width="574" height="237" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1579118410063">
+      <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state x="769" y="436" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1577178661221" />
+    <state x="769" y="468" width="574" height="237" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.27.1920.1053@0.27.1920.1053" timestamp="1579118410063" />
     <state x="616" y="240" width="672" height="677" key="run.anything.popup" timestamp="1578767638495">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="616" y="240" width="672" height="677" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1578767638495" />
-    <state x="623" y="255" width="1005" height="88" key="search.everywhere.popup" timestamp="1579085530142">
+    <state x="623" y="255" width="1009" height="192" key="search.everywhere.popup" timestamp="1579118495537">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1577338937116" />
-    <state x="623" y="255" width="1005" height="88" key="search.everywhere.popup/0.27.1920.1053@0.27.1920.1053" timestamp="1579085530142" />
+    <state x="623" y="255" width="1009" height="192" key="search.everywhere.popup/0.27.1920.1053@0.27.1920.1053" timestamp="1579118495537" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Gramophy$Main.ic" NAME="Main Coverage Results" MODIFIED="1577201745791" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">

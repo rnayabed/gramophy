@@ -192,6 +192,8 @@ public class Player {
                             String youtubeDLQuery = youtubeExecName +" -f 18 -g https://www.youtube.com/watch?v="+songDetails.get("videoID");
                             Process p = Runtime.getRuntime().exec(youtubeDLQuery);
                             InputStream i = p.getInputStream();
+                            InputStream e = p.getErrorStream();
+
                             String result = "";
                             while(true)
                             {
@@ -202,7 +204,16 @@ public class Player {
 
                             if(result.length() == 0)
                             {
-                                dash.showErrorAlert("Uh OH!","Unable to play, probably because Age Restricted. If not, check connection and try again!");
+                                //get errors
+                                String errResult = "";
+                                while(true)
+                                {
+                                    int c = e.read();
+                                    if(c == -1) break;
+                                    errResult+= (char) c;
+                                }
+
+                                dash.showErrorAlert("Uh OH!","Unable to play, probably because Age Restricted/Live Video. If not, check connection and try again!\n\n"+errResult);
                                 stop();
                                 hide();
                                 return null;
