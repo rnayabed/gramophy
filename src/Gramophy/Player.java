@@ -54,11 +54,11 @@ public class Player {
     String currentPlaylistName = "";
 
     dashController dash;
-    String youtubeExecName;
+    String youtubeExecName = "youtube-dl.exe";
 
-    public Player(String inputPlaylistName, int inputIndex, dashController td, String youtubeDLExecName)
+    public Player(String inputPlaylistName, int inputIndex, dashController td, boolean isUnix)
     {
-        youtubeExecName = youtubeDLExecName;
+        if(isUnix) youtubeExecName = "./youtube-dl";
         dash = td;
         this.currentPlaylistName = inputPlaylistName;
 

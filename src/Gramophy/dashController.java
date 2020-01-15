@@ -206,16 +206,15 @@ public class dashController implements Initializable {
     String youtubeQueryURLStr;
     String youtubeNextPageToken;
 
-    String youtubeDLExecName;
+    boolean isUnix = false;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         dc = this;
         String osName = System.getProperty("os.name").toLowerCase();
+
         if(osName.contains("linux") || osName.contains("mac"))
-            youtubeDLExecName = "./youtube-dl";
-        else if(osName.contains("windows"))
-            youtubeDLExecName = "youtube-dl.exe";
+            isUnix = true;
 
         loadConfig();
         new Thread(new Task<Void>() {
@@ -261,9 +260,16 @@ public class dashController implements Initializable {
                 try
                 {
                     /*Raw Key codes of media buttons
+                    Linux :
                     65300 - Play/Pause
                     65303 - Next
                     65302 - Previous
+
+                    Windows :
+                    179 - Play/Pause
+                    176 - Next
+                    177 - Previous
+                    178 - Stop
                      */
                     GlobalScreen.registerNativeHook();
                     GlobalScreen.addNativeKeyListener(new NativeKeyListener() {
@@ -277,18 +283,16 @@ public class dashController implements Initializable {
                             if(player.isActive)
                             {
                                 int keyEventCode = nativeKeyEvent.getRawCode();
-                                if (keyEventCode == 57380)
+                                if (!isUnix && keyEventCode == 57380)
                                 {
                                     player.stop();
                                     player.hide();
                                 }
-                                else if(keyEventCode == 65300)
+                                else if(!isUnix && keyEventCode == 179 || isUnix && keyEventCode == 65300)
                                     player.pauseResume();
-                                else if(keyEventCode == 65302)
-                                {
+                                else if(!isUnix && keyEventCode == 177 || isUnix && keyEventCode == 65302)
                                     player.playPrevious();
-                                }
-                                else if(keyEventCode == 65303)
+                                else if(!isUnix && keyEventCode == 176 || isUnix && keyEventCode == 65303)
                                     player.playNext();
                             }
                         }
@@ -742,7 +746,7 @@ public class dashController implements Initializable {
                     }
 
                     addToRecents(cachedPlaylist.get(playlistName).get(Integer.parseInt(((Node)event.getSource()).getId())));
-                    player = new Player(playlistName,Integer.parseInt(((Node)event.getSource()).getId()), dc,youtubeDLExecName);
+                    player = new Player(playlistName,Integer.parseInt(((Node)event.getSource()).getId()), dc,isUnix);
 
 
                 });
@@ -811,7 +815,10 @@ public class dashController implements Initializable {
                 }
             }
 
-            String cmd = youtubeDLExecName+" -o audioDownload.%(ext)s --extract-audio --audio-format mp3 https://www.youtube.com/watch?v="+watchID;
+            String udlExec = "youtube-dl.exe";
+            if(isUnix) udlExec = "./youtube-dl";
+
+            String cmd = udlExec+" -o audioDownload.%(ext)s --extract-audio --audio-format mp3 https://www.youtube.com/watch?v="+watchID;
 
             System.out.println(cmd);
 
@@ -1137,7 +1144,7 @@ public class dashController implements Initializable {
                                 }
 
                                 addToRecents(cachedPlaylist.get("YouTube").get(Integer.parseInt(((Node)event.getSource()).getId())));
-                                player = new Player("YouTube",Integer.parseInt(((Node)event.getSource()).getId()), dc, youtubeDLExecName);
+                                player = new Player("YouTube", Integer.parseInt(((Node)event.getSource()).getId()), dc, isUnix);
 
                             });
 
@@ -1654,7 +1661,7 @@ public class dashController implements Initializable {
             }
 
             addToRecents(cachedPlaylist.get(currentPlaylist).get(0));
-            player = new Player(currentPlaylist,0,dc,youtubeDLExecName);
+            player = new Player(currentPlaylist,0, dc, isUnix);
         }
     }
 
