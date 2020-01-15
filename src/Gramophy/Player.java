@@ -226,6 +226,8 @@ public class Player {
                         return null;
                     }
 
+                    System.out.println("starting ...");
+
                     media = new Media(source);
                     mediaPlayer = new MediaPlayer(media);
 

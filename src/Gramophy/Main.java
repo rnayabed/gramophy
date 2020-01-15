@@ -15,8 +15,8 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("dash.fxml"));
         primaryStage.setTitle("Gramophy");
-        primaryStage.setMinWidth(1027);
-        primaryStage.setMinHeight(655);
+        primaryStage.setMinWidth(950);
+        primaryStage.setMinHeight(570);
         primaryStage.setScene(new Scene(root));
         primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("assets/app_icon.png")));
         primaryStage.show();

@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="basePane" prefHeight="701.0" prefWidth="1180.0" styleClass="base_pane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Gramophy.dashController">
+<AnchorPane fx:id="basePane" prefHeight="733.0" prefWidth="1119.0" styleClass="base_pane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Gramophy.dashController">
    <children>
       <StackPane fx:id="alertStackPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <StackPane fx:id="importSongsFromYouTubePopupStackPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
@@ -229,7 +229,7 @@
       </VBox>
       <HBox fx:id="musicPlayerPane" layoutY="680.0" prefHeight="86.0" prefWidth="1313.0" styleClass="music_player" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <HBox fx:id="musicPaneSongInfo" alignment="CENTER_LEFT" cache="true" cacheHint="SPEED" opacity="0.0" prefHeight="83.0" prefWidth="600.0" spacing="15.0" HBox.hgrow="ALWAYS">
+            <HBox fx:id="musicPaneSongInfo" alignment="CENTER_LEFT" cache="true" cacheHint="SPEED" maxWidth="400.0" minWidth="280.0" opacity="0.0" spacing="15.0" HBox.hgrow="SOMETIMES">
                <children>
                   <StackPane>
                      <children>
@@ -245,7 +245,7 @@
                         </VBox>
                      </children>
                   </StackPane>
-                  <VBox alignment="CENTER_LEFT" prefHeight="86.0" spacing="5.0" HBox.hgrow="ALWAYS">
+                  <VBox alignment="CENTER_LEFT" spacing="5.0" HBox.hgrow="ALWAYS">
                      <children>
                         <Label fx:id="songNameLabel" styleClass="song_name" VBox.vgrow="ALWAYS">
                            <font>
@@ -261,7 +261,7 @@
                   </VBox>
                </children>
             </HBox>
-            <VBox fx:id="musicPaneControls" alignment="CENTER" cache="true" cacheHint="SPEED" opacity="0.0" prefHeight="85.0" prefWidth="1135.0" HBox.hgrow="ALWAYS">
+            <VBox fx:id="musicPaneControls" alignment="CENTER" cache="true" cacheHint="SPEED" opacity="0.0" HBox.hgrow="ALWAYS">
                <children>
                   <HBox fx:id="musicPlayerButtonBar" alignment="CENTER" spacing="15.0" VBox.vgrow="ALWAYS">
                      <children>
@@ -342,7 +342,7 @@
                   </HBox>
                </children>
             </VBox>
-            <HBox fx:id="musicPaneMiscControls" alignment="CENTER_RIGHT" cache="true" cacheHint="SPEED" opacity="0.0" prefHeight="83.0" prefWidth="600.0" spacing="15.0" HBox.hgrow="NEVER">
+            <HBox fx:id="musicPaneMiscControls" alignment="CENTER_RIGHT" cache="true" cacheHint="SPEED" maxWidth="500.0" minWidth="210.0" opacity="0.0" spacing="15.0" HBox.hgrow="SOMETIMES">
                <children>
                   <ImageView fx:id="volumeIconImageView" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -386,7 +386,7 @@
                   <Font name="Roboto Regular" size="38.0" />
                </font>
             </Label>
-            <HBox>
+            <HBox VBox.vgrow="ALWAYS">
                <children>
                   <Label fx:id="playlistNameLabel">
                      <font>
@@ -402,7 +402,7 @@
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <JFXTextField fx:id="editPlaylistNameTextField" visible="false" />
+                  <JFXTextField fx:id="editPlaylistNameTextField" maxWidth="0.0" visible="false" />
                   <JFXButton fx:id="approvePlaylistNameChangeButton" text=" " visible="false">
                      <graphic>
                         <ImageView fx:id="a" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
@@ -421,10 +421,7 @@
                         </ImageView>
                      </graphic>
                   </JFXButton>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER_RIGHT" prefWidth="1066.0" spacing="10.0">
-               <children>
+                  <Region HBox.hgrow="ALWAYS" />
                   <JFXButton fx:id="playlistImportSongsFromYouTubePlaylistButton" onAction="#playlistImportSongsFromYouTubePlaylist" text="Import Songs From YouTube Playlist" textFill="WHITE">
                      <graphic>
                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
@@ -435,7 +432,8 @@
                      </graphic>
                      <font>
                         <Font name="Roboto Regular" size="13.0" />
-                     </font></JFXButton>
+                     </font>
+                  </JFXButton>
                   <JFXButton fx:id="deletePlaylistButton" onAction="#deletePlaylistButtonClicked" ripplerFill="#f23b3b" text="Delete Playlist" textFill="RED">
                      <graphic>
                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
@@ -446,7 +444,8 @@
                      </graphic>
                      <font>
                         <Font name="Roboto Regular" size="13.0" />
-                     </font></JFXButton>
+                     </font>
+                  </JFXButton>
                   <JFXButton fx:id="playSongsFromCurrentPlaylistButton" onAction="#playSongsFromCurrentPlaylist" text="Play" textFill="WHITE">
                      <graphic>
                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">

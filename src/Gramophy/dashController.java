@@ -455,6 +455,9 @@ public class dashController implements Initializable {
 
     public void setPlaylistNameChangerState(boolean state)
     {
+        if(state) editPlaylistNameTextField.setMaxWidth(100);
+        else editPlaylistNameTextField.setMaxWidth(0);
+
         playlistNameLabel.setVisible(!state);
         playlistNameLabel.setManaged(!state);
 
