@@ -21,10 +21,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.CacheHint;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Slider;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -33,7 +30,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.Window;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.keyboard.NativeKeyEvent;
 import org.jnativehook.keyboard.NativeKeyListener;
@@ -197,27 +196,27 @@ public class dashController implements Initializable {
 
     Player player = new Player();
 
-    public Thread gcThread;
-
     public boolean isShuffle = false;
     public boolean isRepeat = false;
+
+    dashController dc;
 
     String currentPlaylist = "";
     int youtubePageNo = 1;
     String youtubeQueryURLStr;
     String youtubeNextPageToken;
 
-    static String youtubeDLExecName;
+    String youtubeDLExecName;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        dc = this;
         String osName = System.getProperty("os.name").toLowerCase();
         if(osName.contains("linux") || osName.contains("mac"))
             youtubeDLExecName = "./youtube-dl";
         else if(osName.contains("windows"))
             youtubeDLExecName = "youtube-dl.exe";
 
-        Main.dash = this;
         loadConfig();
         new Thread(new Task<Void>() {
             @Override
@@ -333,22 +332,6 @@ public class dashController implements Initializable {
         youtubeSearchButton.setOnMouseClicked(event -> {
             searchYouTube();
         });
-
-        gcThread = new Thread(new Task<Void>(){
-            @Override
-            protected Void call() throws Exception
-            {
-                while (true)
-                {
-                    Thread.sleep(30000);
-                    System.gc();
-                }
-            }
-        });
-
-        gcThread.setPriority(1);
-        gcThread.start();
-
 
         musicPaneShuffleButton.setOnMouseClicked(event -> {
             if(isShuffle)
@@ -613,7 +596,7 @@ public class dashController implements Initializable {
 
             Label artist = new Label();
             artist.setFont(robotoRegular15);
-            artist.setPrefWidth(300);
+            artist.setPrefWidth(150);
 
             if(eachSong.get("location").toString().equals("local"))
             {
@@ -759,7 +742,7 @@ public class dashController implements Initializable {
                     }
 
                     addToRecents(cachedPlaylist.get(playlistName).get(Integer.parseInt(((Node)event.getSource()).getId())));
-                    player = new Player(playlistName,Integer.parseInt(((Node)event.getSource()).getId()));
+                    player = new Player(playlistName,Integer.parseInt(((Node)event.getSource()).getId()), dc,youtubeDLExecName);
 
 
                 });
@@ -1143,11 +1126,18 @@ public class dashController implements Initializable {
                             videoHBox.setOnMouseClicked(event -> {
                                 if(player.isActive)
                                 {
-                                    player.stop();
+                                    try
+                                    {
+                                        player.stop();
+                                    }
+                                    catch (Exception e)
+                                    {
+                                        e.printStackTrace();
+                                    }
                                 }
 
                                 addToRecents(cachedPlaylist.get("YouTube").get(Integer.parseInt(((Node)event.getSource()).getId())));
-                                player = new Player("YouTube",Integer.parseInt(((Node)event.getSource()).getId()));
+                                player = new Player("YouTube",Integer.parseInt(((Node)event.getSource()).getId()), dc, youtubeDLExecName);
 
                             });
 
@@ -1664,7 +1654,7 @@ public class dashController implements Initializable {
             }
 
             addToRecents(cachedPlaylist.get(currentPlaylist).get(0));
-            player = new Player(currentPlaylist,0);
+            player = new Player(currentPlaylist,0,dc,youtubeDLExecName);
         }
     }
 
@@ -2096,10 +2086,12 @@ public class dashController implements Initializable {
     }
 
     @FXML
-    public void selectMusicLibraryFolderButtonClicked()
+    public void selectMusicLibraryFolderButtonClicked(ActionEvent event)
     {
+        Node e = (Node) event.getSource();
+        Window ps = e.getScene().getWindow();
         DirectoryChooser directoryChooser = new DirectoryChooser();
-        File newMusicFolder = directoryChooser.showDialog(Main.ps);
+        File newMusicFolder = directoryChooser.showDialog(ps);
         File presentFolder = new File(config.get("music_lib_path"));
 
         if(newMusicFolder == null) return;
@@ -2179,5 +2171,10 @@ public class dashController implements Initializable {
     {
         config.replace(key,newValue);
         io.writeToFile(config.get("music_lib_path")+"::"+config.get("youtube_api_key")+"::"+config.get("max_recents_limit")+"::","config");
+    }
+
+    public void showInternetConnectionError()
+    {
+        showErrorAlert("Uh Oh!","Unable to connect!\nMake sure you're connected to the internet, and try again!");
     }
 }
