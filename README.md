@@ -4,7 +4,7 @@
 
 Built with JavaFX. 
 
-[Screenshots](https://imgur.com/gallery/PP1DRGT).😊
+[Screenshots](https://imgur.com/gallery/PP1DRGT).
 
 ### Features
 
@@ -28,7 +28,7 @@ For now, only windows. I need to tweak it a little bit and a real Mac/Linux Mach
 - [JFoenix]( https://github.com/jfoenixadmin/JFoenix ) - For all that Material UI Sweetness.
 - [mp3agic](https://github.com/mpatric/mp3agic) - For reading and writing mp3 metadata.
 - [AnimateFX](https://github.com/Typhon0/AnimateFX) - For those sleek, butter-smooth animations.
-- [jnativehook]( https://github.com/kwhat/jnativehook ) - To listen to media key shortcuts (if your keyboard has them 😛)
+- [jnativehook]( https://github.com/kwhat/jnativehook ) - To listen to media key shortcuts (if your keyboard has them)
 - [org.json:json](https://mvnrepository.com/artifact/org.json/json) - To parse YouTube API REST Response.
 
 ### Contribute
