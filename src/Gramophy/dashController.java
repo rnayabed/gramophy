@@ -1231,7 +1231,106 @@ public class dashController implements Initializable {
                         }
                         else if(kindObj.equals("youtube#playlist"))
                         {
+                            JSONObject snippet = eachItem.getJSONObject("snippet");
 
+                            String title = snippet.getString("title");
+                            String channelTitle = snippet.getString("channelTitle");
+
+                            String playlistID = idObj.getString("playlistId");
+
+                            if(snippet.has("thumbnails"))
+                            {
+                                /*
+                                For some reason the YouTube API (tested 16/01/2020)
+                                doesn't return thumnails of unavailable videos, so its better to omit them...
+                                 */
+                                JSONObject thumbnail = snippet.getJSONObject("thumbnails");
+                                String defaultThumbnailURL = thumbnail.getJSONObject("default").getString("url");
+
+                                Image ix = new Image(defaultThumbnailURL);
+                                ImageView thumbnailImgView = new ImageView(ix);
+                                Label titleLabel = new Label("Playlist : "+title);
+                                titleLabel.setFont(robotoRegular15);
+                                Label channelTitleLabel = new Label(channelTitle);
+                                channelTitleLabel.setFont(robotoRegular15);
+                                VBox vbox = new VBox(titleLabel,channelTitleLabel);
+                                vbox.setSpacing(5);
+                                HBox playlistHBox = new HBox(thumbnailImgView,vbox);
+                                playlistHBox.setSpacing(10);
+                                HBox.setHgrow(playlistHBox, Priority.ALWAYS);
+
+                                playlistHBox.setOnMouseClicked(event -> {
+                                    if(player.isActive)
+                                    {
+                                        try
+                                        {
+                                            player.stop();
+                                        }
+                                        catch (Exception e)
+                                        {
+                                            e.printStackTrace();
+                                        }
+                                    }
+
+                                    addToRecents(cachedPlaylist.get("YouTube").get(Integer.parseInt(((Node)event.getSource()).getId())));
+                                    player = new Player("YouTube", Integer.parseInt(((Node)event.getSource()).getId()), dc, isUnix);
+
+                                });
+
+                                JFXButton saveToPlaylistButton = new JFXButton("");
+                                saveToPlaylistButton.setGraphic(new ImageView(saveToPlaylistIcon));
+                                saveToPlaylistButton.setTextFill(PAINT_GREEN);
+                                saveToPlaylistButton.setOnMouseClicked(event -> {
+                                    new Thread(new Task<Void>() {
+                                        @Override
+                                        protected Void call() throws Exception {
+                                            customisePlaylist(cachedPlaylist.get("YouTube").get(Integer.parseInt(((Node)event.getSource()).getId())));
+                                            return null;
+                                        }
+                                    }).start();
+                                });
+
+                                JFXButton downloadButton = new JFXButton();
+                                downloadButton.setCache(true);
+                                downloadButton.setCacheHint(CacheHint.SPEED);
+                                downloadButton.setGraphic(new ImageView(downloadIcon));
+                                downloadButton.setTextFill(PAINT_GREEN);
+                                downloadButton.setOnMouseClicked(event -> {
+                                    new Thread(new Task<Void>() {
+                                        @Override
+                                        protected Void call(){
+                                            JFXButton b = (JFXButton) event.getSource();
+                                            try
+                                            {
+                                                String watchID = cachedPlaylist.get("YouTube").get(Integer.parseInt(((Node)event.getSource()).getId())).get("videoID").toString();
+
+                                                addToDownloads(watchID,b,defaultThumbnailURL,title,channelTitle);
+                                            }
+                                            catch (Exception e)
+                                            {
+                                                e.printStackTrace();
+
+                                                showErrorAlert("Error!","Unable to download! Check Stacktrace!");
+                                                Platform.runLater(()->b.setDisable(false));
+                                            }
+                                            return null;
+                                        }
+                                    }).start();
+                                });
+
+                                VBox vv = new VBox(downloadButton);
+
+                                if((cachedPlaylist.size() - 2)>0) vv.getChildren().add(saveToPlaylistButton);
+
+                                if(isSongPresent(title,channelTitle,"My Music"))
+                                    downloadButton.setDisable(true);
+
+                                HBox mainHBox = new HBox(playlistHBox,vv);
+                                mainHBox.setAlignment(Pos.CENTER_LEFT);
+
+
+                                Platform.runLater(()-> youtubeListView.getItems().add(mainHBox));
+                            }
                         }
                     }
 
