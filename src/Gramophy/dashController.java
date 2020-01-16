@@ -612,7 +612,21 @@ public class dashController implements Initializable {
 
         ArrayList<HashMap<String,Object>> songs = cachedPlaylist.get(playlistName);
 
-        Platform.runLater(()->playlistNameLabel.setText(playlistName));
+        if(playlistName.endsWith("_youtube_playlist"))
+        {
+            playlistImportSongsFromYouTubePlaylistButton.setVisible(false);
+            deletePlaylistButton.setVisible(false);
+            editPlaylistNameButton.setVisible(false);
+            Platform.runLater(()->playlistNameLabel.setText(playlistName.replace("_youtube_playlist","")));
+        }
+        else
+        {
+            playlistImportSongsFromYouTubePlaylistButton.setVisible(true);
+            deletePlaylistButton.setVisible(true);
+            editPlaylistNameButton.setVisible(true);
+            Platform.runLater(()->playlistNameLabel.setText(playlistName));
+        }
+
 
         i2 = 0;
         for(HashMap<String,Object> eachSong : songs)
@@ -736,12 +750,10 @@ public class dashController implements Initializable {
                     }).start();
                 });
 
-                HBox vb1 = new HBox();
+                HBox vb1 = new HBox(saveToPlaylistButton);
 
                 int noOfPlaylists = cachedPlaylist.size() - 2;
                 if(cachedPlaylist.containsKey("YouTube")) noOfPlaylists --;
-
-                if(noOfPlaylists>0) vb1.getChildren().add(saveToPlaylistButton);
 
                 if(eachSong.get("location").toString().equals("youtube"))
                 {
@@ -925,7 +937,7 @@ public class dashController implements Initializable {
 
         for(String eachPlaylistName : cachedPlaylist.keySet())
         {
-            if(!eachPlaylistName.equals("YouTube"))
+            if(!eachPlaylistName.equals("YouTube") && !eachPlaylistName.endsWith("_youtube_playlist"))
             {
                 String[] playlistNameSplitArr = eachPlaylistName.split(" ");
 
@@ -1214,9 +1226,7 @@ public class dashController implements Initializable {
                                 }).start();
                             });
 
-                            VBox vv = new VBox(downloadButton);
-
-                            if((cachedPlaylist.size() - 2)>0) vv.getChildren().add(saveToPlaylistButton);
+                            VBox vv = new VBox(downloadButton, saveToPlaylistButton);
 
                             if(isSongPresent(title,channelTitle,"My Music"))
                                 downloadButton.setDisable(true);
@@ -1232,14 +1242,13 @@ public class dashController implements Initializable {
                         else if(kindObj.equals("youtube#playlist"))
                         {
                             JSONObject snippet = eachItem.getJSONObject("snippet");
-
-                            String title = snippet.getString("title");
-                            String channelTitle = snippet.getString("channelTitle");
-
-                            String playlistID = idObj.getString("playlistId");
-
                             if(snippet.has("thumbnails"))
                             {
+                                String title = snippet.getString("title");
+                                String channelTitle = snippet.getString("channelTitle");
+
+                                String playlistID = idObj.getString("playlistId");
+
                                 /*
                                 For some reason the YouTube API (tested 16/01/2020)
                                 doesn't return thumnails of unavailable videos, so its better to omit them...
@@ -1254,80 +1263,73 @@ public class dashController implements Initializable {
                                 Label channelTitleLabel = new Label(channelTitle);
                                 channelTitleLabel.setFont(robotoRegular15);
                                 VBox vbox = new VBox(titleLabel,channelTitleLabel);
+                                vbox.setId(title);
                                 vbox.setSpacing(5);
                                 HBox playlistHBox = new HBox(thumbnailImgView,vbox);
                                 playlistHBox.setSpacing(10);
+                                playlistHBox.setId(playlistID);
                                 HBox.setHgrow(playlistHBox, Priority.ALWAYS);
 
                                 playlistHBox.setOnMouseClicked(event -> {
-                                    if(player.isActive)
-                                    {
-                                        try
+                                    new Thread(new Task<Void>() {
+                                        @Override
+                                        protected Void call()
                                         {
-                                            player.stop();
-                                        }
-                                        catch (Exception e)
-                                        {
-                                            e.printStackTrace();
-                                        }
-                                    }
+                                            try
+                                            {
+                                                HBox h = (HBox) event.getSource();
+                                                Node n1 = h.getChildren().get(1);
+                                                String thisPlaylistID = h.getId();
+                                                String playlistName = n1.getId();
 
-                                    addToRecents(cachedPlaylist.get("YouTube").get(Integer.parseInt(((Node)event.getSource()).getId())));
-                                    player = new Player("YouTube", Integer.parseInt(((Node)event.getSource()).getId()), dc, isUnix);
+                                                ArrayList<HashMap<String,Object>> songs = getSongsInYouTubePublicPlaylist(thisPlaylistID);
 
+                                                cachedPlaylist.put(playlistName+"_youtube_playlist",songs);
+                                                loadPlaylist(playlistName+"_youtube_playlist");
+
+                                                if(player.isActive)
+                                                {
+                                                    player.stop();
+                                                }
+
+                                                player = new Player(playlistName+"_youtube_playlist",0,dc,isUnix);
+                                            }
+                                            catch (Exception e)
+                                            {
+                                                e.printStackTrace();
+                                            }
+                                            return null;
+                                        }
+                                    }).start();
                                 });
 
                                 JFXButton saveToPlaylistButton = new JFXButton("");
                                 saveToPlaylistButton.setGraphic(new ImageView(saveToPlaylistIcon));
                                 saveToPlaylistButton.setTextFill(PAINT_GREEN);
+                                saveToPlaylistButton.setId(playlistID);
                                 saveToPlaylistButton.setOnMouseClicked(event -> {
                                     new Thread(new Task<Void>() {
                                         @Override
-                                        protected Void call() throws Exception {
-                                            customisePlaylist(cachedPlaylist.get("YouTube").get(Integer.parseInt(((Node)event.getSource()).getId())));
-                                            return null;
-                                        }
-                                    }).start();
-                                });
-
-                                JFXButton downloadButton = new JFXButton();
-                                downloadButton.setCache(true);
-                                downloadButton.setCacheHint(CacheHint.SPEED);
-                                downloadButton.setGraphic(new ImageView(downloadIcon));
-                                downloadButton.setTextFill(PAINT_GREEN);
-                                downloadButton.setOnMouseClicked(event -> {
-                                    new Thread(new Task<Void>() {
-                                        @Override
-                                        protected Void call(){
-                                            JFXButton b = (JFXButton) event.getSource();
+                                        protected Void call() {
                                             try
                                             {
-                                                String watchID = cachedPlaylist.get("YouTube").get(Integer.parseInt(((Node)event.getSource()).getId())).get("videoID").toString();
-
-                                                addToDownloads(watchID,b,defaultThumbnailURL,title,channelTitle);
+                                                Node n = (Node) event.getSource();
+                                                String playlistID = n.getId();
+                                                saveYouTubePlaylistSongsToLocalPlaylist(playlistID);
                                             }
                                             catch (Exception e)
                                             {
                                                 e.printStackTrace();
-
-                                                showErrorAlert("Error!","Unable to download! Check Stacktrace!");
-                                                Platform.runLater(()->b.setDisable(false));
                                             }
                                             return null;
                                         }
                                     }).start();
                                 });
 
-                                VBox vv = new VBox(downloadButton);
 
-                                if((cachedPlaylist.size() - 2)>0) vv.getChildren().add(saveToPlaylistButton);
-
-                                if(isSongPresent(title,channelTitle,"My Music"))
-                                    downloadButton.setDisable(true);
-
+                                VBox vv = new VBox(saveToPlaylistButton);
                                 HBox mainHBox = new HBox(playlistHBox,vv);
                                 mainHBox.setAlignment(Pos.CENTER_LEFT);
-
 
                                 Platform.runLater(()-> youtubeListView.getItems().add(mainHBox));
                             }
@@ -1789,159 +1791,270 @@ public class dashController implements Initializable {
         }
     }
 
+    public void saveYouTubePlaylistSongsToLocalPlaylist(String playlistID)
+    {
+        VBox vb = new VBox();
+        vb.setSpacing(10);
+
+        int s = cachedPlaylist.size() - 2;
+        if(cachedPlaylist.containsKey("YouTube")) s--;
+
+        for(String eachPlaylistName : cachedPlaylist.keySet())
+        {
+            if(eachPlaylistName.endsWith("_youtube_playlist")) s--;
+        }
+
+        if(s==0)
+        {
+            showErrorAlert("No Local Playlists found","Create one to save to!");
+        }
+        else
+        {
+            JFXDialogLayout l = new JFXDialogLayout();
+            l.getStyleClass().add("dialog_style");
+            Label headingLabel = new Label("Select a Playlist to save to");
+            headingLabel.setTextFill(WHITE_PAINT);
+            headingLabel.setFont(Font.font("Roboto Regular",25));
+            l.setHeading(headingLabel);
+
+
+            JFXDialog popupDialog = new JFXDialog(importSongsFromYouTubePopupStackPane,l, JFXDialog.DialogTransition.CENTER);
+            popupDialog.setOverlayClose(false);
+            popupDialog.getStyleClass().add("dialog_box");
+
+            for(String playlistName : cachedPlaylist.keySet())
+            {
+                if(playlistName.endsWith("_youtube_playlist") || playlistName.equals("YouTube") || playlistName.equals("Recents") || playlistName.equals("My Music")) continue;
+
+                JFXButton playlistToSaveToButton = new JFXButton(playlistName);
+
+                playlistToSaveToButton.setTextFill(WHITE_PAINT);
+                playlistToSaveToButton.setId(playlistID);
+                Platform.runLater(()->vb.getChildren().add(playlistToSaveToButton));
+
+
+                playlistToSaveToButton.setOnMouseClicked(event -> {
+                    new Thread(new Task<Void>() {
+                        @Override
+                        protected Void call()
+                        {
+                            try
+                            {
+                                JFXButton b = (JFXButton) event.getSource();
+                                String playlistID = b.getId();
+                                String playlistToSaveTo = b.getText();
+
+                                ArrayList<HashMap<String,Object>> songs = getSongsInYouTubePublicPlaylist(playlistID);
+
+                                int songsImported = 0;
+                                for(HashMap<String,Object> eachSong : songs)
+                                {
+                                    if(!isSongPresent(eachSong,playlistToSaveTo))
+                                    {
+                                        cachedPlaylist.get(playlistToSaveTo).add(eachSong);
+                                        songsImported++;
+                                    }
+                                    else
+                                        System.out.println("Song already present. Skipping ...");
+                                }
+
+                                updatePlaylistsFiles();
+                                refreshPlaylistsUI();
+
+                                Platform.runLater(()->{
+                                    popupDialog.close();
+                                    importSongsFromYouTubePopupStackPane.toBack();
+                                });
+
+                                showErrorAlert("Done!","Successfully imported "+songsImported+" songs to "+playlistName);
+                            }
+                            catch (Exception e)
+                            {
+                                e.printStackTrace();
+                            }
+                            return null;
+                        }
+                    }).start();
+                });
+            }
+
+            l.setBody(vb);
+
+            JFXButton cancelButton = new JFXButton("CANCEL");
+            cancelButton.setTextFill(Color.RED);
+
+            l.setActions(cancelButton);
+
+            Platform.runLater(() -> importSongsFromYouTubePopupStackPane.getChildren().clear());
+
+
+            cancelButton.setOnMouseClicked(event->{
+                popupDialog.close();
+                popupDialog.setOnDialogClosed(event1 -> importSongsFromYouTubePopupStackPane.toBack());
+            });
+
+            Platform.runLater(()->{
+                importSongsFromYouTubePopupStackPane.toFront();
+                popupDialog.show();
+            });
+        }
+    }
+
+
     public void customisePlaylist(HashMap<String,Object> newSong)
     {
         VBox vb = new VBox();
         vb.setSpacing(10);
-        for(String playlistName : cachedPlaylist.keySet())
+
+        int s = cachedPlaylist.size() - 2;
+        if(cachedPlaylist.containsKey("YouTube")) s--;
+
+        for(String eachPlaylistName : cachedPlaylist.keySet())
         {
-            if(playlistName.equals("YouTube") || playlistName.equals("My Music") || playlistName.equals("Recents")) continue;
+            if(eachPlaylistName.endsWith("_youtube_playlist")) s--;
+        }
 
-            JFXRadioButton rb = new JFXRadioButton(playlistName);
-
-            boolean found = false;
-            for(HashMap<String,Object> sd : cachedPlaylist.get(playlistName))
+        if(s==0)
+        {
+            showErrorAlert("No Local Playlists found","Create one to save to!");
+        }
+        else
+        {
+            for(String playlistName : cachedPlaylist.keySet())
             {
-                if(sd.get("location").toString().equals(newSong.get("location").toString()))
+                if(playlistName.endsWith("_youtube_playlist") || playlistName.equals("YouTube") || playlistName.equals("Recents") || playlistName.equals("My Music")) continue;
+
+                JFXRadioButton rb = new JFXRadioButton(playlistName);
+
+                boolean found = false;
+                for(HashMap<String,Object> sd : cachedPlaylist.get(playlistName))
                 {
-                    if(sd.get("location").toString().equals("youtube"))
+                    if(sd.get("location").toString().equals(newSong.get("location").toString()))
                     {
-                        if(sd.get("videoID").toString().equals(newSong.get("videoID").toString()))
+                        if(sd.get("location").toString().equals("youtube"))
                         {
-                            found = true;
-                            break;
+                            if(sd.get("videoID").toString().equals(newSong.get("videoID").toString()))
+                            {
+                                found = true;
+                                break;
+                            }
                         }
-                    }
-                    else if(sd.get("location").toString().equals("local"))
-                    {
-                        if(sd.get("title").toString().equals(newSong.get("title").toString()))
+                        else if(sd.get("location").toString().equals("local"))
                         {
-                            found = true;
-                            break;
+                            if(sd.get("title").toString().equals(newSong.get("title").toString()))
+                            {
+                                found = true;
+                                break;
+                            }
                         }
                     }
                 }
+
+                if(found) rb.setSelected(true);
+                rb.setTextFill(WHITE_PAINT);
+                rb.setId(playlistName);
+                vb.getChildren().add(rb);
             }
 
-            if(found) rb.setSelected(true);
-            rb.setTextFill(WHITE_PAINT);
-            rb.setId(playlistName);
-            vb.getChildren().add(rb);
-        }
-
-        JFXDialogLayout l = new JFXDialogLayout();
-        l.getStyleClass().add("dialog_style");
-        Label headingLabel = new Label("Save To Playlist");
-        headingLabel.setTextFill(WHITE_PAINT);
-        headingLabel.setFont(Font.font("Roboto Regular",25));
-        l.setHeading(headingLabel);
+            JFXDialogLayout l = new JFXDialogLayout();
+            l.getStyleClass().add("dialog_style");
+            Label headingLabel = new Label("Save To Playlist");
+            headingLabel.setTextFill(WHITE_PAINT);
+            headingLabel.setFont(Font.font("Roboto Regular",25));
+            l.setHeading(headingLabel);
 
 
-        l.setBody(vb);
+            l.setBody(vb);
 
-        JFXButton confirmButton = new JFXButton("CONFIRM");
-        confirmButton.setTextFill(WHITE_PAINT);
-        JFXButton cancelButton = new JFXButton("CANCEL");
-        cancelButton.setTextFill(Color.RED);
+            JFXButton confirmButton = new JFXButton("CONFIRM");
+            confirmButton.setTextFill(WHITE_PAINT);
+            JFXButton cancelButton = new JFXButton("CANCEL");
+            cancelButton.setTextFill(Color.RED);
 
-        l.setActions(confirmButton,cancelButton);
+            l.setActions(confirmButton,cancelButton);
 
-        Platform.runLater(() -> importSongsFromYouTubePopupStackPane.getChildren().clear());
+            Platform.runLater(() -> importSongsFromYouTubePopupStackPane.getChildren().clear());
 
-        JFXDialog popupDialog = new JFXDialog(importSongsFromYouTubePopupStackPane,l, JFXDialog.DialogTransition.CENTER);
-        popupDialog.setOverlayClose(false);
-        popupDialog.getStyleClass().add("dialog_box");
+            JFXDialog popupDialog = new JFXDialog(importSongsFromYouTubePopupStackPane,l, JFXDialog.DialogTransition.CENTER);
+            popupDialog.setOverlayClose(false);
+            popupDialog.getStyleClass().add("dialog_box");
 
-        confirmButton.setOnMouseClicked(event -> {
-            new Thread(new Task<Void>() {
-                @Override
-                protected Void call() {
-                    try
-                    {
-                        for(Node eachRadioButton : vb.getChildren())
+            confirmButton.setOnMouseClicked(event -> {
+                new Thread(new Task<Void>() {
+                    @Override
+                    protected Void call() {
+                        try
                         {
-                            JFXRadioButton eachrb = (JFXRadioButton) eachRadioButton;
-                            ArrayList<HashMap<String,Object>> allSongs = cachedPlaylist.get(eachrb.getId());
-                            boolean found = false;
-
-                            HashMap<String,Object> foundSong = new HashMap<>();
-                            for(HashMap<String,Object> sd : cachedPlaylist.get(eachrb.getId()))
+                            for(Node eachRadioButton : vb.getChildren())
                             {
-                                if(sd.get("location").toString().equals(newSong.get("location").toString()))
+                                JFXRadioButton eachrb = (JFXRadioButton) eachRadioButton;
+                                ArrayList<HashMap<String,Object>> allSongs = cachedPlaylist.get(eachrb.getId());
+                                boolean found = false;
+
+                                HashMap<String,Object> foundSong = new HashMap<>();
+                                for(HashMap<String,Object> sd : cachedPlaylist.get(eachrb.getId()))
                                 {
-                                    if(sd.get("location").toString().equals("youtube"))
+                                    if(sd.get("location").toString().equals(newSong.get("location").toString()))
                                     {
-                                        if(sd.get("videoID").toString().equals(newSong.get("videoID").toString()))
+                                        if(sd.get("location").toString().equals("youtube"))
                                         {
-                                            found = true;
-                                            foundSong = sd;
-                                            break;
+                                            if(sd.get("videoID").toString().equals(newSong.get("videoID").toString()))
+                                            {
+                                                found = true;
+                                                foundSong = sd;
+                                                break;
+                                            }
                                         }
-                                    }
-                                    else if(sd.get("location").toString().equals("local"))
-                                    {
-                                        if(sd.get("title").toString().equals(newSong.get("title").toString()))
+                                        else if(sd.get("location").toString().equals("local"))
                                         {
-                                            found = true;
-                                            foundSong = sd;
-                                            break;
+                                            if(sd.get("title").toString().equals(newSong.get("title").toString()))
+                                            {
+                                                found = true;
+                                                foundSong = sd;
+                                                break;
+                                            }
                                         }
                                     }
                                 }
-                            }
 
 
-                            if(eachrb.isSelected())
-                            {
-                                if(!found) allSongs.add(newSong);
-                            }
-                            else
-                            {
-                                if(found) allSongs.remove(foundSong);
+                                if(eachrb.isSelected())
+                                {
+                                    if(!found) allSongs.add(newSong);
+                                }
+                                else
+                                {
+                                    if(found) allSongs.remove(foundSong);
+                                }
+
+                                cachedPlaylist.replace(eachrb.getId(),allSongs);
                             }
 
-                            cachedPlaylist.replace(eachrb.getId(),allSongs);
+                            updatePlaylistsFiles();
+                            loadPlaylist(currentPlaylist);
+
+                            popupDialog.close();
+                            popupDialog.setOnDialogClosed(event12 -> importSongsFromYouTubePopupStackPane.toBack());
                         }
-
-                        updatePlaylistsFiles();
-                        loadPlaylist(currentPlaylist);
-
-                        popupDialog.close();
-                        popupDialog.setOnDialogClosed(new EventHandler<JFXDialogEvent>() {
-                            @Override
-                            public void handle(JFXDialogEvent event) {
-                                importSongsFromYouTubePopupStackPane.toBack();
-                            }
-                        });
+                        catch (Exception e)
+                        {
+                            e.printStackTrace();
+                        }
+                        return null;
                     }
-                    catch (Exception e)
-                    {
-                        e.printStackTrace();
-                    }
-                    return null;
-                }
-            }).start();
-        });
+                }).start();
+            });
 
-        cancelButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
+            cancelButton.setOnMouseClicked(event -> {
                 popupDialog.close();
-                popupDialog.setOnDialogClosed(new EventHandler<JFXDialogEvent>() {
-                    @Override
-                    public void handle(JFXDialogEvent event) {
-                        importSongsFromYouTubePopupStackPane.toBack();
-                    }
-                });
-            }
-        });
+                popupDialog.setOnDialogClosed(event1 -> importSongsFromYouTubePopupStackPane.toBack());
+            });
 
-
-        Platform.runLater(()->{
-            importSongsFromYouTubePopupStackPane.toFront();
-            popupDialog.show();
-        });
-
+            Platform.runLater(()->{
+                importSongsFromYouTubePopupStackPane.toFront();
+                popupDialog.show();
+            });
+        }
     }
 
     public void updatePlaylistsFiles()
@@ -1949,6 +2062,8 @@ public class dashController implements Initializable {
         for(String playlistName : cachedPlaylist.keySet())
         {
             if(playlistName.equals("My Music") || playlistName.equals("YouTube")) continue;
+            if(playlistName.endsWith("_youtube_playlist")) continue;
+
             ArrayList<HashMap<String,Object>> songs = cachedPlaylist.get(playlistName);
             StringBuilder playlistFileContent = new StringBuilder();
             for(HashMap<String,Object> songDetails : songs)
@@ -2017,12 +2132,7 @@ public class dashController implements Initializable {
         okButton.setTextFill(WHITE_PAINT);
         l.setActions(okButton);
 
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                alertStackPane.getChildren().clear();
-            }
-        });
+        Platform.runLater(()->alertStackPane.getChildren().clear());
 
         JFXDialog alertDialog = new JFXDialog(alertStackPane,l, JFXDialog.DialogTransition.CENTER);
         alertDialog.setOverlayClose(false);
@@ -2194,6 +2304,8 @@ public class dashController implements Initializable {
                 {
                     String title = snippet.getString("title");
                     String channelTitle = snippet.getString("channelTitle");
+
+                    if(!snippet.has("thumbnails")) continue;
 
                     JSONObject thumbnail = snippet.getJSONObject("thumbnails");
                     String defaultThumbnailURL = thumbnail.getJSONObject("default").getString("url");

@@ -56,6 +56,11 @@ public class Player {
     dashController dash;
     String youtubeExecName = "youtube-dl.exe";
 
+    public Player()
+    {
+        isPlaying = false;
+        isActive = false;
+    }
     public Player(String inputPlaylistName, int inputIndex, dashController td, boolean isUnix)
     {
         if(isUnix) youtubeExecName = "./youtube-dl";
@@ -135,19 +140,6 @@ public class Player {
                     HashMap<String,Object> songDetails = dash.cachedPlaylist.get(currentPlaylistName).get(index);
 
                     songIndex = index;
-                    int si = index;
-
-                    for(Node eachNode : dash.playlistListView.getItems())
-                    {
-                        HBox x = (HBox) eachNode;
-
-                        if(x.getChildren().get(0).getId().equals(songIndex+""))
-                        {
-                            System.out.println("yay!");
-                            System.out.println("'"+songIndex+"' '"+x.getChildren().get(0).getId()+"'");
-                            Platform.runLater(()->dash.playlistListView.getSelectionModel().select(x));
-                        }
-                    }
 
                     isActive = true;
 
@@ -291,6 +283,19 @@ public class Player {
                             }
                         }
                     });
+
+
+                    for(Node eachNode : dash.playlistListView.getItems())
+                    {
+                        HBox x = (HBox) eachNode;
+
+                        if(x.getChildren().get(0).getId().equals(songIndex+""))
+                        {
+                            System.out.println("yay!");
+                            System.out.println("'"+songIndex+"' '"+x.getChildren().get(0).getId()+"'");
+                            Platform.runLater(()->dash.playlistListView.getSelectionModel().select(x));
+                        }
+                    }
                 }
                 catch (Exception e)
                 {
@@ -343,12 +348,6 @@ public class Player {
         }
     }
 
-    public Player()
-    {
-        isPlaying = false;
-        isActive = false;
-    }
-
     public void setPos(double newDurSecs)
     {
         mediaPlayer.seek(new Duration(newDurSecs*1000));
@@ -381,8 +380,15 @@ public class Player {
         if(isPlaying)
         {
             isPlaying = false;
-            mediaPlayer.stop();
-            mediaPlayer.dispose();
+            try
+            {
+                mediaPlayer.stop();
+                mediaPlayer.dispose();
+            }
+            catch (Exception e)
+            {
+                System.out.println("disposing ...");
+            }
         }
         isActive = false;
     }
