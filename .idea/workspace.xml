@@ -1,228 +1,176 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ArtifactsWorkspaceSettings">
-    <artifacts-to-build>
-      <artifact name="Gramophy:jar" />
-    </artifacts-to-build>
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="63e3b512-b9d0-4d8a-925c-cf53dac97a45" name="Default Changelist" comment="">
+    <list default="true" id="0cf77218-836b-468c-b6ac-b3821a139e92" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/Gramophy_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/description.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/discord.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/com_1stleg_jnativehook_2_1_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/com_jfoenix_jfoenix_9_0_8.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/com_mpatric_mp3agic_0_9_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/io_github_typhon0_AnimateFX_1_2_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/org_json_json_20190722.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config" beforeDir="false" afterPath="$PROJECT_DIR$/config" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/Gramophy_jar/Gramophy.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/Gramophy_jar/Gramophy.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$10$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$10$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$10$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$10$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$10.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$10.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$11.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$11.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$12.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$12.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$13.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$13.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$14.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$14.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$15.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$15.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$16.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$16.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$17.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$17.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$18.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$18.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$2$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$2$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$5.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$6.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$7.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$8.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$8.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$9.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$9.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Gramophy/dashController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gramophy/dashController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gramophy.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Gramophy.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/license.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/Gramophy_jar/Gramophy.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/Player$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/Player$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/Player$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/Player.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/assets/app_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/assets/baseline_library_music_white_18dp.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/assets/baseline_pause_white_18dp.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/assets/baseline_play_arrow_white_18dp.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/assets/baseline_repeat_green_18dp.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/assets/baseline_repeat_white_18dp.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/assets/baseline_search_white_18dp.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/assets/baseline_shuffle_green_18dp.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/assets/baseline_shuffle_white_18dp.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/assets/baseline_skip_next_white_18dp.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/assets/baseline_skip_previous_white_18dp.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/assets/download_24px.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/assets/icons8_checkmark_24px.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/assets/icons8_delete_24px.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/assets/icons8_delete_bin_24px_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/assets/icons8_download_24px.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/assets/icons8_edit_24px_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/assets/icons8_expand_arrow_48px.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/assets/icons8_folder_24px.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/assets/icons8_globe_24px_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/assets/icons8_import_24px.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/assets/icons8_music_folder_24px.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/assets/icons8_music_record_120px.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/assets/icons8_mute_24px.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/assets/icons8_playlist_24px.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/assets/icons8_settings_24px.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/assets/icons8_thumbs_down_24px.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/assets/icons8_thumbs_down_24px_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/assets/icons8_thumbs_up_24px.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/assets/icons8_thumbs_up_24px_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/assets/icons8_voice_24px.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dash.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$10$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$10$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$10$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$10$4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$10.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$11.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$12.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$13.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$14$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$14.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$15.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$16.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$17.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$18.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$2$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$5.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$6.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$7.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$8.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$9.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/io.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/META-INF/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gramophy/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gramophy/Player.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gramophy/assets/app_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gramophy/assets/baseline_library_music_white_18dp.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gramophy/assets/baseline_pause_white_18dp.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gramophy/assets/baseline_play_arrow_white_18dp.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gramophy/assets/baseline_repeat_green_18dp.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gramophy/assets/baseline_repeat_white_18dp.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gramophy/assets/baseline_search_white_18dp.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gramophy/assets/baseline_shuffle_green_18dp.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gramophy/assets/baseline_shuffle_white_18dp.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gramophy/assets/baseline_skip_next_white_18dp.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gramophy/assets/baseline_skip_previous_white_18dp.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gramophy/assets/download_24px.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gramophy/assets/icons8_checkmark_24px.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gramophy/assets/icons8_delete_24px.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gramophy/assets/icons8_delete_bin_24px_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gramophy/assets/icons8_download_24px.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gramophy/assets/icons8_edit_24px_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gramophy/assets/icons8_expand_arrow_48px.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gramophy/assets/icons8_folder_24px.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gramophy/assets/icons8_globe_24px_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gramophy/assets/icons8_import_24px.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gramophy/assets/icons8_music_folder_24px.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gramophy/assets/icons8_music_record_120px.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gramophy/assets/icons8_mute_24px.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gramophy/assets/icons8_playlist_24px.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gramophy/assets/icons8_settings_24px.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gramophy/assets/icons8_thumbs_down_24px.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gramophy/assets/icons8_thumbs_down_24px_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gramophy/assets/icons8_thumbs_up_24px.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gramophy/assets/icons8_thumbs_up_24px_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gramophy/assets/icons8_voice_24px.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gramophy/dash.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gramophy/dashController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gramophy/io.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gramophy/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="CreatePatchCommitExecutor">
-    <option name="PATCH_PATH" value="" />
-  </component>
-  <component name="DebuggerManager">
-    <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true" converted="true">
-      <breakpoint>
-        <option name="NOTIFY_CAUGHT" value="true" />
-        <option name="NOTIFY_UNCAUGHT" value="true" />
-        <option name="ENABLED" value="false" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="SUSPEND" value="true" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="true" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-      <breakpoint>
-        <option name="NOTIFY_CAUGHT" value="true" />
-        <option name="NOTIFY_UNCAUGHT" value="true" />
-        <option name="ENABLED" value="false" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="SUSPEND" value="true" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="true" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-    </breakpoint_any>
-    <ui_properties converted="true" />
-    <breakpoint_rules converted="true" />
-  </component>
-  <component name="FavoritesManager">
-    <favorites_list name="JavaFxApplication" />
-  </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-        <option value="FxmlFile" />
-      </list>
-    </option>
-  </component>
-  <component name="FindManager">
-    <FindUsagesManager>
-      <setting name="OPEN_NEW_TAB" value="false" />
-    </FindUsagesManager>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
-  <component name="ProjectId" id="1Sdd2Gq1Xa81ift3lxOxG51QhOj" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
-    <ConfirmationsSetting value="2" id="Add" />
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="localRepository" value="D:\Coding\mavenRepo" />
+      </MavenGeneralSettings>
+    </option>
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
   </component>
-  <component name="ProjectReloadState">
-    <option name="STATE" value="0" />
-  </component>
+  <component name="ProjectId" id="1WY9s2wrF4xxV6yQ3UW5ilOBTOS" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
-    <property name="Downloaded.Files.Path.Enabled" value="false" />
-    <property name="GenerateAntBuildDialog.backupFiles" value="true" />
-    <property name="GenerateAntBuildDialog.enableUiFormCompile" value="true" />
-    <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
-    <property name="GenerateAntBuildDialog.outputFileNameProperty" value="gramophy" />
-    <property name="GoToClass.includeLibraries" value="false" />
-    <property name="GoToClass.toSaveIncludeLibraries" value="false" />
-    <property name="GoToFile.includeJavaFiles" value="false" />
-    <property name="MemberChooser.copyJavadoc" value="false" />
-    <property name="MemberChooser.showClasses" value="true" />
-    <property name="MemberChooser.sorted" value="false" />
-    <property name="OverrideImplement.combined" value="false" />
-    <property name="Repository.Attach.Annotations" value="false" />
-    <property name="Repository.Attach.JavaDocs" value="false" />
-    <property name="Repository.Attach.Sources" value="false" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="dynamic.classpath" value="false" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/client-samples-master/Maven/HelloFX" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/target/classes" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="recentsLimit" value="5" />
-    <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="MavenSettings" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Coding\Java Projects\Gramophy\src\Gramophy\assets" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\Coding\Java Projects\Gramophy" />
-      <recent name="C:\Users\Debayan Sutradhar\IdeaProjects\Gramophy" />
-      <recent name="C:\Users\Debayan Sutradhar\IdeaProjects\Gramophy\src" />
+      <recent name="D:\Coding\Java Projects\GramophyMaven\src\main\resources\Gramophy" />
+      <recent name="D:\Coding\Java Projects\GramophyMaven" />
+      <recent name="D:\Coding\Java Projects\GramophyMaven\target\classes\Gramophy" />
     </key>
-  </component>
-  <component name="RunManager">
-    <configuration default="true" type="Applet">
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
-      <option name="VMOptions" />
-      <option name="arguments" />
-      <option name="filePath" />
-      <option name="scope" value="ALL" />
-      <option name="testName" />
-      <method />
-    </configuration>
-    <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
-      <Host>localhost</Host>
-      <Port>5050</Port>
-    </configuration>
-    <configuration name="Main" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" value="Gramophy.Main" />
-      <module name="Gramophy" />
-      <option name="VM_PARAMETERS" value="-Dprism.dirtyopts=false" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="Gramophy.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <RunnerSettings RunnerId="Run" />
-      <ConfigurationWrapper RunnerId="Run" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="Application" factoryName="Application">
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="JUnit" factoryName="JUnit">
-      <option name="TEST_OBJECT" value="class" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="TestNG">
-      <option name="TEST_OBJECT" value="CLASS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType">
-      <module name="" />
-      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m" />
-      <option name="PROGRAM_PARAMETERS" />
-      <predefined_log_file enabled="true" id="idea.log" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Coding\Java Projects\GramophyMaven\target\classes" />
+      <recent name="D:\Coding\Java Projects\GramophyMaven\src\resources" />
+      <recent name="D:\Coding\Java Projects\GramophyMaven\src\main\java" />
+    </key>
   </component>
   <component name="ServiceViewManager">
     <option name="viewStates">
@@ -241,197 +189,38 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="" />
-      <created>1359379246138</created>
+      <changelist id="0cf77218-836b-468c-b6ac-b3821a139e92" name="Default Changelist" comment="" />
+      <created>1579315863971</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1359379246138</updated>
-      <workItem from="1359379250712" duration="1302000" />
+      <updated>1579315863971</updated>
     </task>
-    <task id="LOCAL-00001" summary="Removed jnativehook jar and replaced it with the maven plugin">
-      <created>1578994218557</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1578994218558</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Fixed layout of player pane">
-      <created>1579116428545</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1579116428545</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Optimised code, Added Spinner while importing songs from a public YouTube Playlist, Began working on playlist support on search, Removed time interval for Youtube Searches (for better performance).">
-      <created>1579121630675</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1579121630675</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Removed unnecessary error log.">
-      <created>1579122017807</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1579122017807</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Removed emojis from README.md">
-      <created>1579122087114</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1579122087114</updated>
-    </task>
-    <task id="LOCAL-00006" summary="wip adding support for youtube playlists search">
-      <created>1579165021265</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1579165021266</updated>
-    </task>
-    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
-  <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1302000" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
-    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
-    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
-    <MESSAGE value="Removed jnativehook jar and replaced it with the maven plugin" />
-    <MESSAGE value="Fixed font bugs and added support for linux" />
-    <MESSAGE value="Fixed layout of player pane" />
-    <MESSAGE value="Optimised code, Added Spinner while importing songs from a public YouTube Playlist, Began working on playlist support on search, Removed time interval for Youtube Searches (for better performance)." />
-    <MESSAGE value="Removed unnecessary error log." />
-    <MESSAGE value="Removed emojis from README.md" />
-    <MESSAGE value="wip adding support for youtube playlists search" />
-    <option name="LAST_COMMIT_MESSAGE" value="wip adding support for youtube playlists search" />
-  </component>
   <component name="WindowStateProjectService">
-    <state x="414" y="204" width="1152" height="770" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1579115133671">
-      <screen x="0" y="27" width="1920" height="1053" />
-    </state>
-    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1578842228278" />
-    <state x="414" y="204" width="1152" height="770" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.27.1920.1053@0.27.1920.1053" timestamp="1579115133671" />
-    <state x="724" y="322" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1578845462230">
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1579318499268">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="724" y="322" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1578845462230" />
-    <state x="765" y="258" width="462" height="713" key="#com.intellij.ide.util.MemberChooser" timestamp="1579172431735">
-      <screen x="0" y="27" width="1920" height="1053" />
-    </state>
-    <state x="765" y="228" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1578825866454" />
-    <state x="765" y="258" width="462" height="713" key="#com.intellij.ide.util.MemberChooser/0.27.1920.1053@0.27.1920.1053" timestamp="1579172431735" />
-    <state x="690" y="301" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1578767442993">
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1579318499268" />
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom" timestamp="1579318871711">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="690" y="301" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1578767442993" />
-    <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1578143316897">
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1579318871711" />
+    <state width="1877" height="282" key="GridCell.Tab.0.center" timestamp="1579318871711">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1578143316897" />
-    <state x="637" y="151" width="635" height="812" key="CommitChangelistDialog2" timestamp="1579165020082">
-      <screen x="0" y="27" width="1920" height="1053" />
-    </state>
-    <state x="637" y="151" width="635" height="812" key="CommitChangelistDialog2/0.27.1920.1053@0.27.1920.1053" timestamp="1579165020082" />
-    <state x="666" y="290" width="907" height="749" key="FileChooserDialogImpl" timestamp="1579154419204">
-      <screen x="0" y="27" width="1920" height="1053" />
-    </state>
-    <state x="666" y="260" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1578767446129" />
-    <state x="666" y="290" width="907" height="749" key="FileChooserDialogImpl/0.27.1920.1053@0.27.1920.1053" timestamp="1579154419204" />
-    <state width="1877" height="263" key="GridCell.Tab.0.bottom" timestamp="1579280546951">
+    <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1579318871711" />
+    <state width="1877" height="282" key="GridCell.Tab.0.left" timestamp="1579318871710">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="263" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1579280546951" />
-    <state width="1868" height="273" key="GridCell.Tab.0.bottom/0.27.1920.1053@0.27.1920.1053" timestamp="1579174410243" />
-    <state width="1877" height="263" key="GridCell.Tab.0.center" timestamp="1579280546951">
+    <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1579318871710" />
+    <state width="1877" height="282" key="GridCell.Tab.0.right" timestamp="1579318871711">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="263" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1579280546951" />
-    <state width="1868" height="273" key="GridCell.Tab.0.center/0.27.1920.1053@0.27.1920.1053" timestamp="1579174410242" />
-    <state width="1877" height="263" key="GridCell.Tab.0.left" timestamp="1579280546951">
+    <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1579318871711" />
+    <state x="440" y="95" key="SettingsEditor" timestamp="1579317869069">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="263" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1579280546951" />
-    <state width="1868" height="273" key="GridCell.Tab.0.left/0.27.1920.1053@0.27.1920.1053" timestamp="1579174410242" />
-    <state width="1877" height="263" key="GridCell.Tab.0.right" timestamp="1579280546951">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="263" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1579280546951" />
-    <state width="1868" height="273" key="GridCell.Tab.0.right/0.27.1920.1053@0.27.1920.1053" timestamp="1579174410242" />
-    <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1578803729137">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1578803729137" />
-    <state width="1877" height="348" key="GridCell.Tab.1.center" timestamp="1578803729137">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1578803729137" />
-    <state width="1877" height="348" key="GridCell.Tab.1.left" timestamp="1578803729137">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1578803729137" />
-    <state width="1877" height="348" key="GridCell.Tab.1.right" timestamp="1578803729137">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1578803729137" />
-    <state x="440" y="93" width="1350" height="1053" key="SettingsEditor" timestamp="1579279805120">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="440" y="93" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1579279805120" />
-    <state x="440" y="27" width="1350" height="1053" key="SettingsEditor/0.27.1920.1053@0.27.1920.1053" timestamp="1579163178434" />
-    <state width="498" height="446" key="SwitcherDM" timestamp="1578147679091">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="498" height="446" key="SwitcherDM/0.0.1920.1040@0.0.1920.1040" timestamp="1578147679091" />
-    <state x="555" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1579165023368">
-      <screen x="0" y="27" width="1920" height="1053" />
-    </state>
-    <state x="555" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2/0.27.1920.1053@0.27.1920.1053" timestamp="1579165023368" />
-    <state x="639" y="380" key="com.intellij.ide.util.TipDialog" timestamp="1578997573704">
-      <screen x="0" y="27" width="1920" height="1053" />
-    </state>
-    <state x="639" y="380" key="com.intellij.ide.util.TipDialog/0.27.1920.1053@0.27.1920.1053" timestamp="1578997573704" />
-    <state x="664" y="444" width="638" height="302" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1578998816439">
-      <screen x="0" y="27" width="1920" height="1053" />
-    </state>
-    <state x="664" y="412" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.0.1920.1040@0.0.1920.1040" timestamp="1578724692042" />
-    <state x="664" y="444" width="638" height="302" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.27.1920.1053@0.27.1920.1053" timestamp="1578998816439" />
-    <state x="769" y="468" width="574" height="237" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1579118410063">
-      <screen x="0" y="27" width="1920" height="1053" />
-    </state>
-    <state x="769" y="436" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1577178661221" />
-    <state x="769" y="468" width="574" height="237" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.27.1920.1053@0.27.1920.1053" timestamp="1579118410063" />
-    <state x="616" y="240" width="672" height="677" key="run.anything.popup" timestamp="1579279484284">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="616" y="240" width="672" height="677" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1579279484284" />
-    <state x="616" y="270" width="672" height="686" key="run.anything.popup/0.27.1920.1053@0.27.1920.1053" timestamp="1579168824943" />
-    <state x="623" y="255" width="1009" height="192" key="search.everywhere.popup" timestamp="1579118495537">
-      <screen x="0" y="27" width="1920" height="1053" />
-    </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1577338937116" />
-    <state x="623" y="255" width="1009" height="192" key="search.everywhere.popup/0.27.1920.1053@0.27.1920.1053" timestamp="1579118495537" />
-  </component>
-  <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Gramophy$Main.ic" NAME="Main Coverage Results" MODIFIED="1577201745791" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
-      <FILTER>Gramophy.*</FILTER>
-    </SUITE>
+    <state x="440" y="95" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1579317869069" />
   </component>
 </project>
