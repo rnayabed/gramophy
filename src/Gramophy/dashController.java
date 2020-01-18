@@ -18,6 +18,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.CacheHint;
 import javafx.scene.Node;
@@ -597,36 +598,58 @@ public class dashController implements Initializable {
 
         currentPlaylist = playlistName;
 
-        if(currentPlaylist.equals("My Music") || currentPlaylist.equals("YouTube") || currentPlaylist.equals("Recents"))
-        {
-            playlistImportSongsFromYouTubePlaylistButton.setVisible(false);
-            deletePlaylistButton.setVisible(false);
-            editPlaylistNameButton.setVisible(false);
-        }
-        else
-        {
-             playlistImportSongsFromYouTubePlaylistButton.setVisible(true);
-             deletePlaylistButton.setVisible(true);
-             editPlaylistNameButton.setVisible(true);
-        }
 
         ArrayList<HashMap<String,Object>> songs = cachedPlaylist.get(playlistName);
 
         if(playlistName.endsWith("_youtube_playlist"))
         {
-            playlistImportSongsFromYouTubePlaylistButton.setVisible(false);
-            deletePlaylistButton.setVisible(false);
-            editPlaylistNameButton.setVisible(false);
             Platform.runLater(()->playlistNameLabel.setText(playlistName.replace("_youtube_playlist","")));
+            playlistImportSongsFromYouTubePlaylistButton.setVisible(false);
+            playlistImportSongsFromYouTubePlaylistButton.setManaged(false);
+            deletePlaylistButton.setVisible(false);
+            deletePlaylistButton.setManaged(false);
+            editPlaylistNameButton.setVisible(false);
+            editPlaylistNameButton.setManaged(false);
         }
         else
         {
-            playlistImportSongsFromYouTubePlaylistButton.setVisible(true);
-            deletePlaylistButton.setVisible(true);
-            editPlaylistNameButton.setVisible(true);
             Platform.runLater(()->playlistNameLabel.setText(playlistName));
+            if(currentPlaylist.equals("My Music") || currentPlaylist.equals("YouTube") || currentPlaylist.equals("Recents"))
+            {
+                playlistImportSongsFromYouTubePlaylistButton.setVisible(false);
+                playlistImportSongsFromYouTubePlaylistButton.setManaged(false);
+                deletePlaylistButton.setVisible(false);
+                deletePlaylistButton.setManaged(false);
+                editPlaylistNameButton.setVisible(false);
+                editPlaylistNameButton.setManaged(false);
+            }
+            else
+            {
+                playlistImportSongsFromYouTubePlaylistButton.setVisible(true);
+                playlistImportSongsFromYouTubePlaylistButton.setManaged(true);
+                deletePlaylistButton.setVisible(true);
+                deletePlaylistButton.setManaged(true);
+                editPlaylistNameButton.setVisible(true);
+                editPlaylistNameButton.setManaged(true);
+            }
         }
 
+
+        if(cachedPlaylist.get(playlistName).size() == 0)
+        {
+            playSongsFromCurrentPlaylistButton.setDisable(true);
+
+            Label sl = new Label("It's lonely here!");
+            sl.setFont(robotoRegular15);
+            HBox sx = new HBox(sl);
+            sx.setPrefHeight(300);
+            sx.setAlignment(Pos.CENTER);
+            Platform.runLater(()->playlistListView.getItems().add(sx));
+        }
+        else
+        {
+            playSongsFromCurrentPlaylistButton.setDisable(false);
+        }
 
         i2 = 0;
         for(HashMap<String,Object> eachSong : songs)
@@ -752,9 +775,6 @@ public class dashController implements Initializable {
 
                 HBox vb1 = new HBox(saveToPlaylistButton);
 
-                int noOfPlaylists = cachedPlaylist.size() - 2;
-                if(cachedPlaylist.containsKey("YouTube")) noOfPlaylists --;
-
                 if(eachSong.get("location").toString().equals("youtube"))
                 {
                     vb1.getChildren().add(downloadButton);
@@ -794,15 +814,6 @@ public class dashController implements Initializable {
             });
 
         }
-
-        if(cachedPlaylist.get(playlistName).size() == 0)
-        {
-            playSongsFromCurrentPlaylistButton.setDisable(true);
-        }
-        else
-        {
-            playSongsFromCurrentPlaylistButton.setDisable(false);
-        }
     }
 
     ArrayList<JFXProgressBar> yy = new ArrayList<>();
@@ -810,6 +821,7 @@ public class dashController implements Initializable {
 
     private void addToDownloads(String watchID, JFXButton originalButton, String thumbnailURL, String title, String channelTitle)
     {
+
         String refinedTitle = title.replace("|","&").replace("\\","&").replace("/","&");
         int thisIndex = yy.size();
         try
@@ -2387,6 +2399,7 @@ public class dashController implements Initializable {
                     updateConfig("music_lib_path",selectMusicLibraryField.getText());
                     updateConfig("youtube_api_key",youtubeAPIKeyField.getText());
                     updateConfig("max_recents_limit",recentsPlaylistMaxLimitField.getText());
+                    cachedPlaylist.get("Recents").clear();
                     maxRecentsLimit = Integer.parseInt(recentsPlaylistMaxLimitField.getText());
                     if(player.isActive)
                     {

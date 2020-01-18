@@ -6,32 +6,32 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="wip adding support for youtube playlists search">
+    <list default="true" id="63e3b512-b9d0-4d8a-925c-cf53dac97a45" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/Player$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/Player$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/Player$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/Player$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/Player$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/Player$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/Player.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config" beforeDir="false" afterPath="$PROJECT_DIR$/config" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/Gramophy_jar/Gramophy.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/Gramophy_jar/Gramophy.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$10$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$10$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$10$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$10$2.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$10.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$10.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$11.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$11.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$12.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$12.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$13$1.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$13.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$13.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$14.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$14.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$15.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$15.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$16.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$16.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$17.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$17.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$18.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$18.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$19.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$2$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$2$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$4.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$5.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$6.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$7.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$8.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$8.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$9.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController$9.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gramophy/Gramophy/dashController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Gramophy/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gramophy/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Gramophy/dashController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gramophy/dashController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -134,7 +134,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="dynamic.classpath" value="false" />
     <property name="last_opened_file_path" value="$USER_HOME$/Downloads/client-samples-master/Maven/HelloFX" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="recentsLimit" value="5" />
@@ -355,25 +355,25 @@
     </state>
     <state x="666" y="260" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1578767446129" />
     <state x="666" y="290" width="907" height="749" key="FileChooserDialogImpl/0.27.1920.1053@0.27.1920.1053" timestamp="1579154419204" />
-    <state width="1868" height="273" key="GridCell.Tab.0.bottom" timestamp="1579174410243">
-      <screen x="0" y="27" width="1920" height="1053" />
+    <state width="1877" height="263" key="GridCell.Tab.0.bottom" timestamp="1579280546951">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="938" height="263" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1579112709018" />
+    <state width="1877" height="263" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1579280546951" />
     <state width="1868" height="273" key="GridCell.Tab.0.bottom/0.27.1920.1053@0.27.1920.1053" timestamp="1579174410243" />
-    <state width="1868" height="273" key="GridCell.Tab.0.center" timestamp="1579174410242">
-      <screen x="0" y="27" width="1920" height="1053" />
+    <state width="1877" height="263" key="GridCell.Tab.0.center" timestamp="1579280546951">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="938" height="263" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1579112709017" />
+    <state width="1877" height="263" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1579280546951" />
     <state width="1868" height="273" key="GridCell.Tab.0.center/0.27.1920.1053@0.27.1920.1053" timestamp="1579174410242" />
-    <state width="1868" height="273" key="GridCell.Tab.0.left" timestamp="1579174410242">
-      <screen x="0" y="27" width="1920" height="1053" />
+    <state width="1877" height="263" key="GridCell.Tab.0.left" timestamp="1579280546951">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="938" height="263" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1579112709017" />
+    <state width="1877" height="263" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1579280546951" />
     <state width="1868" height="273" key="GridCell.Tab.0.left/0.27.1920.1053@0.27.1920.1053" timestamp="1579174410242" />
-    <state width="1868" height="273" key="GridCell.Tab.0.right" timestamp="1579174410242">
-      <screen x="0" y="27" width="1920" height="1053" />
+    <state width="1877" height="263" key="GridCell.Tab.0.right" timestamp="1579280546951">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="938" height="263" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1579112709018" />
+    <state width="1877" height="263" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1579280546951" />
     <state width="1868" height="273" key="GridCell.Tab.0.right/0.27.1920.1053@0.27.1920.1053" timestamp="1579174410242" />
     <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1578803729137">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -391,10 +391,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="348" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1578803729137" />
-    <state x="440" y="27" width="1350" height="1053" key="SettingsEditor" timestamp="1579163178434">
-      <screen x="0" y="27" width="1920" height="1053" />
+    <state x="440" y="93" width="1350" height="1053" key="SettingsEditor" timestamp="1579279805120">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="440" y="93" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1579111573480" />
+    <state x="440" y="93" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1579279805120" />
     <state x="440" y="27" width="1350" height="1053" key="SettingsEditor/0.27.1920.1053@0.27.1920.1053" timestamp="1579163178434" />
     <state width="498" height="446" key="SwitcherDM" timestamp="1578147679091">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -418,10 +418,10 @@
     </state>
     <state x="769" y="436" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1577178661221" />
     <state x="769" y="468" width="574" height="237" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.27.1920.1053@0.27.1920.1053" timestamp="1579118410063" />
-    <state x="616" y="270" width="672" height="686" key="run.anything.popup" timestamp="1579168824943">
-      <screen x="0" y="27" width="1920" height="1053" />
+    <state x="616" y="240" width="672" height="677" key="run.anything.popup" timestamp="1579279484284">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="616" y="240" width="672" height="677" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1578767638495" />
+    <state x="616" y="240" width="672" height="677" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1579279484284" />
     <state x="616" y="270" width="672" height="686" key="run.anything.popup/0.27.1920.1053@0.27.1920.1053" timestamp="1579168824943" />
     <state x="623" y="255" width="1009" height="192" key="search.everywhere.popup" timestamp="1579118495537">
       <screen x="0" y="27" width="1920" height="1053" />
