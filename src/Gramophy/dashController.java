@@ -663,10 +663,12 @@ public class dashController implements Initializable {
             Label title = new Label();
             title.setFont(robotoRegular15);
             title.setPrefWidth(500);
+            title.setMaxWidth(500);
 
             Label artist = new Label();
             artist.setFont(robotoRegular15);
             artist.setPrefWidth(150);
+            artist.setMaxWidth(150);
 
             if(eachSong.get("location").toString().equals("local"))
             {
@@ -1155,6 +1157,8 @@ public class dashController implements Initializable {
 
                             Image ix = new Image(defaultThumbnailURL);
                             ImageView thumbnailImgView = new ImageView(ix);
+                            thumbnailImgView.setFitHeight(90);
+                            thumbnailImgView.setFitWidth(120);
                             Label titleLabel = new Label(title);
                             titleLabel.setFont(robotoRegular15);
                             Label channelTitleLabel = new Label(channelTitle);

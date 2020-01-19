@@ -6,6 +6,10 @@
 
 }
 
+.jfx-autocomplete-popup .list-cell {
+    -fx-font-family : "Roboto Regular";
+}
+
 .playlist_scroll_pane {
     -fx-background-color : #484848;
     -fx-background : #484848;
