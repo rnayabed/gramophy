@@ -910,8 +910,10 @@ public class dashController implements Initializable {
                 yyx.get(thisIndex).setText("Finishing Up ...");
             });
 
+            File tmpAudioFile = new File("audioDownload.mp3");
+
             ID3v2 id3v2Tag = new ID3v24Tag();
-            Mp3File mp3File = new Mp3File(new File("audioDownload.mp3"));
+            Mp3File mp3File = new Mp3File(tmpAudioFile);
             mp3File.setId3v2Tag(id3v2Tag);
 
             Image img = new Image(thumbnailURL);
@@ -926,6 +928,8 @@ public class dashController implements Initializable {
             id3v2Tag.setAlbumImage(bos.toByteArray(),"LOL");
 
             mp3File.save(config.get("music_lib_path")+"/"+refinedTitle+".mp3");
+
+            tmpAudioFile.delete();
 
             loadLibrary();
 
@@ -1142,7 +1146,6 @@ public class dashController implements Initializable {
                         JSONObject idObj = eachItem.getJSONObject("id");
                         String kindObj = idObj.getString("kind");
 
-
                         if (kindObj.equals("youtube#video")) {
                             JSONObject snippet = eachItem.getJSONObject("snippet");
 
@@ -1261,6 +1264,8 @@ public class dashController implements Initializable {
 
                                 Image ix = new Image(defaultThumbnailURL);
                                 ImageView thumbnailImgView = new ImageView(ix);
+                                thumbnailImgView.setFitHeight(90);
+                                thumbnailImgView.setFitWidth(120);
                                 Label titleLabel = new Label("Playlist : " + title);
                                 titleLabel.setFont(robotoRegular15);
                                 Label channelTitleLabel = new Label(channelTitle);
