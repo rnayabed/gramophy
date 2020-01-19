@@ -98,6 +98,7 @@ public class Player {
         {
             dash.musicPanePlayPauseButtonImageView.setImage(dash.pauseIcon);
             new FadeInUp(dash.musicPaneSongInfo).play();
+            new FadeInUp(dash.albumArtStackPane).play();
             new FadeInUp(dash.musicPaneControls).play();
             new FadeInUp(dash.musicPaneMiscControls).play();
         }
@@ -395,6 +396,7 @@ public class Player {
     {
         new FadeOutDown(dash.musicPaneSongInfo).play();
         new FadeOutDown(dash.musicPaneControls).play();
+        new FadeOutDown(dash.albumArtStackPane).play();
         FadeOutDown x = new FadeOutDown(dash.musicPaneMiscControls);
         x.setOnFinished(event -> Platform.runLater(()->{
             dash.songNameLabel.setText("");
