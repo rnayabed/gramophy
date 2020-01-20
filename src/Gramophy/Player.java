@@ -148,7 +148,11 @@ public class Player {
 
                     if(songDetails.get("location").toString().equals("local"))
                     {
-                        source = songDetails.get("source").toString();
+                        if(isUnix)
+                            source = "file:"+songDetails.get("source").toString();
+                        else
+                            source = "file:/"+songDetails.get("source").toString();
+
                         Platform.runLater(()->{
                             Main.dash.songNameLabel.setText(songDetails.get("title").toString());
                             Main.dash.artistLabel.setText(songDetails.get("artist").toString());
@@ -233,10 +237,8 @@ public class Player {
 
                     System.out.println("starting ...");
 
-                    if(isUnix)
-                        media = new Media("file:"+source);
-                    else
-                        media = new Media("file:/"+source);
+                    media = new Media(source);
+
 
                     mediaPlayer = new MediaPlayer(media);
 

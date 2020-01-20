@@ -772,14 +772,7 @@ public class dashController implements Initializable {
                                 }
                                 if(currentPlaylist.equals("My Music"))
                                 {
-                                    File f= new File(new URI(cachedPlaylist.get(currentPlaylist).get(index).get("source").toString()));
-                                    if(f.exists())
-                                    {
-                                        boolean x = f.delete();
-                                    }
-                                    else
-                                    {
-                                    }
+                                    new File(cachedPlaylist.get(currentPlaylist).get(index).get("source").toString()).delete();
                                 }
                                 cachedPlaylist.get(currentPlaylist).remove(index);
                                 updatePlaylistsFiles();
@@ -873,9 +866,9 @@ public class dashController implements Initializable {
     ArrayList<JFXProgressBar> yy = new ArrayList<>();
     ArrayList<Label> yyx = new ArrayList<>();
 
+    int noOfDownloads = 0;
     private void addToDownloads(String watchID, JFXButton originalButton, String thumbnailURL, String title, String channelTitle)
     {
-
         String refinedTitle = title.replace("|","&").replace("\\","&").replace("/","&");
         int thisIndex = yy.size();
         try
@@ -883,6 +876,8 @@ public class dashController implements Initializable {
             Platform.runLater(()->{
                 originalButton.setDisable(true);
                 ImageView downloadThumbnailImageView = new ImageView(thumbnailURL);
+                downloadThumbnailImageView.setFitHeight(90);
+                downloadThumbnailImageView.setFitWidth(120);
 
                 Label titleLabel = new Label(title);
                 titleLabel.setFont(new Font("Roboto Regular",25));
@@ -890,7 +885,10 @@ public class dashController implements Initializable {
                 Label channelTitleLabel = new Label(channelTitle);
                 channelTitleLabel.setFont(robotoRegular15);
                 Label statusLabel = new Label("Downloading ...");
+                statusLabel.setFont(robotoRegular15);
                 JFXProgressBar progressBar = new JFXProgressBar(-1);
+                progressBar.setCache(true);
+                progressBar.setCacheHint(CacheHint.SPEED);
                 VBox next = new VBox(titleLabel,channelTitleLabel,statusLabel,progressBar);
                 next.setSpacing(5);
 
@@ -903,7 +901,9 @@ public class dashController implements Initializable {
                 downloadsVBox.getChildren().add(eachDownloadNode);
             });
 
-            Thread.sleep(500);
+            noOfDownloads++;
+            while (downloadsVBox.getChildren().size()<noOfDownloads)
+                Thread.sleep(100);
 
             for(Node eachNode : downloadsVBox.getChildren())
             {
@@ -915,6 +915,9 @@ public class dashController implements Initializable {
                     yy.add((JFXProgressBar) v.getChildren().get(3));
                 }
             }
+
+            while(yy.size()<noOfDownloads)
+                Thread.sleep(100);
 
             String udlExec = "youtube-dl.exe";
             if(isUnix) udlExec = "./youtube-dl";
