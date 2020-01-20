@@ -772,7 +772,7 @@ public class dashController implements Initializable {
                                 }
                                 if(currentPlaylist.equals("My Music"))
                                 {
-                                    new File(cachedPlaylist.get(currentPlaylist).get(index).get("source").toString()).delete();
+                                    new File(URLDecoder.decode(cachedPlaylist.get(currentPlaylist).get(index).get("source").toString(),StandardCharsets.UTF_8)).delete();
                                 }
                                 cachedPlaylist.get(currentPlaylist).remove(index);
                                 updatePlaylistsFiles();
