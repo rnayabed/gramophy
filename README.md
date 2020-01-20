@@ -7,13 +7,17 @@ Built with JavaFX.
 ### Features
 
 - YouTube Playback
+- YouTube Autocomplete
+- Import YouTube Playlist
 - YouTube Download
 - Smooth and Material Design Based UI
-- Other things which you can expect from a decent music player made by a 15 y.o.
 
 ### Platforms Supported
 
-Windows and Linux. If you are interested in a MacOS build then contact me!
+* Windows
+* Linux
+
+MacOS coming soon
 
 ### How to use?
 
