@@ -15,7 +15,7 @@ Built with JavaFX.
 
 ### Platforms Supported
 
-For now, only windows. I need to tweak it a little bit and a real Mac/Linux Machine for making binaries. If you're have a mac (im poor, cant afford one) or a linux pc and really want to run this on your pc, please contribute, by building custom JREs. Contact me or join the discord server if you want to :)
+Windows and Linux. If you are interested in a MacOS build then contact me!
 
 ### How to use?
 
@@ -39,4 +39,6 @@ Or you can buy me a coffee :)
 ### License
 
 This program is licensed under the [GNU GPLv3 License](https://github.com/dubbadhar/gramophy/blob/master/license.txt). 
+
+
                                                                                                                                                                       
