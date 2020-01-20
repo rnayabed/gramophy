@@ -2,10 +2,6 @@
     -fx-background-color : #383838;
 }
 
-.base_pane {
-
-}
-
 .jfx-autocomplete-popup .list-cell {
     -fx-font-family : "Roboto Regular";
 }

@@ -3,6 +3,7 @@ package Gramophy;
 import animatefx.animation.FadeIn;
 import animatefx.animation.FadeInUp;
 import animatefx.animation.FadeOutDown;
+import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -51,41 +52,44 @@ public class Player {
 
     String currentPlaylistName = "";
 
-    dashController dash;
     String youtubeExecName = "youtube-dl.exe";
+
 
     public Player()
     {
         isPlaying = false;
         isActive = false;
     }
-    public Player(String inputPlaylistName, int inputIndex, dashController td, boolean isUnix)
+
+    boolean isUnix;
+
+    public Player(String inputPlaylistName, int inputIndex, boolean isUnix)
     {
+        this.isUnix = isUnix;
         if(isUnix) youtubeExecName = "./youtube-dl";
-        dash = td;
         this.currentPlaylistName = inputPlaylistName;
 
         Platform.runLater(()->{
-            dash.musicPanePreviousButton.setDisable(false);
-            dash.musicPaneNextButton.setDisable(false);
-            dash.musicPaneShuffleButton.setDisable(false);
-            dash.musicPaneRepeatButton.setDisable(false);
+            Main.dash.musicPanePreviousButton.setDisable(false);
+            Main.dash.musicPaneNextButton.setDisable(false);
+            Main.dash.musicPaneShuffleButton.setDisable(false);
+            Main.dash.musicPaneRepeatButton.setDisable(false);
         });
 
-        dash.songSeek.setOnMouseClicked(event -> {
-            setPos((dash.songSeek.getValue()/100) * totalCurr);
-            //dash.refreshSlider(dash.songSeek);
+        Main.dash.songSeek.setOnMouseClicked(event -> {
+            setPos((Main.dash.songSeek.getValue()/100) * totalCurr);
+            //Main.dash.refreshSlider(Main.dash.songSeek);
         });
 
-        dash.musicPanePlayPauseButton.setOnMouseClicked(event -> {
+        Main.dash.musicPanePlayPauseButton.setOnMouseClicked(event -> {
             pauseResume();
         });
 
-        dash.musicPaneNextButton.setOnMouseClicked(event -> {
+        Main.dash.musicPaneNextButton.setOnMouseClicked(event -> {
             playNext();
         });
 
-        dash.musicPanePreviousButton.setOnMouseClicked(event -> {
+        Main.dash.musicPanePreviousButton.setOnMouseClicked(event -> {
             playPrevious();
         });
 
@@ -94,13 +98,13 @@ public class Player {
 
     private void show()
     {
-        if(dash.musicPaneControls.getOpacity()==0)
+        if(Main.dash.musicPaneControls.getOpacity()==0)
         {
-            dash.musicPanePlayPauseButtonImageView.setImage(dash.pauseIcon);
-            new FadeInUp(dash.musicPaneSongInfo).play();
-            new FadeInUp(dash.albumArtStackPane).play();
-            new FadeInUp(dash.musicPaneControls).play();
-            new FadeInUp(dash.musicPaneMiscControls).play();
+            Main.dash.musicPanePlayPauseButtonImageView.setImage(Main.dash.pauseIcon);
+            new FadeInUp(Main.dash.musicPaneSongInfo).play();
+            new FadeInUp(Main.dash.albumArtStackPane).play();
+            new FadeInUp(Main.dash.musicPaneControls).play();
+            new FadeInUp(Main.dash.musicPaneMiscControls).play();
         }
     }
 
@@ -110,9 +114,9 @@ public class Player {
         {
             mediaPlayer.setVolume(volume);
             if(volume == 0.0)
-                dash.volumeIconImageView.setImage(dash.muteIcon);
+                Main.dash.volumeIconImageView.setImage(Main.dash.muteIcon);
             else
-                dash.volumeIconImageView.setImage(dash.notMuteIcon);
+                Main.dash.volumeIconImageView.setImage(Main.dash.notMuteIcon);
         }
     }
 
@@ -125,18 +129,18 @@ public class Player {
                 try
                 {
                     Platform.runLater(()->{
-                        dash.songSeek.setValue(0);
-                        dash.songSeek.setDisable(true);
-                        dash.totalDurLabel.setText("0:00");
-                        dash.totalDurLabel.setVisible(false);
-                        dash.nowDurLabel.setText("0:00");
-                        dash.nowDurLabel.setVisible(false);
-                        dash.musicPlayerButtonBar.setDisable(true);
-                        dash.musicPaneSpinner.setVisible(true);
-                        dash.albumArtImgView.setOpacity(0.7);
+                        Main.dash.songSeek.setValue(0);
+                        Main.dash.songSeek.setDisable(true);
+                        Main.dash.totalDurLabel.setText("0:00");
+                        Main.dash.totalDurLabel.setVisible(false);
+                        Main.dash.nowDurLabel.setText("0:00");
+                        Main.dash.nowDurLabel.setVisible(false);
+                        Main.dash.musicPlayerButtonBar.setDisable(true);
+                        Main.dash.musicPaneSpinner.setVisible(true);
+                        Main.dash.albumArtImgView.setOpacity(0.7);
                     });
 
-                    HashMap<String,Object> songDetails = dash.cachedPlaylist.get(currentPlaylistName).get(index);
+                    HashMap<String,Object> songDetails = Main.dash.cachedPlaylist.get(currentPlaylistName).get(index);
 
                     songIndex = index;
 
@@ -146,20 +150,20 @@ public class Player {
                     {
                         source = songDetails.get("source").toString();
                         Platform.runLater(()->{
-                            dash.songNameLabel.setText(songDetails.get("title").toString());
-                            dash.artistLabel.setText(songDetails.get("artist").toString());
+                            Main.dash.songNameLabel.setText(songDetails.get("title").toString());
+                            Main.dash.artistLabel.setText(songDetails.get("artist").toString());
                             if(songDetails.containsKey("album_art"))
                             {
                                 try {
                                     Image x = SwingFXUtils.toFXImage(ImageIO.read(new ByteArrayInputStream((byte[]) songDetails.get("album_art"))),null);
-                                    dash.albumArtImgView.setImage(x);
+                                    Main.dash.albumArtImgView.setImage(x);
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
                             }
                             else
                             {
-                                dash.albumArtImgView.setImage(dash.defaultAlbumArt);
+                                Main.dash.albumArtImgView.setImage(Main.dash.defaultAlbumArt);
                             }
 
                             show();
@@ -169,9 +173,9 @@ public class Player {
                     {
                         Image x = new Image(songDetails.get("thumbnail").toString());
                         Platform.runLater(()->{
-                            dash.songNameLabel.setText(songDetails.get("title").toString());
-                            dash.artistLabel.setText(songDetails.get("channelTitle").toString());
-                            dash.albumArtImgView.setImage(x);
+                            Main.dash.songNameLabel.setText(songDetails.get("title").toString());
+                            Main.dash.artistLabel.setText(songDetails.get("channelTitle").toString());
+                            Main.dash.albumArtImgView.setImage(x);
 
                             show();
                         });
@@ -204,16 +208,15 @@ public class Player {
                                     errResult+= (char) c;
                                 }
 
-                                dash.showErrorAlert("Uh OH!","Unable to play, probably because Age Restricted/Live Video. If not, check connection and try again!\n\n"+errResult);
+                                Main.dash.showErrorAlert("Uh OH!","Unable to play, probably because Age Restricted/Live Video. If not, check connection and try again!\n\n"+errResult);
                                 stop();
                                 hide();
                                 return null;
                             }
 
                             videoURL = result.substring(0,result.length()-1);
-                            System.out.println(videoURL);
                             songDetails.put("videoURL",videoURL);
-                            dash.cachedPlaylist.get(currentPlaylistName).get(songIndex).put("videoURL",videoURL);
+                            Main.dash.cachedPlaylist.get(currentPlaylistName).get(songIndex).put("videoURL",videoURL);
                         }
 
 
@@ -224,13 +227,17 @@ public class Player {
 
                     if(!isActive || index!=songIndex)
                     {
-                        System.out.println("gayyy");
+                        System.out.println("Skipping because video no longer required ...");
                         return null;
                     }
 
                     System.out.println("starting ...");
 
-                    media = new Media(source);
+                    if(isUnix)
+                        media = new Media("file:"+source);
+                    else
+                        media = new Media("file:/"+source);
+
                     mediaPlayer = new MediaPlayer(media);
 
                     media.setOnError(()-> {
@@ -246,14 +253,14 @@ public class Player {
 
 
                         Platform.runLater(()->{
-                            dash.songSeek.setDisable(false);
-                            dash.musicPlayerButtonBar.setDisable(false);
-                            dash.musicPaneSpinner.setVisible(false);
-                            dash.albumArtImgView.setOpacity(1.0);
-                            dash.totalDurLabel.setText(dash.getSecondsToSimpleString(media.getDuration().toSeconds()));
-                            dash.totalDurLabel.setVisible(true);
-                            dash.nowDurLabel.setVisible(true);
-                            dash.musicPanePlayPauseButtonImageView.setImage(dash.pauseIcon);
+                            Main.dash.songSeek.setDisable(false);
+                            Main.dash.musicPlayerButtonBar.setDisable(false);
+                            Main.dash.musicPaneSpinner.setVisible(false);
+                            Main.dash.albumArtImgView.setOpacity(1.0);
+                            Main.dash.totalDurLabel.setText(Main.dash.getSecondsToSimpleString(media.getDuration().toSeconds()));
+                            Main.dash.totalDurLabel.setVisible(true);
+                            Main.dash.nowDurLabel.setVisible(true);
+                            Main.dash.musicPanePlayPauseButtonImageView.setImage(Main.dash.pauseIcon);
                         });
 
                         mediaPlayer.play();
@@ -263,36 +270,17 @@ public class Player {
                     });
 
                     mediaPlayer.setOnEndOfMedia(()->{
-                        if(dash.isShuffle)
-                            playNextRandom();
-                        else
-                        {
-                            if(dash.isRepeat) setPos(0);
-                            else
-                            {
-                                if(songIndex==(dash.cachedPlaylist.get(currentPlaylistName).size()-1))
-                                {
-                                    stop();
-                                    hide();
-                                }
-                                else
-                                {
-                                    playNext();
-                                }
-                            }
-                        }
+                        onEndOfMediaTrigger();
                     });
 
 
-                    for(Node eachNode : dash.playlistListView.getItems())
+                    for(Node eachNode : Main.dash.playlistListView.getItems())
                     {
                         HBox x = (HBox) eachNode;
 
                         if(x.getChildren().get(0).getId().equals(songIndex+""))
                         {
-                            System.out.println("yay!");
-                            System.out.println("'"+songIndex+"' '"+x.getChildren().get(0).getId()+"'");
-                            Platform.runLater(()->dash.playlistListView.getSelectionModel().select(x));
+                            Platform.runLater(()->Main.dash.playlistListView.getSelectionModel().select(x));
                         }
                     }
                 }
@@ -306,11 +294,34 @@ public class Player {
         x.setPriority(1);
         x.start();
     }
+
     Thread x;
+
+    public void onEndOfMediaTrigger()
+    {
+        if(Main.dash.isShuffle)
+            playNextRandom();
+        else
+        {
+            if(Main.dash.isRepeat) setPos(0);
+            else
+            {
+                if(songIndex==(Main.dash.cachedPlaylist.get(currentPlaylistName).size()-1))
+                {
+                    stop();
+                    hide();
+                }
+                else
+                {
+                    playNext();
+                }
+            }
+        }
+    }
 
     public void playNext()
     {
-        if(songIndex<(dash.cachedPlaylist.get(currentPlaylistName).size()-1))
+        if(songIndex<(Main.dash.cachedPlaylist.get(currentPlaylistName).size()-1))
         {
             if(isPlaying)
             {
@@ -318,13 +329,12 @@ public class Player {
                 mediaPlayer.dispose();
             }
             playSong((songIndex+1));
-            System.out.println("gay");
         }
     }
 
     private void playNextRandom()
     {
-        if(dash.isRepeat) setPos(0);
+        if(Main.dash.isRepeat) setPos(0);
         else
         {
             if(isPlaying)
@@ -333,7 +343,7 @@ public class Player {
                 mediaPlayer.dispose();
             }
             mediaPlayer.dispose();
-            playSong((new Random().nextInt(dash.cachedPlaylist.get(currentPlaylistName).size())));
+            playSong((new Random().nextInt(Main.dash.cachedPlaylist.get(currentPlaylistName).size())));
         }
     }
 
@@ -360,13 +370,13 @@ public class Player {
                 if(mediaPlayer.getStatus().equals(MediaPlayer.Status.PAUSED))
                 {
                     isPlaying = true;
-                    dash.musicPanePlayPauseButtonImageView.setImage(dash.pauseIcon);
+                    Main.dash.musicPanePlayPauseButtonImageView.setImage(Main.dash.pauseIcon);
                     mediaPlayer.play();
                 }
                 else if(mediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING))
                 {
                     isPlaying = false;
-                    dash.musicPanePlayPauseButtonImageView.setImage(dash.playIcon);
+                    Main.dash.musicPanePlayPauseButtonImageView.setImage(Main.dash.playIcon);
                     mediaPlayer.pause();
                 }
                 return null;
@@ -394,14 +404,14 @@ public class Player {
 
     public void hide()
     {
-        new FadeOutDown(dash.musicPaneSongInfo).play();
-        new FadeOutDown(dash.musicPaneControls).play();
-        new FadeOutDown(dash.albumArtStackPane).play();
-        FadeOutDown x = new FadeOutDown(dash.musicPaneMiscControls);
+        new FadeOutDown(Main.dash.musicPaneSongInfo).play();
+        new FadeOutDown(Main.dash.musicPaneControls).play();
+        new FadeOutDown(Main.dash.albumArtStackPane).play();
+        FadeOutDown x = new FadeOutDown(Main.dash.musicPaneMiscControls);
         x.setOnFinished(event -> Platform.runLater(()->{
-            dash.songNameLabel.setText("");
-            dash.artistLabel.setText("");
-            dash.albumArtImgView.setImage(dash.defaultAlbumArt);
+            Main.dash.songNameLabel.setText("");
+            Main.dash.artistLabel.setText("");
+            Main.dash.albumArtImgView.setImage(Main.dash.defaultAlbumArt);
         }));
         x.play();
     }
@@ -418,14 +428,14 @@ public class Player {
                         if(mediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING))
                         {
                             double currSec = mediaPlayer.getCurrentTime().toSeconds();
-                            String currentSimpleTimeStamp = dash.getSecondsToSimpleString(currSec);
-                            Platform.runLater(()->dash.nowDurLabel.setText(currentSimpleTimeStamp));
+                            String currentSimpleTimeStamp = Main.dash.getSecondsToSimpleString(currSec);
+                            Platform.runLater(()->Main.dash.nowDurLabel.setText(currentSimpleTimeStamp));
 
                             double currentProgress = (currSec/totalCurr)*100;
-                            if(!dash.songSeek.isValueChanging())
+                            if(!Main.dash.songSeek.isValueChanging())
                             {
-                                dash.songSeek.setValue(currentProgress);
-                                //dash.refreshSlider(dash.songSeek);
+                                Main.dash.songSeek.setValue(currentProgress);
+                                //Main.dash.refreshSlider(Main.dash.songSeek);
                                 currentP = currentProgress;
                             }
                         }
