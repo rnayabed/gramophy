@@ -4,8 +4,6 @@
 
 Built with JavaFX. 
 
-[Screenshots](https://imgur.com/gallery/PP1DRGT).
-
 ### Features
 
 - YouTube Playback
@@ -36,9 +34,23 @@ Windows and Linux. If you are interested in a MacOS build then contact me!
 You can contact me via email (in bio) or join the [Discord Server](https://discord.gg/BExqGmk), where you can know what I'm working on. I would love to add more features to this program.
 Or you can buy me a coffee :)
 
+### Screenshots
+
+![Screenshot 1](https://raw.githubusercontent.com/dubbadhar/gramophy/master/screenshots/1.png)
+
+![Screenshot 2](https://raw.githubusercontent.com/dubbadhar/gramophy/master/screenshots/2.png)
+
+![Screenshot 3](https://raw.githubusercontent.com/dubbadhar/gramophy/master/screenshots/3.png)
+
+![Screenshot 4](https://raw.githubusercontent.com/dubbadhar/gramophy/master/screenshots/4.png)
+
+![Screenshot 5](https://raw.githubusercontent.com/dubbadhar/gramophy/master/screenshots/5.png)
+
+![Screenshot 6](https://raw.githubusercontent.com/dubbadhar/gramophy/master/screenshots/6.png)
+
+![Screenshot 7](https://raw.githubusercontent.com/dubbadhar/gramophy/master/screenshots/7.png)
+
 ### License
-
+      
 This program is licensed under the [GNU GPLv3 License](https://github.com/dubbadhar/gramophy/blob/master/license.txt). 
-
-
-                                                                                                                                                                      
+                                                                                                                                                                
