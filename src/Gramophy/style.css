@@ -6,7 +6,7 @@
     -fx-font-family : "Roboto Regular";
 }
 
-.playlist_scroll_pane {
+.scroll_pane {
     -fx-background-color : #484848;
     -fx-background : #484848;
 }
@@ -44,6 +44,19 @@
     -fx-text-fill : #B3B3B3;
 }
 
+.list-view .list-cell:selected {
+    -fx-background-color: #434343;
+}
+
+.list-view .list-cell {
+    -fx-background-color: #484848;
+    -fx-text-fill: white;
+}
+
+.list-view {
+    -fx-text-fill: white;
+}
+
 .song_name {
     -fx-text-fill : white;
 }
@@ -62,19 +75,6 @@
 
 .music_player_button {
     -fx-background-radius : 25;
-}
-
-.list-view .list-cell:selected {
-    -fx-background-color: #434343;
-}
-
-.list-view .list-cell {
-    -fx-background-color: #484848;
-    -fx-text-fill: white;
-}
-
-.list-view {
-    -fx-text-fill: white;
 }
 
 .jfx-rippler {

@@ -216,6 +216,7 @@ public class dashController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Main.dash = this;
+
         String osName = System.getProperty("os.name").toLowerCase();
 
         if(osName.contains("linux") || osName.contains("mac"))
@@ -382,25 +383,24 @@ public class dashController implements Initializable {
                 protected Void call() {
                     try
                     {
-                        while(!isAlreadySearching)
-                        {
-                            if(newValue.equals(youtubeSearchField.getText()))
-                            {
-                                isAlreadySearching = true;
-                                String[] suggestions = getYoutubeSuggestions(newValue);
+                        Platform.runLater(()->{
+                            youtubeAutoComplete.getSuggestions().clear();
+                            youtubeAutoComplete.getSuggestions().add(newValue);
+                        });
 
-                                if(!isYouTubeSearching)
-                                {
-                                    Platform.runLater(()->{
-                                        youtubeAutoComplete.getSuggestions().setAll(suggestions);
-                                        youtubeAutoComplete.show(youtubeSearchField);
-                                    });
-                                }
-                            }
-                            else
-                                return null;
+                        String[] suggestions = getYoutubeSuggestions(newValue);
+                        if(suggestions == null)
+                        {
+                            Platform.runLater(()->youtubeAutoComplete.hide());
                         }
-                        isAlreadySearching = false;
+                        else if(newValue.equals(youtubeSearchField.getText()))
+                        {
+                            if(!isYouTubeSearching)
+                            {
+                                if(!youtubeAutoComplete.isShowing()) Platform.runLater(()->youtubeAutoComplete.show(youtubeSearchField));
+                                Platform.runLater(()->youtubeAutoComplete.getSuggestions().setAll(suggestions));
+                            }
+                        }
                     }
                     catch (Exception e)
                     {
@@ -410,7 +410,7 @@ public class dashController implements Initializable {
                     return null;
                 }
             });
-            tx.setPriority(1);
+            //tx.setPriority(1);
             tx.start();
         });
 
@@ -541,6 +541,7 @@ public class dashController implements Initializable {
 
     private String[] getYoutubeSuggestions(String searchTerm) throws Exception
     {
+        if(searchTerm.equals("")) return null;
         String query = "http://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q="+URLEncoder.encode(searchTerm,StandardCharsets.UTF_8);
 
         InputStream s = new URL(query).openStream();
@@ -560,26 +561,15 @@ public class dashController implements Initializable {
 
         JSONArray largeJSON = new JSONArray(responseStr);
         JSONArray queriesArray = largeJSON.getJSONArray(1);
-        String[] tbr = new String[queriesArray.length()+1];
 
-        if(queriesArray.length() == 0 || !queriesArray.getString(0).equals(searchTerm))
+        String[] toReturn = new String[queriesArray.length() + 1];
+        toReturn[0] = searchTerm;
+        for(int i = 0;i<queriesArray.length();i++)
         {
-            tbr[0] = searchTerm;
-            for(int i = 0;i<queriesArray.length();i++)
-            {
-                tbr[(i+1)] = queriesArray.getString(i);
-            }
-        }
-        else
-        {
-            for(int i = 0;i<queriesArray.length();i++)
-            {
-                tbr[i] = queriesArray.getString(i);
-            }
+            toReturn[i+1] = queriesArray.getString(i);
         }
 
-
-        return tbr;
+        return toReturn;
     }
 
     @FXML
@@ -814,7 +804,6 @@ public class dashController implements Initializable {
                             addToRecents(cachedPlaylist.get("My Music").get(Integer.parseInt(((Node)event.getSource()).getId())));
 
                             player = new Player("My Music",getLocalSongIndex(eachSong.get("title").toString(),eachSong.get("channelTitle").toString()),isUnix);
-
                         });
                     }
                     else
@@ -1041,7 +1030,6 @@ public class dashController implements Initializable {
                             return null;
                         }
                     });
-                    t.setPriority(10);
                     t.start();
                 });
                 eachPlaylistVBox.setId(eachPlaylistName);
@@ -1456,7 +1444,7 @@ public class dashController implements Initializable {
                 playlistButton.setTextFill(PAINT_WHITE);
                 downloadsButton.setTextFill(PAINT_WHITE);
                 browsePane.toFront();
-                FadeInUp fiu = new FadeInUp(browsePane);
+                FadeIn fiu = new FadeIn(browsePane);
                 fiu.setSpeed(speed);
                 fiu.play();
             }
@@ -1468,7 +1456,7 @@ public class dashController implements Initializable {
                 playlistButton.setTextFill(PAINT_WHITE);
                 downloadsButton.setTextFill(PAINT_WHITE);
                 libraryPane.toFront();
-                FadeInUp fiu = new FadeInUp(libraryPane);
+                FadeIn fiu = new FadeIn(libraryPane);
                 fiu.setSpeed(speed);
                 fiu.play();
             }
@@ -1480,7 +1468,7 @@ public class dashController implements Initializable {
                 settingsButton.setTextFill(PAINT_WHITE);
                 downloadsButton.setTextFill(PAINT_WHITE);
                 playlistPane.toFront();
-                FadeInUp fiu = new FadeInUp(playlistPane);
+                FadeIn fiu = new FadeIn(playlistPane);
                 fiu.setSpeed(speed);
                 fiu.play();
             }
@@ -1492,8 +1480,8 @@ public class dashController implements Initializable {
                 settingsButton.setTextFill(PAINT_WHITE);
                 downloadsButton.setTextFill(PAINT_GREEN);
                 downloadsPane.toFront();
-                FadeInUp fiu = new FadeInUp(downloadsPane);
-                fiu.setSpeed(2.0);
+                FadeIn fiu = new FadeIn(downloadsPane);
+                fiu.setSpeed(speed);
                 fiu.play();
             }
             else if(paneNo == 5)
@@ -1504,8 +1492,8 @@ public class dashController implements Initializable {
                 settingsButton.setTextFill(PAINT_GREEN);
                 downloadsButton.setTextFill(PAINT_WHITE);
                 settingsPane.toFront();
-                FadeInUp fiu = new FadeInUp(settingsPane);
-                fiu.setSpeed(2.0);
+                FadeIn fiu = new FadeIn(settingsPane);
+                fiu.setSpeed(speed);
                 fiu.play();
             }
             musicPlayerPane.toFront();

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXMasonryPane?>
 <?import com.jfoenix.controls.JFXSpinner?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.image.Image?>
@@ -18,6 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.ListView?>
 <AnchorPane fx:id="basePane" prefHeight="733.0" prefWidth="1119.0" styleClass="base_pane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Gramophy.dashController">
    <children>
       <StackPane fx:id="alertStackPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
@@ -140,7 +141,7 @@
                   <JFXSpinner fx:id="youtubeLoadingSpinner" cache="true" cacheHint="SPEED" prefHeight="31.0" prefWidth="60.0" visible="false" />
                </children>
             </HBox>
-            <ListView fx:id="youtubeListView" cache="true" cacheHint="SPEED" prefHeight="557.0" prefWidth="1066.0" styleClass="music_library_pane" VBox.vgrow="ALWAYS" />
+            <JFXListView fx:id="youtubeListView" cache="true" cacheHint="SPEED" prefHeight="557.0" prefWidth="1066.0" styleClass="music_library_pane" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
       <VBox fx:id="downloadsPane" cache="true" cacheHint="SCALE_AND_ROTATE" layoutX="219.0" prefHeight="686.0" prefWidth="1096.0" spacing="15.0" styleClass="library_pane" AnchorPane.bottomAnchor="86.0" AnchorPane.leftAnchor="219.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -153,7 +154,7 @@
                   <Insets bottom="10.0" />
                </padding>
             </Label>
-            <ScrollPane fx:id="playlistsScrollPane1" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" styleClass="playlist_scroll_pane" VBox.vgrow="ALWAYS">
+            <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" styleClass="scroll_pane" VBox.vgrow="ALWAYS">
                <content>
                   <VBox fx:id="downloadsVBox" />
                </content>
@@ -362,6 +363,26 @@
             <Insets left="10.0" right="10.0" />
          </padding>
       </HBox>
+      <VBox fx:id="libraryPane" cache="true" cacheHint="SCALE_AND_ROTATE" layoutX="219.0" prefHeight="686.0" prefWidth="1096.0" spacing="15.0" styleClass="library_pane" AnchorPane.bottomAnchor="86.0" AnchorPane.leftAnchor="217.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label text="Library">
+               <font>
+                  <Font name="Roboto Regular" size="38.0" />
+               </font>
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
+            </Label>
+            <ScrollPane fx:id="playlistsScrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" styleClass="scroll_pane" VBox.vgrow="ALWAYS">
+               <content>
+                  <JFXMasonryPane fx:id="playlistsMasonryPane" />
+               </content>
+            </ScrollPane>
+         </children>
+         <padding>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+         </padding>
+      </VBox>
       <VBox fx:id="playlistPane" cache="true" cacheHint="SCALE_AND_ROTATE" layoutX="219.0" prefWidth="1096.0" spacing="15.0" styleClass="playlists_pane" AnchorPane.bottomAnchor="86.0" AnchorPane.leftAnchor="217.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label text="Playlist">
@@ -463,27 +484,7 @@
                   <Insets />
                </VBox.margin>
             </HBox>
-            <ListView fx:id="playlistListView" cache="true" cacheHint="SPEED" prefHeight="501.0" prefWidth="1066.0" styleClass="music_library_pane" VBox.vgrow="ALWAYS" />
-         </children>
-         <padding>
-            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-         </padding>
-      </VBox>
-      <VBox fx:id="libraryPane" cache="true" cacheHint="SCALE_AND_ROTATE" layoutX="219.0" prefHeight="686.0" prefWidth="1096.0" spacing="15.0" styleClass="library_pane" AnchorPane.bottomAnchor="86.0" AnchorPane.leftAnchor="217.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <Label text="Library">
-               <font>
-                  <Font name="Roboto Regular" size="38.0" />
-               </font>
-               <padding>
-                  <Insets bottom="10.0" />
-               </padding>
-            </Label>
-            <ScrollPane fx:id="playlistsScrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" styleClass="playlist_scroll_pane" VBox.vgrow="ALWAYS">
-               <content>
-                  <JFXMasonryPane fx:id="playlistsMasonryPane" />
-               </content>
-            </ScrollPane>
+            <ListView fx:id="playlistListView" cache="true" cacheHint="SPEED" prefHeight="501.0" prefWidth="1066.0" styleClass="scroll_pane" VBox.vgrow="ALWAYS" />
          </children>
          <padding>
             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />

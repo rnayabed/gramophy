@@ -148,10 +148,7 @@ public class Player {
 
                     if(songDetails.get("location").toString().equals("local"))
                     {
-                        if(isUnix)
-                            source = "file:"+songDetails.get("source").toString();
-                        else
-                            source = "file:/"+songDetails.get("source").toString();
+                        source = "file:"+songDetails.get("source").toString();
 
                         Platform.runLater(()->{
                             Main.dash.songNameLabel.setText(songDetails.get("title").toString());
@@ -228,11 +225,20 @@ public class Player {
 
                     }
 
-
                     if(!isActive || index!=songIndex)
                     {
                         System.out.println("Skipping because video no longer required ...");
                         return null;
+                    }
+
+                    for(Node eachNode : Main.dash.playlistListView.getItems())
+                    {
+                        HBox x = (HBox) eachNode;
+
+                        if(x.getChildren().get(0).getId().equals(songIndex+""))
+                        {
+                            Platform.runLater(()->Main.dash.playlistListView.getSelectionModel().select(x));
+                        }
                     }
 
                     System.out.println("starting ...");
@@ -276,15 +282,6 @@ public class Player {
                     });
 
 
-                    for(Node eachNode : Main.dash.playlistListView.getItems())
-                    {
-                        HBox x = (HBox) eachNode;
-
-                        if(x.getChildren().get(0).getId().equals(songIndex+""))
-                        {
-                            Platform.runLater(()->Main.dash.playlistListView.getSelectionModel().select(x));
-                        }
-                    }
                 }
                 catch (Exception e)
                 {
