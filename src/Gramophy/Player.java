@@ -209,11 +209,16 @@ public class Player {
                                     errResult+= (char) c;
                                 }
 
+
+                                e.close();
                                 Main.dash.showErrorAlert("Uh OH!","Unable to play, probably because Age Restricted/Live Video. If not, check connection and try again!\n\n"+errResult);
                                 stop();
                                 hide();
                                 return null;
                             }
+
+                            i.close();
+                            e.close();
 
                             videoURL = result.substring(0,result.length()-1);
                             songDetails.put("videoURL",videoURL);

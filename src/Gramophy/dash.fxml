@@ -225,11 +225,30 @@
                   </JFXTextField>
                </children>
             </HBox>
+            <HBox alignment="CENTER_LEFT" spacing="15.0">
+               <children>
+                  <Label text="YouTube-dl version : ">
+                     <font>
+                        <Font name="Roboto Regular" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label text="X.X" fx:id="youtubeDLVersionLabel">
+                     <font>
+                        <Font name = "Roboto Regular" size="14.0" />
+                     </font>
+                  </Label>
+                  <JFXButton fx:id="updateYouTubeDlButton" text="Check for updates ..." textFill="#57c325">
+                     <font>
+                        <Font name="Roboto Regular" size="13.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </HBox>
             <HBox alignment="CENTER">
                <children>
                   <JFXButton fx:id="applySettingsButton" onAction="#applySettingsButtonClicked" text="Apply Changes" textFill="#57c325">
                      <font>
-                        <Font name="Roboto Regular" size="12.0" />
+                        <Font name="Roboto Regular" size="13.0" />
                      </font>
                   </JFXButton>
                </children>

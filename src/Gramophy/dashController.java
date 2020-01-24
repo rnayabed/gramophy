@@ -170,6 +170,8 @@ public class dashController implements Initializable {
     @FXML
     public JFXButton cancelPlaylistNameChangeButton;
     @FXML
+    public JFXButton updateYouTubeDlButton;
+    @FXML
     public VBox downloadsVBox;
 
     JFXAutoCompletePopup<String> youtubeAutoComplete = new JFXAutoCompletePopup<>();
@@ -234,6 +236,9 @@ public class dashController implements Initializable {
 
                     refreshPlaylistsUI();
 
+                    getYouTubeDlVersion();
+                    checkForYouTubeDlUpdate();
+
                     loadPlaylist("My Music");
                 }
                 catch (Exception e)
@@ -248,6 +253,23 @@ public class dashController implements Initializable {
         {
             //refreshSlider(volumeSlider);
             player.setVolume(newVal.floatValue()/100);
+        });
+        
+        updateYouTubeDlButton.setOnAction(event -> {
+            new Thread(new Task<Void>() {
+                @Override
+                protected Void call() {
+                    try
+                    {
+                        checkForYouTubeDlUpdate();
+                    }
+                    catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
+                    return null;
+                }
+            }).start();
         });
 
         /*basePane.widthProperty().addListener(observable -> {
@@ -454,6 +476,75 @@ public class dashController implements Initializable {
                     return null;
                 }
             }).start();
+        });
+    }
+
+    @FXML
+    public Label youtubeDLVersionLabel;
+
+    public String getYouTubeDlVersion() throws Exception
+    {
+        String appName = "youtube-dl.exe";
+        if(isUnix) appName = "./youtube-dl";
+        Process p = Runtime.getRuntime().exec(appName+" --version");
+        BufferedReader bf = new BufferedReader(new InputStreamReader(p.getInputStream()));
+        String youtubeDLVersion = bf.readLine();
+        bf.close();
+        p.destroy();
+
+        Platform.runLater(()->youtubeDLVersionLabel.setText(youtubeDLVersion));
+
+        return youtubeDLVersion;
+    }
+
+    public void checkForYouTubeDlUpdate() throws Exception
+    {
+        Platform.runLater(()->{
+            if(player.isActive)
+            {
+                if(player.isPlaying) player.stop();
+                player.hide();
+            }
+
+            playlistListView.setDisable(true);
+            youtubeListView.setDisable(true);
+            updateYouTubeDlButton.setDisable(true);
+            updateYouTubeDlButton.setText("Checking for updates ...");
+        });
+
+
+        System.out.println("Checking for updates ...");
+
+        String execName = "youtube-dl.exe";
+        if(isUnix) execName = "./youtube-dl";
+
+        Process p = Runtime.getRuntime().exec(execName+" -U");
+        BufferedReader bf = new BufferedReader(new InputStreamReader(p.getInputStream()));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(p.getOutputStream()));
+
+        while(true)
+        {
+            String line = bf.readLine();
+
+            if(line == null) break;
+
+            System.out.println("'"+line+"'");
+            if(line.startsWith("Updating to version "))
+            {
+                Platform.runLater(()-> updateYouTubeDlButton.setText("Updating ..."));
+                bw.write("\n");
+            }
+        }
+
+        getYouTubeDlVersion();
+
+        bf.close();
+
+        Platform.runLater(()->{
+            playlistListView.setDisable(false);
+            youtubeListView.setDisable(false);
+            updateYouTubeDlButton.setText("Check for updates ...");
+            updateYouTubeDlButton.setDisable(false);
         });
     }
 
@@ -943,6 +1034,8 @@ public class dashController implements Initializable {
                 }
             }
 
+            bf.close();
+
             Platform.runLater(()->{
                 yyx.get(thisIndex).setText("Finishing Up ...");
             });
@@ -1139,22 +1232,7 @@ public class dashController implements Initializable {
                     else
                         youtubeQueryURLStr = "https://www.googleapis.com/youtube/v3/search?part=snippet&q=" + youtubeSearchQuery + "&maxResults=10&pageToken=" + youtubeNextPageToken + "&key=" + config.get("youtube_api_key");
 
-
-                    InputStream is = new URL(youtubeQueryURLStr).openStream();
-
-                    BufferedReader bf = new BufferedReader(new InputStreamReader(is));
-
-                    StringBuilder sb = new StringBuilder();
-
-                    while (true) {
-                        int charNo = bf.read();
-                        if (charNo == -1) break;
-                        sb.append((char) charNo);
-                    }
-
-                    bf.close();
-
-                    JSONObject youtubeResponse = new JSONObject(sb.toString());
+                    JSONObject youtubeResponse = new JSONObject(io.returnHTTPRawResponse(youtubeQueryURLStr));
 
                     if (youtubeResponse.has("nextPageToken"))
                         youtubeNextPageToken = youtubeResponse.getString("nextPageToken");
@@ -2309,6 +2387,8 @@ public class dashController implements Initializable {
                 if(c == -1) break;
                 response.append((char) c);
             }
+
+            bf.close();
 
             JSONObject responseJSON = new JSONObject(response.toString());
 

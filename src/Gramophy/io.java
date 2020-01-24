@@ -2,6 +2,8 @@ package Gramophy;
 
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.*;
+import java.net.URL;
+import java.nio.Buffer;
 import java.util.ArrayList;
 
 public class io {
@@ -58,6 +60,25 @@ public class io {
     {
         File[] raw = new File(folderPath).listFiles();
         return raw;
+    }
+
+    public static String returnHTTPRawResponse(String urlPassed) throws Exception
+    {
+        InputStreamReader r = new InputStreamReader(new URL(urlPassed).openStream());
+
+        StringBuilder tbr = new StringBuilder();
+
+        while(true)
+        {
+            int c = r.read();
+            if(c==-1) break;
+            else
+            {
+                tbr.append((char)c);
+            }
+        }
+
+        return new String(tbr);
     }
 
     public static void log(String txt)
