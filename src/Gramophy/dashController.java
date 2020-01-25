@@ -58,121 +58,31 @@ import java.util.logging.Logger;
 
 public class dashController implements Initializable {
     @FXML
-    public HBox musicPlayerPane;
+    public HBox musicPlayerPane, musicPlayerButtonBar, musicPaneSongInfo, musicPaneMiscControls;
     @FXML
-    public ImageView albumArtImgView;
+    public ImageView albumArtImgView, volumeIconImageView, musicPanePlayPauseButtonImageView, musicPaneRepeatImageView, musicPaneShuffleImageView;
     @FXML
-    public Label songNameLabel;
+    public Label songNameLabel, artistLabel, playlistNameLabel, youtubeDlUpdatingLabel1, youtubeDlUpdatingLabel2, nowDurLabel, totalDurLabel, browseButton, libraryButton, downloadsButton, settingsButton, playlistButton;
     @FXML
-    public Label artistLabel;
+    public Slider songSeek, volumeSlider;
     @FXML
-    public HBox musicPlayerButtonBar;
+    public ListView<HBox> playlistListView, youtubeListView;
     @FXML
-    public Label nowDurLabel;
+    public JFXButton playlistImportSongsFromYouTubePlaylistButton, deletePlaylistButton, updateYouTubeDlButton, cancelPlaylistNameChangeButton, approvePlaylistNameChangeButton, editPlaylistNameButton, applySettingsButton, selectMusicLibraryFolderButton, playSongsFromCurrentPlaylistButton, musicPaneRepeatButton, musicPanePlayPauseButton, youtubeSearchButton, musicPaneNextButton, musicPanePreviousButton, musicPaneShuffleButton;
     @FXML
-    public Slider songSeek;
+    public VBox musicPaneControls, sidePane, downloadsVBox, browsePane, libraryPane, settingsPane, playlistPane, downloadsPane;
     @FXML
-    public Slider volumeSlider;
+    public JFXTextField youtubeSearchField, editPlaylistNameTextField, recentsPlaylistMaxLimitField, youtubeAPIKeyField, selectMusicLibraryField;
     @FXML
-    public Label totalDurLabel;
-    @FXML
-    public ListView<HBox> playlistListView;
-    @FXML
-    public JFXButton playlistImportSongsFromYouTubePlaylistButton;
-    @FXML
-    public HBox musicPaneSongInfo;
-    @FXML
-    public HBox musicPaneMiscControls;
-    @FXML
-    public JFXButton musicPanePlayPauseButton;
-    @FXML
-    public ImageView musicPanePlayPauseButtonImageView;
-    @FXML
-    public VBox musicPaneControls;
-    @FXML
-    public Label browseButton;
-    @FXML
-    public Label libraryButton;
-    @FXML
-    public Label downloadsButton;
-    @FXML
-    public Label settingsButton;
-    @FXML
-    public Label playlistButton;
-    @FXML
-    public VBox browsePane;
-    @FXML
-    public VBox libraryPane;
-    @FXML
-    public VBox settingsPane;
-    @FXML
-    public VBox playlistPane;
-    @FXML
-    public VBox downloadsPane;
-    @FXML
-    public JFXTextField youtubeSearchField;
-    @FXML
-    public ListView<HBox> youtubeListView;
-    @FXML
-    public JFXButton youtubeSearchButton;
-    @FXML
-    public JFXButton musicPaneNextButton;
-    @FXML
-    public JFXButton musicPanePreviousButton;
-    @FXML
-    public JFXButton musicPaneShuffleButton;
-    @FXML
-    public ImageView musicPaneShuffleImageView;
-    @FXML
-    public ImageView musicPaneRepeatImageView;
-    @FXML
-    public JFXButton musicPaneRepeatButton;
-    @FXML
-    public JFXSpinner youtubeLoadingSpinner;
-    @FXML
-    public JFXSpinner musicPaneSpinner;
-    @FXML
-    public Label playlistNameLabel;
+    public JFXSpinner youtubeLoadingSpinner, musicPaneSpinner;
     @FXML
     public JFXMasonryPane playlistsMasonryPane;
     @FXML
     public ScrollPane playlistsScrollPane;
     @FXML
-    public StackPane alertStackPane;
-    @FXML
-    public JFXButton playSongsFromCurrentPlaylistButton;
-    @FXML
-    public StackPane albumArtStackPane;
-    @FXML
-    public JFXButton deletePlaylistButton;
+    public StackPane alertStackPane, albumArtStackPane, importSongsFromYouTubePopupStackPane;
     @FXML
     public AnchorPane basePane;
-    @FXML
-    public JFXTextField selectMusicLibraryField;
-    @FXML
-    public JFXButton selectMusicLibraryFolderButton;
-    @FXML
-    public JFXButton applySettingsButton;
-    @FXML
-    public StackPane importSongsFromYouTubePopupStackPane;
-    @FXML
-    public JFXTextField youtubeAPIKeyField;
-    @FXML
-    public JFXTextField recentsPlaylistMaxLimitField;
-    @FXML
-    public ImageView volumeIconImageView;
-    @FXML
-    public JFXTextField editPlaylistNameTextField;
-    @FXML
-    public JFXButton editPlaylistNameButton;
-    @FXML
-    public JFXButton approvePlaylistNameChangeButton;
-    @FXML
-    public JFXButton cancelPlaylistNameChangeButton;
-    @FXML
-    public JFXButton updateYouTubeDlButton;
-    @FXML
-    public VBox downloadsVBox;
 
     JFXAutoCompletePopup<String> youtubeAutoComplete = new JFXAutoCompletePopup<>();
 
@@ -217,12 +127,16 @@ public class dashController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Main.dash = this;
+        youtubeDlUpdatingLabel1.setVisible(false);
+        youtubeDlUpdatingLabel2.setVisible(false);
+        youtubeDlUpdatingLabel1.setManaged(false);
+        youtubeDlUpdatingLabel2.setManaged(false);
 
         String osName = System.getProperty("os.name").toLowerCase();
-
         if(osName.contains("linux") || osName.contains("mac"))
             isUnix = true;
+
+        Main.dash = this;
 
         loadConfig();
         new Thread(new Task<Void>() {
@@ -236,10 +150,10 @@ public class dashController implements Initializable {
 
                     refreshPlaylistsUI();
 
+                    loadPlaylist("My Music");
+
                     getYouTubeDlVersion();
                     checkForYouTubeDlUpdate();
-
-                    loadPlaylist("My Music");
                 }
                 catch (Exception e)
                 {
@@ -339,31 +253,14 @@ public class dashController implements Initializable {
             }
         }).start();
 
-        browseButton.setOnMouseClicked(event -> {
-            switchPane(1);
-        });
-
-        libraryButton.setOnMouseClicked(event -> {
-            switchPane(2);
-        });
-
-        playlistButton.setOnMouseClicked(event -> {
-            switchPane(3);
-        });
-
-        downloadsButton.setOnMouseClicked(event -> {
-            switchPane(4);
-        });
-
-        settingsButton.setOnMouseClicked(event -> {
-            switchPane(5);
-        });
-
+        browseButton.setOnMouseClicked(event -> switchPane(1));
+        libraryButton.setOnMouseClicked(event -> switchPane(2));
+        playlistButton.setOnMouseClicked(event -> switchPane(3));
+        downloadsButton.setOnMouseClicked(event -> switchPane(4));
+        settingsButton.setOnMouseClicked(event -> switchPane(5));
         switchPane(2);
 
-        youtubeSearchButton.setOnMouseClicked(event -> {
-            searchYouTube();
-        });
+        youtubeSearchButton.setOnMouseClicked(event -> searchYouTube());
 
         musicPaneShuffleButton.setOnMouseClicked(event -> {
             if(isShuffle)
@@ -499,21 +396,7 @@ public class dashController implements Initializable {
 
     public void checkForYouTubeDlUpdate() throws Exception
     {
-        Platform.runLater(()->{
-            if(player.isActive)
-            {
-                if(player.isPlaying) player.stop();
-                player.hide();
-            }
-
-            playlistListView.setDisable(true);
-            youtubeListView.setDisable(true);
-            updateYouTubeDlButton.setDisable(true);
-            updateYouTubeDlButton.setText("Checking for updates ...");
-        });
-
-
-        System.out.println("Checking for updates ...");
+        System.out.println("Checking for update ...");
 
         String execName = "youtube-dl.exe";
         if(isUnix) execName = "./youtube-dl";
@@ -531,7 +414,24 @@ public class dashController implements Initializable {
             System.out.println("'"+line+"'");
             if(line.startsWith("Updating to version "))
             {
-                Platform.runLater(()-> updateYouTubeDlButton.setText("Updating ..."));
+                Platform.runLater(()->{
+                    if(player.isActive)
+                    {
+                        if(player.isPlaying) player.stop();
+                        player.hide();
+                    }
+
+                    playlistListView.setDisable(true);
+                    youtubeListView.setDisable(true);
+                    updateYouTubeDlButton.setDisable(true);
+                    youtubeDlUpdatingLabel1.setVisible(true);
+                    youtubeDlUpdatingLabel2.setVisible(true);
+                    youtubeDlUpdatingLabel1.setManaged(true);
+                    youtubeDlUpdatingLabel2.setManaged(true);
+                    updateYouTubeDlButton.setText("Checking for updates ...");
+                    updateYouTubeDlButton.setText("Updating ...");
+                });
+
                 bw.write("\n");
             }
         }
@@ -543,8 +443,12 @@ public class dashController implements Initializable {
         Platform.runLater(()->{
             playlistListView.setDisable(false);
             youtubeListView.setDisable(false);
-            updateYouTubeDlButton.setText("Check for updates ...");
+            updateYouTubeDlButton.setText("Check for update ...");
             updateYouTubeDlButton.setDisable(false);
+            youtubeDlUpdatingLabel1.setVisible(false);
+            youtubeDlUpdatingLabel2.setVisible(false);
+            youtubeDlUpdatingLabel1.setManaged(false);
+            youtubeDlUpdatingLabel2.setManaged(false);
         });
     }
 
@@ -1092,18 +996,51 @@ public class dashController implements Initializable {
         {
             if(!eachPlaylistName.equals("YouTube") && !eachPlaylistName.endsWith("_youtube_playlist"))
             {
-                String[] playlistNameSplitArr = eachPlaylistName.split(" ");
-
                 VBox eachPlaylistVBox = new VBox();
                 eachPlaylistVBox.setPrefSize(200,200);
-                eachPlaylistVBox.setPadding(new Insets(15));
 
-                for(String e : playlistNameSplitArr)
+                Label l = new Label(eachPlaylistName);
+                l.setFont(robotoRegular15);
+
+                ImageView thumbnailImageView = new ImageView();
+                thumbnailImageView.setFitWidth(200);
+                thumbnailImageView.setPreserveRatio(false);
+                thumbnailImageView.setFitHeight(200);
+
+                //get first thumbnail
+                if(cachedPlaylist.get(eachPlaylistName).size()>0)
                 {
-                    Label l = new Label(e);
-                    l.setFont(robotoRegular35);
-                    eachPlaylistVBox.getChildren().add(l);
+                    HashMap<String, Object> firstSong = cachedPlaylist.get(eachPlaylistName).get(0);
+                    if(firstSong.get("location").equals("local"))
+                    {
+                        if(firstSong.containsKey("album_art"))
+                        {
+                            try
+                            {
+                                thumbnailImageView.setImage(SwingFXUtils.toFXImage(ImageIO.read(new ByteArrayInputStream((byte[]) firstSong.get("album_art"))),null));
+                            }
+                            catch (Exception e)
+                            {
+                                e.printStackTrace();
+                            }
+                        }
+                        else
+                        {
+                            thumbnailImageView.setImage(defaultAlbumArt);
+                        }
+                    }
+                    else if(firstSong.get("location").equals("youtube"))
+                    {
+                        thumbnailImageView.setImage(new Image(firstSong.get("thumbnail").toString()));
+                    }
                 }
+                else
+                {
+                    thumbnailImageView.setImage(defaultAlbumArt);
+                }
+
+                StackPane sx = new StackPane(thumbnailImageView, l);
+                eachPlaylistVBox.getChildren().addAll(sx);
 
                 eachPlaylistVBox.getStyleClass().add("card");
                 eachPlaylistVBox.setOnMouseClicked(event -> {

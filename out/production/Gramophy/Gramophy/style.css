@@ -13,8 +13,7 @@
 
 .card {
     -fx-background-color : #383838;
-    -fx-background-insets: 10;
-    -fx-background-radius: 10;
+    -fx-background-radius: 5;
     -fx-effect: dropshadow(three-pass-box, #383838, 10, 0, 0, 0);
 }
 

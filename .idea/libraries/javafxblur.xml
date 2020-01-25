@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="javafxblur">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Downloads/JavaFXBlur_0.0.1/javafxblur.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <NATIVE>
+      <root url="file://$USER_HOME$/Downloads/JavaFXBlur_0.0.1" />
+    </NATIVE>
+    <SOURCES />
+  </library>
+</component>

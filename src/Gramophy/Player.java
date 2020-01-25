@@ -159,6 +159,7 @@ public class Player {
                                     Image x = SwingFXUtils.toFXImage(ImageIO.read(new ByteArrayInputStream((byte[]) songDetails.get("album_art"))),null);
                                     Main.dash.albumArtImgView.setImage(x);
                                 } catch (IOException e) {
+                                    Main.dash.albumArtImgView.setImage(Main.dash.defaultAlbumArt);
                                     e.printStackTrace();
                                 }
                             }
