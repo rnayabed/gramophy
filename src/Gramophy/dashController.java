@@ -396,6 +396,11 @@ public class dashController implements Initializable {
 
     public void checkForYouTubeDlUpdate() throws Exception
     {
+        Platform.runLater(()->{
+            updateYouTubeDlButton.setDisable(true);
+            updateYouTubeDlButton.setText("Checking for update ...");
+        });
+
         System.out.println("Checking for update ...");
 
         String execName = "youtube-dl.exe";
@@ -423,16 +428,18 @@ public class dashController implements Initializable {
 
                     playlistListView.setDisable(true);
                     youtubeListView.setDisable(true);
-                    updateYouTubeDlButton.setDisable(true);
                     youtubeDlUpdatingLabel1.setVisible(true);
                     youtubeDlUpdatingLabel2.setVisible(true);
                     youtubeDlUpdatingLabel1.setManaged(true);
                     youtubeDlUpdatingLabel2.setManaged(true);
-                    updateYouTubeDlButton.setText("Checking for updates ...");
                     updateYouTubeDlButton.setText("Updating ...");
                 });
 
                 bw.write("\n");
+            }
+            else if(line.startsWith("ERROR"))
+            {
+                showErrorAlert("Unable to check for YouTube Dl Update","\nMake sure you're connected to the internet\n\nYouTube Dl Output : "+line);
             }
         }
 

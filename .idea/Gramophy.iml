@@ -12,6 +12,5 @@
     <orderEntry type="library" name="com.mpatric:mp3agic:0.9.1" level="project" />
     <orderEntry type="library" name="org.json:json:20190722" level="project" />
     <orderEntry type="library" name="com.1stleg:jnativehook:2.1.0" level="project" />
-    <orderEntry type="library" name="javafxblur" level="project" />
   </component>
 </module>

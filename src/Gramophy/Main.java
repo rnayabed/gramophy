@@ -1,6 +1,5 @@
 package Gramophy;
 
-import com.kieferlam.javafxblur.Blur;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
