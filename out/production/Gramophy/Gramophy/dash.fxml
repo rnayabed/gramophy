@@ -344,114 +344,6 @@
             <Insets left="10.0" right="10.0" />
          </padding>
       </HBox>
-      <VBox fx:id="playlistPane" cache="true" cacheHint="SCALE_AND_ROTATE" layoutX="219.0" prefWidth="1096.0" spacing="15.0" styleClass="playlists_pane" AnchorPane.bottomAnchor="86.0" AnchorPane.leftAnchor="217.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <Label text="Playlist">
-               <font>
-                  <Font name="Roboto Regular" size="38.0" />
-               </font>
-            </Label>
-            <HBox VBox.vgrow="ALWAYS">
-               <children>
-                  <Label fx:id="playlistNameLabel">
-                     <font>
-                        <Font name="Roboto Regular" size="23.0" />
-                     </font>
-                  </Label>
-                  <JFXButton fx:id="editPlaylistNameButton" text=" ">
-                     <graphic>
-                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@assets/icons8_edit_24px_1.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </JFXButton>
-                  <JFXTextField fx:id="editPlaylistNameTextField" maxWidth="0.0" visible="false" />
-                  <JFXButton fx:id="approvePlaylistNameChangeButton" text=" " visible="false">
-                     <graphic>
-                        <ImageView fx:id="a" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@assets/icons8_checkmark_24px.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </JFXButton>
-                  <JFXButton fx:id="cancelPlaylistNameChangeButton" text=" " visible="false">
-                     <graphic>
-                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@assets/icons8_delete_24px.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </JFXButton>
-                  <Region HBox.hgrow="ALWAYS" />
-                  <JFXButton fx:id="playlistImportSongsFromYouTubePlaylistButton" onAction="#playlistImportSongsFromYouTubePlaylist" text="Import Songs From YouTube Playlist" textFill="WHITE">
-                     <graphic>
-                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@assets/icons8_import_24px.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <font>
-                        <Font name="Roboto Regular" size="13.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton fx:id="deletePlaylistButton" onAction="#deletePlaylistButtonClicked" ripplerFill="#f23b3b" text="Delete Playlist" textFill="RED">
-                     <graphic>
-                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@assets/icons8_delete_bin_24px_1.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <font>
-                        <Font name="Roboto Regular" size="13.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton fx:id="playSongsFromCurrentPlaylistButton" onAction="#playSongsFromCurrentPlaylist" text="Play" textFill="WHITE">
-                     <graphic>
-                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@assets/baseline_play_arrow_white_18dp.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <font>
-                        <Font name="Roboto Regular" size="13.0" />
-                     </font>
-                  </JFXButton>
-               </children>
-            </HBox>
-            <Label fx:id="youtubeDlUpdatingLabel2" text="Updating YouTube-Dl. Please wait ..." />
-            <HBox>
-               <children>
-                  <Label prefHeight="19.0" prefWidth="510.0" styleClass="grey_text" text="Song Name">
-                     <font>
-                        <Font name="Roboto Regular" size="15.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </Label>
-                  <Label prefHeight="17.0" prefWidth="160.0" styleClass="grey_text" text="Artist">
-                     <font>
-                        <Font name="Roboto Regular" size="15.0" />
-                     </font>
-                  </Label>
-               </children>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </HBox>
-            <ListView fx:id="playlistListView" cache="true" cacheHint="SPEED" prefHeight="501.0" prefWidth="1066.0" styleClass="scroll_pane" VBox.vgrow="ALWAYS" />
-         </children>
-         <padding>
-            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-         </padding>
-      </VBox>
       <VBox fx:id="browsePane" cache="true" cacheHint="SCALE_AND_ROTATE" layoutX="219.0" prefHeight="686.0" prefWidth="1096.0" spacing="15.0" styleClass="browse_pane" AnchorPane.bottomAnchor="86.0" AnchorPane.leftAnchor="217.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <padding>
             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
@@ -487,7 +379,10 @@
                   <JFXSpinner fx:id="youtubeLoadingSpinner" cache="true" cacheHint="SPEED" prefHeight="31.0" prefWidth="60.0" visible="false" />
                </children>
             </HBox>
-            <Label fx:id="youtubeDlUpdatingLabel1" text="Updating YouTube-Dl. Please wait ..." />
+            <Label fx:id="youtubeDlUpdatingLabel1" text="Updating YouTube-Dl. Please wait ...">
+               <font>
+                  <Font name="Roboto Regular" size="13.0" />
+               </font></Label>
             <JFXListView fx:id="youtubeListView" cache="true" cacheHint="SPEED" prefHeight="557.0" prefWidth="1066.0" styleClass="music_library_pane" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
@@ -509,6 +404,122 @@
                   <Insets />
                </VBox.margin>
             </ScrollPane>
+         </children>
+         <padding>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+         </padding>
+      </VBox>
+      <VBox fx:id="playlistPane" cache="true" cacheHint="SCALE_AND_ROTATE" layoutX="219.0" prefWidth="1096.0" spacing="15.0" styleClass="playlists_pane" AnchorPane.bottomAnchor="86.0" AnchorPane.leftAnchor="217.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label text="Playlist">
+               <font>
+                  <Font name="Roboto Regular" size="38.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER" VBox.vgrow="NEVER">
+               <children>
+                  <Label fx:id="playlistNameLabel">
+                     <font>
+                        <Font name="Roboto Regular" size="23.0" />
+                     </font>
+                  </Label>
+                  <JFXButton fx:id="editPlaylistNameButton" text=" ">
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@assets/icons8_edit_24px_1.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXTextField fx:id="editPlaylistNameTextField" maxWidth="0.0" visible="false" />
+                  <JFXButton fx:id="approvePlaylistNameChangeButton" text=" " visible="false">
+                     <graphic>
+                        <ImageView fx:id="a" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@assets/icons8_checkmark_24px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="cancelPlaylistNameChangeButton" text=" " visible="false">
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@assets/icons8_delete_24px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <Region HBox.hgrow="ALWAYS" />
+                  <JFXTextField fx:id="playlistSearchField" focusTraversable="false" prefHeight="25.0" prefWidth="245.0" promptText="Search in Playlist ..." HBox.hgrow="NEVER">
+                     <font>
+                        <Font name="Roboto Regular" size="12.0" />
+                     </font>
+                  </JFXTextField>
+                  <JFXButton fx:id="playlistImportSongsFromYouTubePlaylistButton" onAction="#playlistImportSongsFromYouTubePlaylist" text="Import" textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@assets/icons8_import_24px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Roboto Regular" size="13.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="deletePlaylistButton" onAction="#deletePlaylistButtonClicked" ripplerFill="#f23b3b" text=" " textFill="RED">
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@assets/icons8_delete_bin_24px_1.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Roboto Regular" size="13.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="playSongsFromCurrentPlaylistButton" onAction="#playSongsFromCurrentPlaylist" text=" " textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@assets/baseline_play_arrow_white_18dp.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Roboto Regular" size="13.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </HBox>
+            <Label fx:id="youtubeDlUpdatingLabel2" text="Updating YouTube-Dl. Please wait ...">
+               <font>
+                  <Font name="Roboto Regular" size="13.0" />
+               </font></Label>
+            <HBox>
+               <children>
+                  <Label prefHeight="19.0" prefWidth="510.0" styleClass="grey_text" text="Song Name">
+                     <font>
+                        <Font name="Roboto Regular" size="15.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label prefHeight="17.0" prefWidth="160.0" styleClass="grey_text" text="Artist">
+                     <font>
+                        <Font name="Roboto Regular" size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+            <ListView fx:id="playlistListView" cache="true" cacheHint="SPEED" styleClass="scroll_pane" VBox.vgrow="ALWAYS" />
          </children>
          <padding>
             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />

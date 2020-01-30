@@ -13,12 +13,17 @@
 
 .card {
     -fx-background-color : #383838;
-    -fx-background-radius: 5;
+    -fx-background-radius: 10;
+    -fx-background-insets: 5;
     -fx-effect: dropshadow(three-pass-box, #383838, 10, 0, 0, 0);
 }
 
 .side_pane, .dialog_style {
     -fx-background-color : #282828;
+}
+
+.dropshadow_label {
+    -fx-effect: dropshadow(three-pass-box, #383838, 10, 0, 0, 0);
 }
 
 .library_pane, .music_library_pane, .playlists_pane, .settings_pane, .browse_pane {

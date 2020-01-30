@@ -38,8 +38,6 @@ public class Main extends Application {
         });
     }
 
-    static dashController dash;
-
     public static void main(String[] args) {
         launch(args);
     }

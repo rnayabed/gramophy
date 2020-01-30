@@ -10,6 +10,8 @@ import com.mpatric.mp3agic.Mp3File;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.css.Size;
 import javafx.embed.swing.SwingFXUtils;
@@ -27,8 +29,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
+import javafx.scene.paint.*;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
@@ -72,7 +74,7 @@ public class dashController implements Initializable {
     @FXML
     public VBox musicPaneControls, sidePane, downloadsVBox, browsePane, libraryPane, settingsPane, playlistPane, downloadsPane;
     @FXML
-    public JFXTextField youtubeSearchField, editPlaylistNameTextField, recentsPlaylistMaxLimitField, youtubeAPIKeyField, selectMusicLibraryField;
+    public JFXTextField playlistSearchField, youtubeSearchField, editPlaylistNameTextField, recentsPlaylistMaxLimitField, youtubeAPIKeyField, selectMusicLibraryField;
     @FXML
     public JFXSpinner youtubeLoadingSpinner, musicPaneSpinner;
     @FXML
@@ -88,6 +90,7 @@ public class dashController implements Initializable {
 
     private Font robotoRegular15 = new Font("Roboto Regular",15);
     private Font robotoRegular35 = new Font("Roboto Regular",35);
+    private Font robotoRegular25 = new Font("Roboto Regular",25);
 
     final private Image shuffleIconWhite = new Image(getClass().getResourceAsStream("assets/baseline_shuffle_white_18dp.png"));
     final private Image shuffleIconGreen = new Image(getClass().getResourceAsStream("assets/baseline_shuffle_green_18dp.png"));
@@ -125,8 +128,14 @@ public class dashController implements Initializable {
 
     boolean isUnix = false;
 
+    dashController d;
+
+    ObservableList<HBox> allSongsHBox;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        d = this;
+
         youtubeDlUpdatingLabel1.setVisible(false);
         youtubeDlUpdatingLabel2.setVisible(false);
         youtubeDlUpdatingLabel1.setManaged(false);
@@ -135,8 +144,6 @@ public class dashController implements Initializable {
         String osName = System.getProperty("os.name").toLowerCase();
         if(osName.contains("linux") || osName.contains("mac"))
             isUnix = true;
-
-        Main.dash = this;
 
         loadConfig();
         new Thread(new Task<Void>() {
@@ -150,7 +157,7 @@ public class dashController implements Initializable {
 
                     refreshPlaylistsUI();
 
-                    loadPlaylist("My Music");
+                    loadPlaylist("My Music",false);
 
                     getYouTubeDlVersion();
                     checkForYouTubeDlUpdate();
@@ -168,7 +175,35 @@ public class dashController implements Initializable {
             //refreshSlider(volumeSlider);
             player.setVolume(newVal.floatValue()/100);
         });
-        
+
+        playlistSearchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(!oldValue.equals(newValue))
+            {
+                Thread t = new Thread(new Task<Void>() {
+                    @Override
+                    protected Void call(){
+                        try
+                        {
+                            ObservableList<HBox> songHBoxs = FXCollections.observableArrayList();
+                            for(HBox eachHBox : allSongsHBox)
+                            {
+                                if(eachHBox.getId().contains(newValue.toLowerCase()))
+                                    songHBoxs.add(eachHBox);
+                            }
+                            Platform.runLater(()->playlistListView.setItems(songHBoxs));
+                        }
+                        catch (Exception e)
+                        {
+                            e.printStackTrace();
+                        }
+                        return null;
+                    }
+                });
+                t.setPriority(1);
+                t.start();
+            }
+        });
+
         updateYouTubeDlButton.setOnAction(event -> {
             new Thread(new Task<Void>() {
                 @Override
@@ -575,7 +610,7 @@ public class dashController implements Initializable {
     }
 
     @FXML
-    public void deletePlaylistButtonClicked() throws Exception
+    public void deletePlaylistButtonClicked()
     {
         if(player.isActive)
         {
@@ -586,10 +621,10 @@ public class dashController implements Initializable {
         new File("playlists/"+currentPlaylist).delete();
         cachedPlaylist.remove(currentPlaylist);
         refreshPlaylistsUI();
-        loadPlaylist("My Music");
+        loadPlaylist("My Music",false);
     }
 
-    private void loadPlaylist(String playlistName)
+    private void loadPlaylist(String playlistName,boolean show)
     {
         if(!currentPlaylist.equals("YouTube"))
         {
@@ -660,6 +695,19 @@ public class dashController implements Initializable {
         else
         {
             playSongsFromCurrentPlaylistButton.setDisable(false);
+        }
+
+        if(show)
+        {
+            Platform.runLater(()->switchPane(3));
+            try
+            {
+                Thread.sleep(400);
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
         }
 
         i2 = 0;
@@ -768,7 +816,7 @@ public class dashController implements Initializable {
                                 }
                                 cachedPlaylist.get(currentPlaylist).remove(index);
                                 updatePlaylistsFiles();
-                                loadPlaylist(currentPlaylist);
+                                loadPlaylist(currentPlaylist,false);
                             }
                             catch (Exception e)
                             {
@@ -805,7 +853,7 @@ public class dashController implements Initializable {
 
                             addToRecents(cachedPlaylist.get("My Music").get(Integer.parseInt(((Node)event.getSource()).getId())));
 
-                            player = new Player("My Music",getLocalSongIndex(eachSong.get("title").toString(),eachSong.get("channelTitle").toString()),isUnix);
+                            player = new Player("My Music",getLocalSongIndex(eachSong.get("title").toString(),eachSong.get("channelTitle").toString()),isUnix, this);
                         });
                     }
                     else
@@ -818,7 +866,7 @@ public class dashController implements Initializable {
                             }
 
                             addToRecents(cachedPlaylist.get(playlistName).get(Integer.parseInt(((Node)event.getSource()).getId())));
-                            player = new Player(playlistName,Integer.parseInt(((Node)event.getSource()).getId()),isUnix);
+                            player = new Player(playlistName,Integer.parseInt(((Node)event.getSource()).getId()),isUnix, this);
 
 
                         });
@@ -834,7 +882,7 @@ public class dashController implements Initializable {
                         }
 
                         addToRecents(cachedPlaylist.get(playlistName).get(Integer.parseInt(((Node)event.getSource()).getId())));
-                        player = new Player(playlistName,Integer.parseInt(((Node)event.getSource()).getId()),isUnix);
+                        player = new Player(playlistName,Integer.parseInt(((Node)event.getSource()).getId()),isUnix, this);
 
 
                     });
@@ -843,13 +891,14 @@ public class dashController implements Initializable {
                 vb1.getChildren().add(deleteButton);
 
 
-
-
                 HBox mainHBox = new HBox(eachMusicHBox,vb1);
-                mainHBox.setId(eachSong.get("title").toString() + eachSong.getOrDefault("artist","") + eachSong.getOrDefault("channelTitle",""));
+                mainHBox.setId(eachSong.get("title").toString().toLowerCase() + eachSong.getOrDefault("artist","").toString().toLowerCase() + eachSong.getOrDefault("channelTitle","").toString().toLowerCase());
 
                 playlistListView.getItems().add(mainHBox);
                 i2++;
+
+                if(i2==songs.size() - 1)
+                    allSongsHBox = playlistListView.getItems();
             });
         }
     }
@@ -871,7 +920,7 @@ public class dashController implements Initializable {
                 downloadThumbnailImageView.setFitWidth(120);
 
                 Label titleLabel = new Label(title);
-                titleLabel.setFont(new Font("Roboto Regular",25));
+                titleLabel.setFont(robotoRegular25);
                 titleLabel.setPadding(new Insets(0,0,10,0));
                 Label channelTitleLabel = new Label(channelTitle);
                 channelTitleLabel.setFont(robotoRegular15);
@@ -1003,62 +1052,27 @@ public class dashController implements Initializable {
         {
             if(!eachPlaylistName.equals("YouTube") && !eachPlaylistName.endsWith("_youtube_playlist"))
             {
-                VBox eachPlaylistVBox = new VBox();
-                eachPlaylistVBox.setPrefSize(200,200);
+                VBox vb = new VBox();
+                vb.setPadding(new Insets(15));
 
-                Label l = new Label(eachPlaylistName);
-                l.setFont(robotoRegular15);
-
-                ImageView thumbnailImageView = new ImageView();
-                thumbnailImageView.setFitWidth(200);
-                thumbnailImageView.setPreserveRatio(false);
-                thumbnailImageView.setFitHeight(200);
-
-                //get first thumbnail
-                if(cachedPlaylist.get(eachPlaylistName).size()>0)
+                for(String eachPart : eachPlaylistName.split(" "))
                 {
-                    HashMap<String, Object> firstSong = cachedPlaylist.get(eachPlaylistName).get(0);
-                    if(firstSong.get("location").equals("local"))
-                    {
-                        if(firstSong.containsKey("album_art"))
-                        {
-                            try
-                            {
-                                thumbnailImageView.setImage(SwingFXUtils.toFXImage(ImageIO.read(new ByteArrayInputStream((byte[]) firstSong.get("album_art"))),null));
-                            }
-                            catch (Exception e)
-                            {
-                                e.printStackTrace();
-                            }
-                        }
-                        else
-                        {
-                            thumbnailImageView.setImage(defaultAlbumArt);
-                        }
-                    }
-                    else if(firstSong.get("location").equals("youtube"))
-                    {
-                        thumbnailImageView.setImage(new Image(firstSong.get("thumbnail").toString()));
-                    }
-                }
-                else
-                {
-                    thumbnailImageView.setImage(defaultAlbumArt);
+                    Label l = new Label(eachPart);
+                    l.setFont(robotoRegular35);
+                    vb.getChildren().add(l);
                 }
 
-                StackPane sx = new StackPane(thumbnailImageView, l);
-                eachPlaylistVBox.getChildren().addAll(sx);
+                vb.setPrefSize(220,220);
 
-                eachPlaylistVBox.getStyleClass().add("card");
-                eachPlaylistVBox.setOnMouseClicked(event -> {
+                vb.getStyleClass().add("card");
+                vb.setOnMouseClicked(event -> {
                     Thread t = new Thread(new Task<Void>() {
                         @Override
                         protected Void call(){
                             try
                             {
                                 String playlistName = ((Node) event.getSource()).getId();
-                                loadPlaylist(playlistName);
-                                Platform.runLater(()->switchPane(3));
+                                loadPlaylist(playlistName,true);
                             }
                             catch (Exception e)
                             {
@@ -1069,13 +1083,13 @@ public class dashController implements Initializable {
                     });
                     t.start();
                 });
-                eachPlaylistVBox.setId(eachPlaylistName);
-                Platform.runLater(()->playlistsMasonryPane.getChildren().add(eachPlaylistVBox));
+                vb.setId(eachPlaylistName);
+                Platform.runLater(()-> playlistsMasonryPane.getChildren().add(vb));
             }
         }
 
         VBox addNewPlaylistVBox = new VBox();
-        addNewPlaylistVBox.setPrefSize(200,200);
+        addNewPlaylistVBox.setPrefSize(220,220);
         addNewPlaylistVBox.setPadding(new Insets(15));
         Label l = new Label("Create\nNew\nPlaylist");
         l.setFont(robotoRegular35);
@@ -1240,7 +1254,7 @@ public class dashController implements Initializable {
                                 }
 
                                 addToRecents(cachedPlaylist.get("YouTube").get(Integer.parseInt(((Node) event.getSource()).getId())));
-                                player = new Player("YouTube", Integer.parseInt(((Node) event.getSource()).getId()), isUnix);
+                                player = new Player("YouTube", Integer.parseInt(((Node) event.getSource()).getId()), isUnix, d);
 
                             });
 
@@ -1361,13 +1375,13 @@ public class dashController implements Initializable {
                                                 ArrayList<HashMap<String, Object>> songs = getSongsInYouTubePublicPlaylist(thisPlaylistID);
 
                                                 cachedPlaylist.put(playlistName + "_youtube_playlist", songs);
-                                                loadPlaylist(playlistName + "_youtube_playlist");
+                                                loadPlaylist(playlistName + "_youtube_playlist",true);
 
                                                 if (player.isActive) {
                                                     player.stop();
                                                 }
 
-                                                player = new Player(playlistName + "_youtube_playlist", 0, isUnix);
+                                                player = new Player(playlistName + "_youtube_playlist", 0, isUnix,d);
                                             } catch (Exception e) {
                                                 e.printStackTrace();
                                             }
@@ -1407,12 +1421,12 @@ public class dashController implements Initializable {
                     }
 
                     cachedPlaylist.put("YouTube", songs);
-                    loadPlaylist("YouTube");
+                    loadPlaylist("YouTube",false);
 
 
                     if (youtubePageNo > 1) {
                         if (player.currentPlaylistName.equals("YouTube"))
-                            loadPlaylist("YouTube");
+                            loadPlaylist("YouTube",false);
                     }
 
                     if (youtubeListView.getItems().size() > 0 && !youtubeNextPageToken.equals("")) {
@@ -1739,7 +1753,7 @@ public class dashController implements Initializable {
                         loadRecents();
                         if(currentPlaylist.equals("Recents"))
                         {
-                            loadPlaylist("Recents");
+                            loadPlaylist("Recents",false);
                         }
                     }
                     catch (Exception e)
@@ -1833,7 +1847,7 @@ public class dashController implements Initializable {
             }
 
             addToRecents(cachedPlaylist.get(currentPlaylist).get(0));
-            player = new Player(currentPlaylist,0, isUnix);
+            player = new Player(currentPlaylist,0, isUnix, this);
         }
     }
 
@@ -2006,7 +2020,7 @@ public class dashController implements Initializable {
             l.getStyleClass().add("dialog_style");
             Label headingLabel = new Label("Save To Playlist");
             headingLabel.setTextFill(WHITE_PAINT);
-            headingLabel.setFont(Font.font("Roboto Regular",25));
+            headingLabel.setFont(robotoRegular25);
             l.setHeading(headingLabel);
 
 
@@ -2077,7 +2091,7 @@ public class dashController implements Initializable {
                             }
 
                             updatePlaylistsFiles();
-                            loadPlaylist(currentPlaylist);
+                            loadPlaylist(currentPlaylist,false);
 
                             popupDialog.close();
                             popupDialog.setOnDialogClosed(event12 -> importSongsFromYouTubePopupStackPane.toBack());
@@ -2167,7 +2181,7 @@ public class dashController implements Initializable {
         l.getStyleClass().add("dialog_style");
         Label headingLabel = new Label(heading);
         headingLabel.setTextFill(WHITE_PAINT);
-        headingLabel.setFont(Font.font("Roboto Regular",25));
+        headingLabel.setFont(robotoRegular25);
         l.setHeading(headingLabel);
         Label contentLabel = new Label(content);
         contentLabel.setFont(robotoRegular15);
@@ -2213,7 +2227,7 @@ public class dashController implements Initializable {
         l.getStyleClass().add("dialog_style");
         Label headingLabel = new Label("Import Music from YouTube Playlist");
         headingLabel.setTextFill(WHITE_PAINT);
-        headingLabel.setFont(Font.font("Roboto Regular",25));
+        headingLabel.setFont(robotoRegular25);
         l.setHeading(headingLabel);
 
         Label l1 = new Label("Enter YouTube Playlist ID below (Must be PUBLIC)");
@@ -2282,7 +2296,7 @@ public class dashController implements Initializable {
                             for(HashMap<String,Object> eachSongDetails : playlistSongs)
                                 if(!isSongPresent(eachSongDetails, currentPlaylist)) cachedPlaylist.get(currentPlaylist).add(eachSongDetails);
 
-                            loadPlaylist(currentPlaylist);
+                            loadPlaylist(currentPlaylist,false);
                             updatePlaylistsFiles();
                         }
                         catch (Exception e)
