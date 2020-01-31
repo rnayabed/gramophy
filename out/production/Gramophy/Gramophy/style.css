@@ -11,6 +11,10 @@
     -fx-background : #484848;
 }
 
+.current_playlist_song > Label{
+    -fx-text-fill:green;
+}
+
 .card {
     -fx-background-color : #383838;
     -fx-background-radius: 10;

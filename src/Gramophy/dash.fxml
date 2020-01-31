@@ -1,25 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXListView?>
-<?import com.jfoenix.controls.JFXMasonryPane?>
-<?import com.jfoenix.controls.JFXSpinner?>
-<?import com.jfoenix.controls.JFXTextField?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Slider?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="basePane" prefHeight="733.0" prefWidth="1119.0" styleClass="base_pane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Gramophy.dashController">
+<AnchorPane fx:id="basePane" prefHeight="733.0" prefWidth="1119.0" styleClass="base_pane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Gramophy.dashController">
    <children>
       <StackPane fx:id="alertStackPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <StackPane fx:id="importSongsFromYouTubePopupStackPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
@@ -148,7 +136,7 @@
                         <Font name="Roboto Regular" size="14.0" />
                      </font>
                   </JFXTextField>
-                  <JFXButton fx:id="selectMusicLibraryFolderButton" onAction="#selectMusicLibraryFolderButtonClicked" text="Select " textFill="WHITE">
+                  <JFXButton fx:id="selectMusicLibraryFolderButton" onAction="#selectMusicLibraryFolderButtonClicked" text="Select" textFill="WHITE">
                      <graphic>
                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -156,6 +144,9 @@
                            </image>
                         </ImageView>
                      </graphic>
+                     <font>
+                        <Font name="Roboto Regular" size="13.0" />
+                     </font>
                   </JFXButton>
                </children>
             </HBox>
@@ -216,7 +207,7 @@
                </children>
             </HBox>
             <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
-            <Label text="Build 20.01.2020&#10;github.com/dubbadhar/gramophy&#10;This Software is licensed under the GNU GPLv3 License">
+            <Label text="Build 31.01.2020&#10;github.com/dubbadhar/gramophy&#10;This Software is licensed under the GNU GPLv3 License">
                <font>
                   <Font name="Roboto Regular" size="13.0" />
                </font>

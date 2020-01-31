@@ -29,6 +29,7 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -147,6 +148,28 @@ public class Player {
 
                     isActive = true;
 
+                    while(true)
+                    {
+                        try
+                        {
+                            for(Node eachNode : dash.playlistListView.getItems())
+                            {
+                                HBox x = (HBox) eachNode;
+
+                                if(x.getChildren().get(0).getId().equals(songIndex+""))
+                                {
+                                    Platform.runLater(()->dash.playlistListView.getSelectionModel().select(x));
+                                    break;
+                                }
+                            }
+                            break;
+                        }
+                        catch (ConcurrentModificationException e)
+                        {
+                            System.out.println("concurrent exception, retrying ...");
+                        }
+                    }
+
                     if(songDetails.get("location").toString().equals("local"))
                     {
                         source = "file:"+songDetails.get("source").toString();
@@ -179,7 +202,6 @@ public class Player {
                             dash.songNameLabel.setText(songDetails.get("title").toString());
                             dash.artistLabel.setText(songDetails.get("channelTitle").toString());
                             dash.albumArtImgView.setImage(x);
-
                             show();
                         });
 
@@ -236,16 +258,6 @@ public class Player {
                     {
                         System.out.println("Skipping because video no longer required ...");
                         return null;
-                    }
-
-                    for(Node eachNode : dash.playlistListView.getItems())
-                    {
-                        HBox x = (HBox) eachNode;
-
-                        if(x.getChildren().get(0).getId().equals(songIndex+""))
-                        {
-                            Platform.runLater(()->dash.playlistListView.getSelectionModel().select(x));
-                        }
                     }
 
                     System.out.println("starting ...");

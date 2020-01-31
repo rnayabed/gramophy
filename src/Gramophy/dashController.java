@@ -474,7 +474,7 @@ public class dashController implements Initializable {
             }
             else if(line.startsWith("ERROR"))
             {
-                showErrorAlert("Unable to check for YouTube Dl Update","\nMake sure you're connected to the internet\n\nYouTube Dl Output : "+line);
+                showErrorAlert("Unable to check for YouTube Dl Update","Make sure you're connected to the internet\n\nYouTube Dl Output : "+line);
             }
         }
 
@@ -702,7 +702,7 @@ public class dashController implements Initializable {
             Platform.runLater(()->switchPane(3));
             try
             {
-                Thread.sleep(400);
+                Thread.sleep(300);
             }
             catch (Exception e)
             {
@@ -1115,8 +1115,10 @@ public class dashController implements Initializable {
                         pName.setFont(robotoRegular35);
                         pName.setStyle("-fx-text-fill: WHITE;");
                         JFXButton addButton = new JFXButton("ADD");
+                        addButton.setFont(robotoRegular15);
                         addButton.setTextFill(PAINT_GREEN);
                         JFXButton cancelButton = new JFXButton("CANCEL");
+                        cancelButton.setFont(robotoRegular15);
                         cancelButton.setTextFill(Color.RED);
 
                         cancelButton.setOnMouseClicked(event1 -> {
@@ -1258,7 +1260,7 @@ public class dashController implements Initializable {
 
                             });
 
-                            JFXButton saveToPlaylistButton = new JFXButton("");
+                            JFXButton saveToPlaylistButton = new JFXButton();
                             saveToPlaylistButton.setGraphic(new ImageView(saveToPlaylistIcon));
                             saveToPlaylistButton.setId(x + "");
                             saveToPlaylistButton.setTextFill(PAINT_GREEN);
@@ -1390,7 +1392,7 @@ public class dashController implements Initializable {
                                     }).start();
                                 });
 
-                                JFXButton saveToPlaylistButton = new JFXButton("");
+                                JFXButton saveToPlaylistButton = new JFXButton();
                                 saveToPlaylistButton.setGraphic(new ImageView(saveToPlaylistIcon));
                                 saveToPlaylistButton.setTextFill(PAINT_GREEN);
                                 saveToPlaylistButton.setId(playlistID);
@@ -1431,9 +1433,9 @@ public class dashController implements Initializable {
 
                     if (youtubeListView.getItems().size() > 0 && !youtubeNextPageToken.equals("")) {
                         JFXButton loadMoreButton = new JFXButton("Load More");
+                        loadMoreButton.setFont(robotoRegular15);
                         loadMoreButton.setCache(true);
                         loadMoreButton.setCacheHint(CacheHint.SPEED);
-                        loadMoreButton.setFont(robotoRegular15);
                         loadMoreButton.setTextFill(PAINT_GREEN);
                         Platform.runLater(() -> youtubeListView.getItems().add(new HBox(loadMoreButton)));
                         loadMoreButton.setOnMouseClicked(event -> {
@@ -1471,7 +1473,7 @@ public class dashController implements Initializable {
         // 1 : Browse, 2 : Library, 3: Settings
         if(currentSelectedPane!=paneNo)
         {
-            double speed = 2.5;
+            double speed = 4;
             if(paneNo == 1)
             {
                 browseButton.setTextFill(PAINT_GREEN);
@@ -1941,6 +1943,7 @@ public class dashController implements Initializable {
             l.setBody(vb);
 
             JFXButton cancelButton = new JFXButton("CANCEL");
+            cancelButton.setFont(robotoRegular15);
             cancelButton.setTextFill(Color.RED);
 
             l.setActions(cancelButton);
@@ -2027,8 +2030,10 @@ public class dashController implements Initializable {
             l.setBody(vb);
 
             JFXButton confirmButton = new JFXButton("CONFIRM");
+            confirmButton.setFont(robotoRegular15);
             confirmButton.setTextFill(WHITE_PAINT);
             JFXButton cancelButton = new JFXButton("CANCEL");
+            cancelButton.setFont(robotoRegular15);
             cancelButton.setTextFill(Color.RED);
 
             l.setActions(confirmButton,cancelButton);
@@ -2189,6 +2194,7 @@ public class dashController implements Initializable {
         contentLabel.setWrapText(true);
         l.setBody(contentLabel);
         JFXButton okButton = new JFXButton("OK");
+        okButton.setFont(robotoRegular15);
         okButton.setTextFill(WHITE_PAINT);
         l.setActions(okButton);
 
@@ -2250,8 +2256,10 @@ public class dashController implements Initializable {
         sp.setPrefSize(24,24);
         sp.setVisible(false);
         JFXButton confirmButton = new JFXButton("IMPORT");
+        confirmButton.setFont(robotoRegular15);
         confirmButton.setTextFill(WHITE_PAINT);
         JFXButton cancelButton = new JFXButton("CANCEL");
+        cancelButton.setFont(robotoRegular15);
         cancelButton.setTextFill(Color.RED);
 
         l.setActions(sp,confirmButton,cancelButton);
